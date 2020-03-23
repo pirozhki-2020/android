@@ -6,7 +6,7 @@
 
 [Прототип](https://www.figma.com/proto/hZVYO5mYISRsu7l3EePGMc/Alcohall?node-id=21%3A298&viewport=188,552,0.31530895829200745&scaling=scale-down)
 
-[Превью прототипа](https://youtu.be/f8oXPCByr9Y)
+[Превью прототипа](https://youtu.be/VqG-Ymbw4aQ)
 
 <b>Alcohall</b> - проект по подбору рецептов коктейлей по имеющимся ингредиентам.
 

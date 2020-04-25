@@ -10,4 +10,5 @@
     <string name="add_page_name">Добавить</string>
     <string name="no_chosen_error">Не выбран ни один ингридиент!</string>
     <string name="no_chosen_help">Нажмите на плюс в правом верхнем углу экрана чтобы добавить игридиент</string>
+    <string name="no_results">Ничего не найдено</string>
 </resources>

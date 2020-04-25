@@ -11,17 +11,18 @@ import android.widget.FrameLayout;
 
 public class MainActivity extends AppCompatActivity {
 
-    FrameLayout fragmentLayout;
+    FrameLayout mFragmentLayout;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        fragmentLayout = findViewById(R.id.layout_for_fragment);
-        if (savedInstanceState == null){
-            fragmentLayout.setVisibility(View.GONE);
+        mFragmentLayout = findViewById(R.id.layout_for_fragment);
+        if (savedInstanceState == null) {
+            mFragmentLayout.setVisibility(View.GONE);
         }
-        final Button add_button  = (Button) findViewById(R.id.add_ingrediets_button);
+        final Button add_button = findViewById(R.id.add_ingrediets_button);
         add_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -32,11 +33,11 @@ public class MainActivity extends AppCompatActivity {
                 transaction.replace(R.id.layout_for_fragment, f);
                 transaction.addToBackStack(null);
                 transaction.commit();
-                fragmentLayout.setVisibility(View.VISIBLE);
+                mFragmentLayout.setVisibility(View.VISIBLE);
             }
         });
 
-        final Button find_button  = (Button) findViewById(R.id.find_recipes_button);
+        final Button find_button = findViewById(R.id.find_recipes_button);
         find_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -47,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
                 transaction.replace(R.id.layout_for_fragment, f);
                 transaction.addToBackStack(null);
                 transaction.commit();
-                fragmentLayout.setVisibility(View.VISIBLE);
+                mFragmentLayout.setVisibility(View.VISIBLE);
             }
         });
 

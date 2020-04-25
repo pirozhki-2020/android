@@ -3,4 +3,5 @@
     <dimen name="min_margin">8dp</dimen>
     <dimen name="main_margin">16dp</dimen>
     <dimen name="main_padding">8dp</dimen>
+    <dimen name="max_padding">16dp</dimen>
 </resources>

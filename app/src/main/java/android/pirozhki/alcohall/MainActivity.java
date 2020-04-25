@@ -16,21 +16,38 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        final Button add_button  = (Button) findViewById(R.id.add_ingrediets_button);
+
         fragmentLayout = findViewById(R.id.layout_for_fragment);
         if (savedInstanceState == null){
             fragmentLayout.setVisibility(View.GONE);
         }
+        final Button add_button  = (Button) findViewById(R.id.add_ingrediets_button);
         add_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                fragmentLayout.setVisibility(View.VISIBLE);
+
                 final AddIngredientFragment f = new AddIngredientFragment();
                 final FragmentTransaction transaction = getFragmentManager()
                         .beginTransaction();
                 transaction.replace(R.id.layout_for_fragment, f);
                 transaction.addToBackStack(null);
                 transaction.commit();
+                fragmentLayout.setVisibility(View.VISIBLE);
+            }
+        });
+
+        final Button find_button  = (Button) findViewById(R.id.find_recipes_button);
+        find_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                final NoResultFragment f = new NoResultFragment();
+                final FragmentTransaction transaction = getFragmentManager()
+                        .beginTransaction();
+                transaction.replace(R.id.layout_for_fragment, f);
+                transaction.addToBackStack(null);
+                transaction.commit();
+                fragmentLayout.setVisibility(View.VISIBLE);
             }
         });
 

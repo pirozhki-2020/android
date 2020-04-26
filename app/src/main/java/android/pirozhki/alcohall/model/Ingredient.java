@@ -1,6 +1,9 @@
 package android.pirozhki.alcohall.model;
 
 public class Ingredient {
+    public int id;
+    public String name;
+
     private String mTitle;
     private int mVolumeMl;
 

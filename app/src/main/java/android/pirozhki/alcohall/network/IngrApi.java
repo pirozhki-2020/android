@@ -1,6 +1,6 @@
 package android.pirozhki.alcohall.network;
 
-import android.pirozhki.alcohall.model.Ingredient;
+import android.pirozhki.alcohall.ingredients.Ingredient;
 
 import java.util.List;
 
@@ -10,11 +10,11 @@ import retrofit2.http.Path;
 
 public interface IngrApi {
 
-    class Ingredients {
+    class IngredientsPlain {
         public String status;
         public List<Ingredient> ingredients;
     }
 
     @GET("/cocktails.list_ingredients?query={query}")
-    Call<List<Ingredients>> getAll(@Path("query") String query);
+    Call<List<IngredientsPlain>> getAll(@Path("query") String query);
 }

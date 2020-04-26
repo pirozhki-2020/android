@@ -32,7 +32,8 @@
                 android:layout_weight="1"
                 android:autofillHints="no"
                 android:background="@color/colorAccent"
-                android:inputType="textPersonName"
+                android:textCursorDrawable="@null"
+                android:inputType="text"
                 android:padding="@dimen/main_padding"
                 android:text="@string/find_ingredients_input" />
 

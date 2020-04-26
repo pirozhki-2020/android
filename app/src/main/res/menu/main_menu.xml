@@ -6,5 +6,5 @@
         android:id="@+id/menu_item_new_ingredient"
         android:icon="@drawable/ic_menu_add"
         android:title="@string/new_ingredient"
-        app:showAsAction="ifRoom|withText"/>
+        app:showAsAction="ifRoom"/>
 </menu>

@@ -30,11 +30,11 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/min_margin"
                 android:layout_weight="1"
+                android:autofillHints="no"
                 android:background="@color/colorAccent"
                 android:inputType="textPersonName"
                 android:padding="@dimen/main_padding"
-                android:text="@string/find_ingredients_input"
-                android:autofillHints="no" />
+                android:text="@string/find_ingredients_input" />
 
             <com.google.android.material.floatingactionbutton.FloatingActionButton
                 android:id="@+id/search_ingredient_button"
@@ -42,7 +42,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="0"
                 android:clickable="true"
-                android:focusable="auto"
+                android:focusable="true"
                 app:backgroundTint="@color/colorAccent"
                 app:srcCompat="@android:drawable/ic_menu_search" />
         </LinearLayout>

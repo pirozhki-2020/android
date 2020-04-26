@@ -19,7 +19,8 @@
             android:orientation="horizontal">
 
             <TextView
-                android:layout_width="wrap_content"
+                android:id="@+id/add_ingredient_text_view"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/min_margin"
                 android:layout_weight="5"
@@ -38,7 +39,10 @@
                 android:layout_height="wrap_content"
                 android:text="@string/add_first_ingredient"
                 android:textAppearance="?attr/textAppearanceBody1"
-                android:textColor="@color/colorAccent" />
+                android:textColor="@color/colorAccent"
+                android:clickable="true"
+                android:focusable="true"
+                android:onClick="onTextViewClick"/>
         </LinearLayout>
     </LinearLayout>
 

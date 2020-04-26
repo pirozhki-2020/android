@@ -1,13 +1,12 @@
 package android.pirozhki.alcohall.activity;
 
 import android.os.Bundle;
-import android.pirozhki.alcohall.fragment.NoResultDialogFragment;
 import android.pirozhki.alcohall.R;
+import android.pirozhki.alcohall.fragment.NoResultDialogFragment;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.FrameLayout;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -16,29 +15,15 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 
 public class MainActivity extends AppCompatActivity {
-
-    private FrameLayout mFragmentLayout;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        mFragmentLayout = findViewById(R.id.layout_for_fragment);
-        if (savedInstanceState == null) {
-            mFragmentLayout.setVisibility(View.GONE);
-        }
-
         final Button findButton = findViewById(R.id.find_recipes_button);
         findButton.setOnClickListener(v -> {
             NoResultDialogFragment dialog = new NoResultDialogFragment();
-            dialog.show(getSupportFragmentManager(), "NoticeDialogFragment");
-            /*getFragmentManager()
-                    .beginTransaction()
-                    .replace(R.id.layout_for_fragment, new NoResultDialogFragment())
-                    .addToBackStack(null)
-                    .commit();
-            mFragmentLayout.setVisibility(View.VISIBLE);*/
+            dialog.show(getSupportFragmentManager(), dialog.getClass().getName());
         });
     }
 

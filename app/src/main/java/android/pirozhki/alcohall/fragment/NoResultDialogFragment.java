@@ -17,9 +17,9 @@ public class NoResultDialogFragment extends DialogFragment {
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         View v = LayoutInflater.from(getActivity()).inflate(R.layout.no_results_fragment, null);
-        AlertDialog.Builder builder = new AlertDialog.Builder(Objects.requireNonNull(getActivity()));
-        builder.setView(v)
-        .setNegativeButton(R.string.back_button, (dialog, id) -> dialog.cancel());
-        return builder.create();
+        return new AlertDialog.Builder(Objects.requireNonNull(getActivity()))
+                .setView(v)
+                .setNegativeButton(R.string.back_button, (dialog, id) -> dialog.cancel())
+                .create();
     }
 }

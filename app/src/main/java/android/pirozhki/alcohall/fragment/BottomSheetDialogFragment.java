@@ -1,6 +1,7 @@
 package android.pirozhki.alcohall.fragment;
 
 import android.app.Dialog;
+import android.content.Context;
 import android.os.Bundle;
 import android.pirozhki.alcohall.R;
 import android.pirozhki.alcohall.ingredients.Ingredient;
@@ -27,6 +28,7 @@ public class BottomSheetDialogFragment extends DialogFragment {
     private RecyclerView mIngredientRecyclerView;
     private IngredientAdapter mAdapter;
     private List<Ingredient> mIngredients;
+    private Listener mListener;
 
     @NonNull
     @Override
@@ -57,18 +59,20 @@ public class BottomSheetDialogFragment extends DialogFragment {
         return bottomSheetDialog;
     }
 
-    private void updateIngredientsList() {
-        mIngredients = new ArrayList<>();
-        if (mAdapter == null) {
-            mAdapter = new IngredientAdapter(mIngredients);
-            mIngredientRecyclerView.setAdapter(mAdapter);
-        } else {
-            mAdapter.setIngredients(mIngredients);
-            mAdapter.notifyDataSetChanged();
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        // Verify that the host activity implements the callback interface
+        try {
+            mListener = (BottomSheetDialogFragment.Listener) context;
+        } catch (ClassCastException e) {
+            // The activity doesn't implement the interface, throw exception
+            throw new ClassCastException(context.toString()
+                    + " must implement BottomSheetDialogFragment.Listener");
         }
     }
 
-    private class IngredientHolder extends RecyclerView.ViewHolder {
+    private class IngredientHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private Ingredient mIngredient;
 
         private TextView mTitleTextView;
@@ -76,12 +80,18 @@ public class BottomSheetDialogFragment extends DialogFragment {
         public IngredientHolder(View itemView) {
             super(itemView);
 
-            mTitleTextView = itemView.findViewById(R.id.ingredient_title_text_view);
+            mTitleTextView = itemView.findViewById(R.id.add_ingredient_title_text_view);
+            itemView.setOnClickListener(this);
         }
 
         public void bindIngredient(Ingredient ingredient) {
             mIngredient = ingredient;
             mTitleTextView.setText(mIngredient.getTitle());
+        }
+
+        @Override
+        public void onClick(View v) {
+            mListener.onIngredientSelected(mIngredient);
         }
     }
 
@@ -94,7 +104,7 @@ public class BottomSheetDialogFragment extends DialogFragment {
         @NonNull
         public IngredientHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
             LayoutInflater layoutInflater = LayoutInflater.from(BottomSheetDialogFragment.this.getActivity());
-            View view = layoutInflater.inflate(R.layout.list_item_ingredient, parent, false);
+            View view = layoutInflater.inflate(R.layout.list_item_add_ingredient, parent, false);
             return new IngredientHolder(view);
         }
 
@@ -112,5 +122,9 @@ public class BottomSheetDialogFragment extends DialogFragment {
         public void setIngredients(List<Ingredient> ingredients) {
             mIngredients = ingredients;
         }
+    }
+
+    public interface Listener {
+        void onIngredientSelected(Ingredient ingredient);
     }
 }

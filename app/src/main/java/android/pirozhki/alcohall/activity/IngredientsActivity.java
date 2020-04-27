@@ -21,7 +21,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 import java.util.List;
 
-public class IngredientsActivity extends AppCompatActivity {
+public class IngredientsActivity extends AppCompatActivity implements BottomSheetDialogFragment.Listener {
     private RecyclerView mIngredientRecyclerView;
     private IngredientAdapter mAdapter;
     private List<Ingredient> mIngredients;
@@ -59,14 +59,20 @@ public class IngredientsActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    public void onIngredientSelected(Ingredient ingredient) {
+        mIngredients.add(ingredient);
+        updateIngredientsList();
+    }
+
     public void onTextViewClick(View view) {
         showBottomSheetDialog();
     }
 
     private void updateIngredientsList() {
         // TODO: извлекать список ингредиентов из базы и обновлять mIngredients
-        mIngredients = new ArrayList<>();
         if (mAdapter == null) {
+            mIngredients = new ArrayList<>();
             mAdapter = new IngredientAdapter(mIngredients);
             mIngredientRecyclerView.setAdapter(mAdapter);
         } else {

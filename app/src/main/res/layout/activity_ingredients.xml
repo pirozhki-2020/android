@@ -32,9 +32,15 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/min_margin">
+            android:layout_marginBottom="@dimen/min_margin"
+            android:orientation="vertical">
 
-            <TextView
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/ingredient_recycler_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+            <!--<TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/add_first_ingredient"
@@ -42,7 +48,7 @@
                 android:textColor="@color/colorAccent"
                 android:clickable="true"
                 android:focusable="true"
-                android:onClick="onTextViewClick"/>
+                android:onClick="onTextViewClick"/>-->
         </LinearLayout>
     </LinearLayout>
 

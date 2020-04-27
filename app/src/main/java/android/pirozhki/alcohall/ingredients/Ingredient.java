@@ -1,11 +1,13 @@
 package android.pirozhki.alcohall.ingredients;
 
 public class Ingredient {
-    public int id;
-    public String name;
-
     private String mTitle;
     private int mVolumeMl;
+
+    public Ingredient(String title, int volumeMl) {
+        mTitle = title;
+        mVolumeMl = volumeMl;
+    }
 
     public String getTitle() {
         return mTitle;

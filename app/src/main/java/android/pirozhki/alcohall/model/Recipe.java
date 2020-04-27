@@ -1,5 +1,7 @@
 package android.pirozhki.alcohall.model;
 
+import android.pirozhki.alcohall.ingredients.Ingredient;
+
 import java.util.ArrayList;
 
 public class Recipe {

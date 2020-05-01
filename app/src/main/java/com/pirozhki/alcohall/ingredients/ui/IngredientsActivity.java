@@ -1,10 +1,8 @@
-package android.pirozhki.alcohall.activity;
+package com.pirozhki.alcohall.ingredients.ui;
 
 import android.os.Bundle;
-import android.pirozhki.alcohall.R;
-import android.pirozhki.alcohall.fragment.BottomSheetDialogFragment;
-import android.pirozhki.alcohall.fragment.NoResultDialogFragment;
-import android.pirozhki.alcohall.ingredients.Ingredient;
+import com.pirozhki.alcohall.R;
+import com.pirozhki.alcohall.ingredients.model.Ingredient;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -21,7 +19,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 import java.util.List;
 
-public class IngredientsActivity extends AppCompatActivity implements BottomSheetDialogFragment.Listener {
+public class IngredientsActivity extends AppCompatActivity implements AddIngredientDialogFragment.Listener {
     private RecyclerView mIngredientRecyclerView;
     private IngredientAdapter mAdapter;
     private List<Ingredient> mIngredients;
@@ -82,7 +80,7 @@ public class IngredientsActivity extends AppCompatActivity implements BottomShee
     }
 
     private void showBottomSheetDialog() {
-        new BottomSheetDialogFragment().show(getSupportFragmentManager(), BottomSheetDialogFragment.class.getName());
+        new AddIngredientDialogFragment().show(getSupportFragmentManager(), AddIngredientDialogFragment.class.getName());
     }
 
     private class IngredientHolder extends RecyclerView.ViewHolder {
@@ -100,8 +98,8 @@ public class IngredientsActivity extends AppCompatActivity implements BottomShee
 
         public void bindIngredient(Ingredient ingredient) {
             mIngredient = ingredient;
-            mTitleTextView.setText(mIngredient.getTitle());
-            mVolumeTextView.setText(String.valueOf(mIngredient.getVolumeMl()));
+            mTitleTextView.setText(mIngredient.name);
+            //mVolumeTextView.setText(String.valueOf(mIngredient.getVolumeMl()));
         }
     }
 

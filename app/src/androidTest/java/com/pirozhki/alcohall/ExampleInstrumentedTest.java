@@ -1,4 +1,4 @@
-package android.pirozhki.alcohall;
+package com.pirozhki.alcohall;
 
 import android.content.Context;
 
@@ -22,6 +22,6 @@ public class ExampleInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
 
-        assertEquals("android.pirozhki.alcohall", appContext.getPackageName());
+        assertEquals("com.pirozhki.alcohall", appContext.getPackageName());
     }
 }

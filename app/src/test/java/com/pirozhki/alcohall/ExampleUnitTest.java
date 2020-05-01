@@ -1,4 +1,4 @@
-package android.pirozhki.alcohall;
+package com.pirozhki.alcohall;
 
 import org.junit.Test;
 

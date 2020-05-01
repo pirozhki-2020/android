@@ -1,6 +1,6 @@
-package android.pirozhki.alcohall.model;
+package com.pirozhki.alcohall.recipes.model;
 
-import android.pirozhki.alcohall.ingredients.Ingredient;
+import com.pirozhki.alcohall.ingredients.model.Ingredient;
 
 import java.util.ArrayList;
 

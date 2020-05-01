@@ -1,18 +1,22 @@
-package android.pirozhki.alcohall.fragment;
+package com.pirozhki.alcohall.ingredients.ui;
 
 import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
-import android.pirozhki.alcohall.R;
-import android.pirozhki.alcohall.ingredients.Ingredient;
+import com.pirozhki.alcohall.R;
+import com.pirozhki.alcohall.ingredients.model.Ingredient;
+import com.pirozhki.alcohall.ingredients.viewmodel.IngredientViewModel;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.DialogFragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -24,11 +28,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class BottomSheetDialogFragment extends DialogFragment {
-    private RecyclerView mIngredientRecyclerView;
-    private IngredientAdapter mAdapter;
-    private List<Ingredient> mIngredients;
+public class AddIngredientDialogFragment extends DialogFragment {
+    private final IngredientAdapter mAdapter = new IngredientAdapter();
+
     private Listener mListener;
+    private IngredientViewModel mIngredientViewModel;
 
     @NonNull
     @Override
@@ -39,24 +43,46 @@ public class BottomSheetDialogFragment extends DialogFragment {
         BottomSheetBehavior.from(bottomSheetInternal).setPeekHeight(400);
         bottomSheetDialog.show();
 
-        mIngredientRecyclerView = bottomSheetInternal.findViewById(R.id.add_ingredient_recycler_view);
-        mIngredientRecyclerView.setLayoutManager(new LinearLayoutManager(Objects.requireNonNull(getActivity())));
-        mIngredients = new ArrayList<>();
-        mAdapter = new IngredientAdapter(mIngredients);
-        mIngredientRecyclerView.setAdapter(mAdapter);
+        mIngredientViewModel = new ViewModelProvider(Objects.requireNonNull(getActivity())).get(IngredientViewModel.class);
+        RecyclerView ingredientRecyclerView = bottomSheetInternal.findViewById(R.id.add_ingredient_recycler_view);
+        ingredientRecyclerView.setLayoutManager(new LinearLayoutManager(Objects.requireNonNull(getActivity())));
+        ingredientRecyclerView.setAdapter(mAdapter);
 
         final Button backFromAddButton = bottomSheetInternal.findViewById(R.id.back_from_add_button);
         backFromAddButton.setOnClickListener(v -> bottomSheetDialog.dismiss());
 
         final FloatingActionButton searchButton = bottomSheetInternal.findViewById(R.id.search_ingredient_button);
         searchButton.setOnClickListener(v -> {
-            // TODO: поиск ингредиентов
-            mIngredients.add(new Ingredient("Ром", 100));
-            mAdapter.setIngredients(mIngredients);
-            mAdapter.notifyDataSetChanged();
+            final EditText findIngredient = bottomSheetDialog.findViewById(R.id.find_ingredient_edit_text);
+            String query = Objects.requireNonNull(findIngredient).getText().toString();
+            mIngredientViewModel.findIngredients(query);
+        });
+
+        // Handle changes emitted by LiveData
+        mIngredientViewModel.getApiResponse().observe(Objects.requireNonNull(getActivity()), apiResponse -> {
+            if (apiResponse.getError() != null) {
+                handleError(apiResponse.getError());
+            } else {
+                handleResponse(apiResponse.getIngredients());
+            }
         });
 
         return bottomSheetDialog;
+    }
+
+    private void handleError(Throwable error) {
+        mAdapter.clearIngredients();
+        Log.e(AddIngredientDialogFragment.class.getName(), "error occurred while get api response: " + error.toString());
+    }
+
+    private void handleResponse(List<Ingredient> ingredients) {
+        if (ingredients != null && ingredients.size() > 0) {
+            mAdapter.setIngredients(ingredients);
+            mAdapter.notifyDataSetChanged();
+        } else {
+            mAdapter.clearIngredients();
+            mAdapter.notifyDataSetChanged();
+        }
     }
 
     @Override
@@ -64,7 +90,7 @@ public class BottomSheetDialogFragment extends DialogFragment {
         super.onAttach(context);
         // Verify that the host activity implements the callback interface
         try {
-            mListener = (BottomSheetDialogFragment.Listener) context;
+            mListener = (AddIngredientDialogFragment.Listener) context;
         } catch (ClassCastException e) {
             // The activity doesn't implement the interface, throw exception
             throw new ClassCastException(context.toString()
@@ -86,7 +112,7 @@ public class BottomSheetDialogFragment extends DialogFragment {
 
         public void bindIngredient(Ingredient ingredient) {
             mIngredient = ingredient;
-            mTitleTextView.setText(mIngredient.getTitle());
+            mTitleTextView.setText(mIngredient.name);
         }
 
         @Override
@@ -96,14 +122,12 @@ public class BottomSheetDialogFragment extends DialogFragment {
     }
 
     private class IngredientAdapter extends RecyclerView.Adapter<IngredientHolder> {
-        public IngredientAdapter(List<Ingredient> ingredients) {
-            mIngredients = ingredients;
-        }
+        private List<Ingredient> mIngredients = new ArrayList<>();
 
         @Override
         @NonNull
         public IngredientHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-            LayoutInflater layoutInflater = LayoutInflater.from(BottomSheetDialogFragment.this.getActivity());
+            LayoutInflater layoutInflater = LayoutInflater.from(AddIngredientDialogFragment.this.getActivity());
             View view = layoutInflater.inflate(R.layout.list_item_add_ingredient, parent, false);
             return new IngredientHolder(view);
         }
@@ -121,6 +145,10 @@ public class BottomSheetDialogFragment extends DialogFragment {
 
         public void setIngredients(List<Ingredient> ingredients) {
             mIngredients = ingredients;
+        }
+
+        public void clearIngredients() {
+            mIngredients.clear();
         }
     }
 

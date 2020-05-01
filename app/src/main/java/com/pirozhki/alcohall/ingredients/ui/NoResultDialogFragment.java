@@ -1,8 +1,8 @@
-package android.pirozhki.alcohall.fragment;
+package com.pirozhki.alcohall.ingredients.ui;
 
 import android.app.Dialog;
 import android.os.Bundle;
-import android.pirozhki.alcohall.R;
+import com.pirozhki.alcohall.R;
 import android.view.LayoutInflater;
 import android.view.View;
 

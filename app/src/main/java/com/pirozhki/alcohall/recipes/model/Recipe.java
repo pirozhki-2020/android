@@ -1,10 +1,14 @@
 package com.pirozhki.alcohall.recipes.model;
 
 import com.pirozhki.alcohall.ingredients.model.Ingredient;
+import com.squareup.moshi.Json;
 
 import java.util.ArrayList;
 
 public class Recipe {
+    @Json(name = "name")
+    public String name;
+
     private String mTitle;
     private ArrayList<Ingredient> mIngredients;
     private String mDescription;

@@ -12,4 +12,5 @@
     <string name="no_chosen_help">Click plus on right top corner to add ingredient</string>
     <string name="no_results">No results</string>
     <string name="new_ingredient">New ingredient</string>
+    <string name="recipes">Recipes</string>
 </resources>

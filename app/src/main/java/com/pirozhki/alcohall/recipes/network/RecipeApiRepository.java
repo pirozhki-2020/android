@@ -1,0 +1,7 @@
+package com.pirozhki.alcohall.recipes.network;
+
+import androidx.lifecycle.LiveData;
+
+public interface RecipeApiRepository {
+    LiveData<RecipeApiResponse> findRecipes(String query);
+}

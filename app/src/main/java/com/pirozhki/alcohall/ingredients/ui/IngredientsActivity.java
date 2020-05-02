@@ -1,8 +1,10 @@
 package com.pirozhki.alcohall.ingredients.ui;
 
 import android.os.Bundle;
+
 import com.pirozhki.alcohall.R;
 import com.pirozhki.alcohall.ingredients.model.Ingredient;
+
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -89,22 +91,22 @@ public class IngredientsActivity extends AppCompatActivity implements AddIngredi
         private TextView mTitleTextView;
         private TextView mVolumeTextView;
 
-        public IngredientHolder(View itemView) {
+        IngredientHolder(View itemView) {
             super(itemView);
 
             mTitleTextView = itemView.findViewById(R.id.ingredient_title_text_view);
             mVolumeTextView = itemView.findViewById(R.id.ingredient_volume_text_view);
         }
 
-        public void bindIngredient(Ingredient ingredient) {
+        void bindIngredient(Ingredient ingredient) {
             mIngredient = ingredient;
-            mTitleTextView.setText(mIngredient.name);
+            mTitleTextView.setText(mIngredient.getName());
             //mVolumeTextView.setText(String.valueOf(mIngredient.getVolumeMl()));
         }
     }
 
     private class IngredientAdapter extends RecyclerView.Adapter<IngredientHolder> {
-        public IngredientAdapter(List<Ingredient> ingredients) {
+        IngredientAdapter(List<Ingredient> ingredients) {
             mIngredients = ingredients;
         }
 

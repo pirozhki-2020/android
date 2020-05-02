@@ -2,10 +2,8 @@ package com.pirozhki.alcohall.ingredients.ui;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
-import com.pirozhki.alcohall.R;
-import com.pirozhki.alcohall.ingredients.model.Ingredient;
-import com.pirozhki.alcohall.ingredients.viewmodel.IngredientViewModel;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,6 +21,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.pirozhki.alcohall.R;
+import com.pirozhki.alcohall.ingredients.model.Ingredient;
+import com.pirozhki.alcohall.ingredients.viewmodel.IngredientViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,7 +41,7 @@ public class AddIngredientDialogFragment extends DialogFragment {
         final BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(Objects.requireNonNull(getActivity()));
         bottomSheetDialog.setContentView(R.layout.content_add_ingr_dialog);
         final View bottomSheetInternal = bottomSheetDialog.findViewById(R.id.design_bottom_sheet);
-        BottomSheetBehavior.from(bottomSheetInternal).setPeekHeight(400);
+        BottomSheetBehavior.from(Objects.requireNonNull(bottomSheetInternal)).setPeekHeight(1600);
         bottomSheetDialog.show();
 
         mIngredientViewModel = new ViewModelProvider(Objects.requireNonNull(getActivity())).get(IngredientViewModel.class);
@@ -49,7 +50,7 @@ public class AddIngredientDialogFragment extends DialogFragment {
         ingredientRecyclerView.setAdapter(mAdapter);
 
         final Button backFromAddButton = bottomSheetInternal.findViewById(R.id.back_from_add_button);
-        backFromAddButton.setOnClickListener(v -> bottomSheetDialog.dismiss());
+        backFromAddButton.setOnClickListener(v -> bottomSheetDialog.cancel());
 
         final FloatingActionButton searchButton = bottomSheetInternal.findViewById(R.id.search_ingredient_button);
         searchButton.setOnClickListener(v -> {
@@ -70,21 +71,6 @@ public class AddIngredientDialogFragment extends DialogFragment {
         return bottomSheetDialog;
     }
 
-    private void handleError(Throwable error) {
-        mAdapter.clearIngredients();
-        Log.e(AddIngredientDialogFragment.class.getName(), "error occurred while get api response: " + error.toString());
-    }
-
-    private void handleResponse(List<Ingredient> ingredients) {
-        if (ingredients != null && ingredients.size() > 0) {
-            mAdapter.setIngredients(ingredients);
-            mAdapter.notifyDataSetChanged();
-        } else {
-            mAdapter.clearIngredients();
-            mAdapter.notifyDataSetChanged();
-        }
-    }
-
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
@@ -98,21 +84,44 @@ public class AddIngredientDialogFragment extends DialogFragment {
         }
     }
 
+    @Override
+    public void onCancel(@NonNull DialogInterface dialog) {
+        super.onCancel(dialog);
+        mAdapter.clearIngredients();
+        mAdapter.notifyDataSetChanged();
+    }
+
+    private void handleError(Throwable error) {
+        mAdapter.clearIngredients();
+        mAdapter.notifyDataSetChanged();
+        Log.e(AddIngredientDialogFragment.class.getName(), "error occurred while get api response: " + error.toString());
+    }
+
+    private void handleResponse(List<Ingredient> ingredients) {
+        if (ingredients != null && ingredients.size() > 0) {
+            mAdapter.setIngredients(ingredients);
+            mAdapter.notifyDataSetChanged();
+        } else {
+            mAdapter.clearIngredients();
+            mAdapter.notifyDataSetChanged();
+        }
+    }
+
     private class IngredientHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private Ingredient mIngredient;
 
         private TextView mTitleTextView;
 
-        public IngredientHolder(View itemView) {
+        IngredientHolder(View itemView) {
             super(itemView);
 
             mTitleTextView = itemView.findViewById(R.id.add_ingredient_title_text_view);
             itemView.setOnClickListener(this);
         }
 
-        public void bindIngredient(Ingredient ingredient) {
+        void bindIngredient(Ingredient ingredient) {
             mIngredient = ingredient;
-            mTitleTextView.setText(mIngredient.name);
+            mTitleTextView.setText(mIngredient.getName());
         }
 
         @Override
@@ -147,7 +156,7 @@ public class AddIngredientDialogFragment extends DialogFragment {
             mIngredients = ingredients;
         }
 
-        public void clearIngredients() {
+        void clearIngredients() {
             mIngredients.clear();
         }
     }

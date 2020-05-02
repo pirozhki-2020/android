@@ -8,12 +8,12 @@ public class IngredientApiResponse {
     private List<Ingredient> mIngredients;
     private Throwable mError;
 
-    public IngredientApiResponse(List<Ingredient> ingredients) {
+    IngredientApiResponse(List<Ingredient> ingredients) {
         mIngredients = ingredients;
         mError = null;
     }
 
-    public IngredientApiResponse(Throwable error) {
+    IngredientApiResponse(Throwable error) {
         mError = error;
         mIngredients = null;
     }

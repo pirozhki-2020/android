@@ -20,33 +20,23 @@
             android:textAppearance="?attr/textAppearanceHeadline4"
             android:textColor="@color/colorAccent" />
 
-        <LinearLayout
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/searchIngredientTextField"
+            style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/min_margin"
+            android:background="@color/colorAccent"
+            android:hint="@string/ingredient_name"
+            app:endIconDrawable="@drawable/ic_search_24px"
+            app:endIconMode="custom">
 
-            <EditText
-                android:id="@+id/find_ingredient_edit_text"
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/searchIngredientEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/min_margin"
-                android:layout_weight="1"
-                android:autofillHints="no"
-                android:background="@color/colorAccent"
-                android:inputType="text"
-                android:padding="@dimen/main_padding"
-                android:text="@string/find_ingredients_input"
-                android:textCursorDrawable="@null" />
-
-            <com.google.android.material.floatingactionbutton.FloatingActionButton
-                android:id="@+id/search_ingredient_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="0"
-                android:clickable="true"
-                android:focusable="true"
-                app:backgroundTint="@color/colorAccent"
-                app:srcCompat="@android:drawable/ic_menu_search" />
-        </LinearLayout>
+                android:background="@color/colorAccent"/>
+        </com.google.android.material.textfield.TextInputLayout>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/add_ingredient_recycler_view"

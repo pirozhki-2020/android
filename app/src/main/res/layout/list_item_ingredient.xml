@@ -11,18 +11,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/main_padding"
-        android:layout_weight="5"
+        android:layout_weight="6"
         android:padding="@dimen/main_padding"
-        android:textAppearance="?attr/textAppearanceBody1" />
-
-    <TextView
-        android:id="@+id/ingredient_volume_text_view"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/main_padding"
-        android:layout_weight="1"
-        android:padding="@dimen/main_padding"
-        android:textAlignment="textEnd"
         android:textAppearance="?attr/textAppearanceBody1" />
 
     <ImageButton

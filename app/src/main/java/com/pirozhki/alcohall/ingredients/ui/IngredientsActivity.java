@@ -89,19 +89,16 @@ public class IngredientsActivity extends AppCompatActivity implements AddIngredi
         private Ingredient mIngredient;
 
         private TextView mTitleTextView;
-        private TextView mVolumeTextView;
 
         IngredientHolder(View itemView) {
             super(itemView);
 
             mTitleTextView = itemView.findViewById(R.id.ingredient_title_text_view);
-            mVolumeTextView = itemView.findViewById(R.id.ingredient_volume_text_view);
         }
 
         void bindIngredient(Ingredient ingredient) {
             mIngredient = ingredient;
             mTitleTextView.setText(mIngredient.getName());
-            //mVolumeTextView.setText(String.valueOf(mIngredient.getVolumeMl()));
         }
     }
 

@@ -9,7 +9,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -20,7 +19,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 import com.pirozhki.alcohall.R;
 import com.pirozhki.alcohall.ingredients.model.Ingredient;
 import com.pirozhki.alcohall.ingredients.viewmodel.IngredientViewModel;
@@ -52,10 +52,10 @@ public class AddIngredientDialogFragment extends DialogFragment {
         final Button backFromAddButton = bottomSheetInternal.findViewById(R.id.back_from_add_button);
         backFromAddButton.setOnClickListener(v -> bottomSheetDialog.cancel());
 
-        final FloatingActionButton searchButton = bottomSheetInternal.findViewById(R.id.search_ingredient_button);
-        searchButton.setOnClickListener(v -> {
-            final EditText findIngredient = bottomSheetDialog.findViewById(R.id.find_ingredient_edit_text);
-            String query = Objects.requireNonNull(findIngredient).getText().toString();
+        final TextInputLayout searchIngredientTextFiled = bottomSheetInternal.findViewById(R.id.searchIngredientTextField);
+        searchIngredientTextFiled.setEndIconOnClickListener(v -> {
+            final TextInputEditText findIngredient = bottomSheetDialog.findViewById(R.id.searchIngredientEditText);
+            String query = Objects.requireNonNull(Objects.requireNonNull(findIngredient).getText()).toString();
             mIngredientViewModel.findIngredients(query);
         });
 

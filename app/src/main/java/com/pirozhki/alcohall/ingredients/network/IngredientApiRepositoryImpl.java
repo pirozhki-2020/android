@@ -22,7 +22,7 @@ public class IngredientApiRepositoryImpl implements IngredientApiRepository {
         Retrofit retrofit = new Retrofit.Builder()
                 .addConverterFactory(MoshiConverterFactory.create())
                 .baseUrl(new HttpUrl.Builder()
-                        .scheme("http")
+                        .scheme("https")
                         .host(HOST)
                         .build())
                 .build();

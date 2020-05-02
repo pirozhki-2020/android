@@ -34,6 +34,7 @@ public class AddIngredientDialogFragment extends DialogFragment {
 
     private Listener mListener;
     private IngredientViewModel mIngredientViewModel;
+    private TextView mNoResultsTextView;
 
     @NonNull
     @Override
@@ -43,6 +44,8 @@ public class AddIngredientDialogFragment extends DialogFragment {
         final View bottomSheetInternal = bottomSheetDialog.findViewById(R.id.design_bottom_sheet);
         BottomSheetBehavior.from(Objects.requireNonNull(bottomSheetInternal)).setPeekHeight(1600);
         bottomSheetDialog.show();
+
+        mNoResultsTextView = bottomSheetInternal.findViewById(R.id.no_results_text_view);
 
         mIngredientViewModel = new ViewModelProvider(Objects.requireNonNull(getActivity())).get(IngredientViewModel.class);
         RecyclerView ingredientRecyclerView = bottomSheetInternal.findViewById(R.id.add_ingredient_recycler_view);
@@ -54,6 +57,7 @@ public class AddIngredientDialogFragment extends DialogFragment {
 
         final TextInputLayout searchIngredientTextFiled = bottomSheetInternal.findViewById(R.id.searchIngredientTextField);
         searchIngredientTextFiled.setEndIconOnClickListener(v -> {
+            mNoResultsTextView.setVisibility(View.INVISIBLE);
             final TextInputEditText findIngredient = bottomSheetDialog.findViewById(R.id.searchIngredientEditText);
             String query = Objects.requireNonNull(Objects.requireNonNull(findIngredient).getText()).toString();
             mIngredientViewModel.findIngredients(query);
@@ -94,6 +98,7 @@ public class AddIngredientDialogFragment extends DialogFragment {
     private void handleError(Throwable error) {
         mAdapter.clearIngredients();
         mAdapter.notifyDataSetChanged();
+        mNoResultsTextView.setVisibility(View.VISIBLE);
         Log.e(AddIngredientDialogFragment.class.getName(), "error occurred while get api response: " + error.toString());
     }
 
@@ -101,9 +106,11 @@ public class AddIngredientDialogFragment extends DialogFragment {
         if (ingredients != null && ingredients.size() > 0) {
             mAdapter.setIngredients(ingredients);
             mAdapter.notifyDataSetChanged();
+            mNoResultsTextView.setVisibility(View.INVISIBLE);
         } else {
             mAdapter.clearIngredients();
             mAdapter.notifyDataSetChanged();
+            mNoResultsTextView.setVisibility(View.VISIBLE);
         }
     }
 

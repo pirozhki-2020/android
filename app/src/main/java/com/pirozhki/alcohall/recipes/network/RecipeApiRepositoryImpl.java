@@ -34,7 +34,7 @@ public class RecipeApiRepositoryImpl implements RecipeApiRepository {
     }
 
     @Override
-    public LiveData<RecipeApiResponse> findRecipes(int[] ids){
+    public LiveData<RecipeApiResponse> findRecipes( int[] ids){
         final MutableLiveData<RecipeApiResponse> liveData = new MutableLiveData<>();
         Map<String, String> params = new HashMap<String, String>();
         for (int id: ids) {

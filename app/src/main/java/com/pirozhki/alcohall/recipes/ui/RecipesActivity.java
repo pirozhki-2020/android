@@ -1,5 +1,6 @@
 package com.pirozhki.alcohall.recipes.ui;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -50,7 +51,9 @@ public class RecipesActivity extends AppCompatActivity {
             }
         });
 
-        int [] ids = {17};
+
+        Intent intent =  getIntent();
+        int[] ids = intent.getIntArrayExtra("ids");
         mRecipeViewModel.findRecipes(ids);
         /*Thread th = new Thread(new Runnable() {
                 public void run() {

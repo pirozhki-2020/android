@@ -19,6 +19,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
+import com.google.android.material.chip.Chip;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.pirozhki.alcohall.R;
@@ -35,15 +36,16 @@ public class AddIngredientDialogFragment extends DialogFragment {
     private Listener mListener;
     private IngredientViewModel mIngredientViewModel;
     private TextView mNoResultsTextView;
+    private BottomSheetDialog mBottomSheetDialog;
 
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        final BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(Objects.requireNonNull(getActivity()));
-        bottomSheetDialog.setContentView(R.layout.content_add_ingr_dialog);
-        final View bottomSheetInternal = bottomSheetDialog.findViewById(R.id.design_bottom_sheet);
+        mBottomSheetDialog = new BottomSheetDialog(Objects.requireNonNull(getActivity()));
+        mBottomSheetDialog.setContentView(R.layout.content_add_ingr_dialog);
+        final View bottomSheetInternal = mBottomSheetDialog.findViewById(R.id.design_bottom_sheet);
         BottomSheetBehavior.from(Objects.requireNonNull(bottomSheetInternal)).setPeekHeight(1600);
-        bottomSheetDialog.show();
+        mBottomSheetDialog.show();
 
         mNoResultsTextView = bottomSheetInternal.findViewById(R.id.no_results_text_view);
 
@@ -53,14 +55,18 @@ public class AddIngredientDialogFragment extends DialogFragment {
         ingredientRecyclerView.setAdapter(mAdapter);
 
         final Button backFromAddButton = bottomSheetInternal.findViewById(R.id.back_from_add_button);
-        backFromAddButton.setOnClickListener(v -> bottomSheetDialog.cancel());
+        backFromAddButton.setOnClickListener(v -> mBottomSheetDialog.cancel());
 
         final TextInputLayout searchIngredientTextFiled = bottomSheetInternal.findViewById(R.id.searchIngredientTextField);
         searchIngredientTextFiled.setEndIconOnClickListener(v -> {
-            mNoResultsTextView.setVisibility(View.INVISIBLE);
-            final TextInputEditText findIngredient = bottomSheetDialog.findViewById(R.id.searchIngredientEditText);
+            final TextInputEditText findIngredient = mBottomSheetDialog.findViewById(R.id.searchIngredientEditText);
             String query = Objects.requireNonNull(Objects.requireNonNull(findIngredient).getText()).toString();
-            mIngredientViewModel.findIngredients(query);
+            if (query.isEmpty()) {
+                showNoResult();
+            } else {
+                mNoResultsTextView.setVisibility(View.INVISIBLE);
+                mIngredientViewModel.findIngredients(query);
+            }
         });
 
         // Handle changes emitted by LiveData
@@ -72,7 +78,7 @@ public class AddIngredientDialogFragment extends DialogFragment {
             }
         });
 
-        return bottomSheetDialog;
+        return mBottomSheetDialog;
     }
 
     @Override
@@ -95,45 +101,49 @@ public class AddIngredientDialogFragment extends DialogFragment {
         mAdapter.notifyDataSetChanged();
     }
 
-    private void handleError(Throwable error) {
+    private void showIngredients(List<Ingredient> ingredients) {
+        mAdapter.setIngredients(ingredients);
+        mAdapter.notifyDataSetChanged();
+        mNoResultsTextView.setVisibility(View.INVISIBLE);
+    }
+
+    private void showNoResult() {
         mAdapter.clearIngredients();
         mAdapter.notifyDataSetChanged();
         mNoResultsTextView.setVisibility(View.VISIBLE);
+    }
+
+    private void handleError(Throwable error) {
+        showNoResult();
         Log.e(AddIngredientDialogFragment.class.getName(), "error occurred while get api response: " + error.toString());
     }
 
     private void handleResponse(List<Ingredient> ingredients) {
-        if (ingredients != null && ingredients.size() > 0) {
-            mAdapter.setIngredients(ingredients);
-            mAdapter.notifyDataSetChanged();
-            mNoResultsTextView.setVisibility(View.INVISIBLE);
-        } else {
-            mAdapter.clearIngredients();
-            mAdapter.notifyDataSetChanged();
-            mNoResultsTextView.setVisibility(View.VISIBLE);
-        }
+        if (ingredients != null && ingredients.size() > 0)
+            showIngredients(ingredients);
+        else
+            showNoResult();
     }
 
-    private class IngredientHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    private class IngredientHolder extends RecyclerView.ViewHolder {
         private Ingredient mIngredient;
 
-        private TextView mTitleTextView;
+        private Chip mIngredientChip;
 
         IngredientHolder(View itemView) {
             super(itemView);
 
-            mTitleTextView = itemView.findViewById(R.id.add_ingredient_title_text_view);
-            itemView.setOnClickListener(this);
+            mIngredientChip = itemView.findViewById(R.id.add_ingredient_chip);
+
+            mIngredientChip.setOnClickListener(v -> {
+                mListener.onIngredientSelected(mIngredient);
+                mBottomSheetDialog.cancel();
+            });
         }
 
         void bindIngredient(Ingredient ingredient) {
             mIngredient = ingredient;
-            mTitleTextView.setText(mIngredient.getName());
-        }
-
-        @Override
-        public void onClick(View v) {
-            mListener.onIngredientSelected(mIngredient);
+            mIngredientChip.setText(mIngredient.getName());
         }
     }
 

@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Alcohall</string>
     <string name="ingredients">Ингредиенты</string>
-    <string name="add_ingredient">+</string>
+    <string name="add_ingredient_plus">+</string>
     <string name="add_first_ingredient">Нажмите, чтобы добавить первый ингредиент</string>
     <string name="find_recipes">Найти рецепты</string>
     <string name="clear_ingredients">Очистить</string>

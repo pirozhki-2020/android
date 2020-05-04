@@ -4,6 +4,7 @@ import android.os.Bundle;
 
 import com.pirozhki.alcohall.R;
 import com.pirozhki.alcohall.ingredients.model.Ingredient;
+import com.pirozhki.alcohall.ingredients.viewmodel.IngredientViewModel;
 
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -25,6 +26,7 @@ public class IngredientsActivity extends AppCompatActivity implements AddIngredi
     private RecyclerView mIngredientRecyclerView;
     private IngredientAdapter mAdapter;
     private List<Ingredient> mIngredients;
+    //private IngredientViewModel mIngredientViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,7 +72,6 @@ public class IngredientsActivity extends AppCompatActivity implements AddIngredi
     }
 
     private void updateIngredientsList() {
-        // TODO: извлекать список ингредиентов из базы и обновлять mIngredients
         if (mAdapter == null) {
             mIngredients = new ArrayList<>();
             mAdapter = new IngredientAdapter(mIngredients);

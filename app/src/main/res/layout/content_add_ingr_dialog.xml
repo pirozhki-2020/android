@@ -54,14 +54,21 @@
             android:textColor="@color/colorAccent" />
     </LinearLayout>
 
-    <Button
-        android:id="@+id/back_from_add_button"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:id="@+id/layout_bottom_bar"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentEnd="false"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_margin="@dimen/main_margin"
-        android:text="@string/back_button" />
+        android:background="@color/colorPrimary"
+        android:gravity="center"
+        android:orientation="horizontal">
 
+        <Button
+            android:id="@+id/back_from_add_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/min_margin"
+            android:gravity="center"
+            android:text="@string/back_button" />
+    </LinearLayout>
 </RelativeLayout>

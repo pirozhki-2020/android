@@ -13,4 +13,5 @@
     <string name="no_results">No results</string>
     <string name="new_ingredient">New ingredient</string>
     <string name="ingredient_name">Ingredient name</string>
+    <string name="remove_ingredient">Remove selected ingredient from list</string>
 </resources>

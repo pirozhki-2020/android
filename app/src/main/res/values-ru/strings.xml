@@ -13,4 +13,5 @@
     <string name="no_results">Ничего не найдено</string>
     <string name="new_ingredient">Новый ингредиент</string>
     <string name="ingredient_name">Название ингредиента</string>
+    <string name="remove_ingredient">Убрать выбранный ингредиент из списка</string>
 </resources>

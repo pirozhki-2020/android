@@ -1,40 +1,50 @@
 package com.pirozhki.alcohall.ingredients.ui;
 
 import android.os.Bundle;
-
-import com.pirozhki.alcohall.R;
-import com.pirozhki.alcohall.ingredients.model.Ingredient;
-import com.pirozhki.alcohall.ingredients.viewmodel.IngredientViewModel;
-
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.pirozhki.alcohall.R;
+import com.pirozhki.alcohall.ingredients.model.Ingredient;
+import com.pirozhki.alcohall.ingredients.viewmodel.IngredientViewModel;
+
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class IngredientsActivity extends AppCompatActivity implements AddIngredientDialogFragment.Listener {
-    private RecyclerView mIngredientRecyclerView;
     private IngredientAdapter mAdapter;
-    private List<Ingredient> mIngredients;
-    //private IngredientViewModel mIngredientViewModel;
+    private IngredientViewModel mIngredientViewModel;
+    private TextView mAddFirstIngredientTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ingredients);
 
-        mIngredientRecyclerView = findViewById(R.id.ingredient_recycler_view);
-        mIngredientRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        mIngredientViewModel = new ViewModelProvider(Objects.requireNonNull(this)).get(IngredientViewModel.class);
+
+        mAddFirstIngredientTextView = findViewById(R.id.add_first_ingredient_text_view);
+        mAddFirstIngredientTextView.setOnClickListener(v -> {
+            showBottomSheetDialog();
+        });
+
+        RecyclerView ingredientRecyclerView = findViewById(R.id.ingredient_recycler_view);
+        ingredientRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        mAdapter = new IngredientAdapter();
+        ingredientRecyclerView.setAdapter(mAdapter);
         updateIngredientsList();
 
         final Button findButton = findViewById(R.id.find_recipes_button);
@@ -42,6 +52,17 @@ public class IngredientsActivity extends AppCompatActivity implements AddIngredi
             // TODO: поиск рецептов
             new NoResultDialogFragment().show(getSupportFragmentManager(), NoResultDialogFragment.class.getName());
         });
+
+        final Button clearButton = findViewById(R.id.clear_button);
+        clearButton.setOnClickListener(v -> {
+            mIngredientViewModel.clearIngredients();
+            updateIngredientsList();
+        });
+    }
+
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
     }
 
     @Override
@@ -63,23 +84,17 @@ public class IngredientsActivity extends AppCompatActivity implements AddIngredi
 
     @Override
     public void onIngredientSelected(Ingredient ingredient) {
-        mIngredients.add(ingredient);
+        mIngredientViewModel.addIngredient(ingredient);
         updateIngredientsList();
     }
 
-    public void onTextViewClick(View view) {
-        showBottomSheetDialog();
-    }
-
     private void updateIngredientsList() {
-        if (mAdapter == null) {
-            mIngredients = new ArrayList<>();
-            mAdapter = new IngredientAdapter(mIngredients);
-            mIngredientRecyclerView.setAdapter(mAdapter);
-        } else {
-            mAdapter.setIngredients(mIngredients);
-            mAdapter.notifyDataSetChanged();
-        }
+        if (mIngredientViewModel.areIngredientsEmpty())
+            mAddFirstIngredientTextView.setVisibility(View.VISIBLE);
+        else
+            mAddFirstIngredientTextView.setVisibility(View.INVISIBLE);
+        mAdapter.setIngredients(mIngredientViewModel.getIngredients());
+        mAdapter.notifyDataSetChanged();
     }
 
     private void showBottomSheetDialog() {
@@ -95,6 +110,11 @@ public class IngredientsActivity extends AppCompatActivity implements AddIngredi
             super(itemView);
 
             mTitleTextView = itemView.findViewById(R.id.ingredient_title_text_view);
+            final ImageButton deleteButton = itemView.findViewById(R.id.delete_ingredient_button);
+            deleteButton.setOnClickListener(v -> {
+                mIngredientViewModel.removeIngredient(mIngredient);
+                updateIngredientsList();
+            });
         }
 
         void bindIngredient(Ingredient ingredient) {
@@ -104,9 +124,7 @@ public class IngredientsActivity extends AppCompatActivity implements AddIngredi
     }
 
     private class IngredientAdapter extends RecyclerView.Adapter<IngredientHolder> {
-        IngredientAdapter(List<Ingredient> ingredients) {
-            mIngredients = ingredients;
-        }
+        private List<Ingredient> mIngredients = new ArrayList<>();
 
         @Override
         @NonNull

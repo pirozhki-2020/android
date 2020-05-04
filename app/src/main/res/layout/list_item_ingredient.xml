@@ -4,30 +4,21 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/colorAccent"
-    android:orientation="horizontal">
+    android:orientation="horizontal"
+    android:layout_margin="@dimen/min_margin">
 
     <TextView
         android:id="@+id/ingredient_title_text_view"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/main_padding"
-        android:layout_weight="6"
+        android:layout_weight="7"
         android:padding="@dimen/main_padding"
         android:textAppearance="?attr/textAppearanceBody1" />
-
-    <ImageButton
-        android:id="@+id/change_ingredient_button"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:layout_weight="1"
-        android:background="@color/colorPrimary"
-        app:srcCompat="@android:drawable/ic_menu_edit" />
 
     <ImageButton
         android:id="@+id/delete_ingredient_button"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:layout_weight="1"
         android:background="@color/colorPrimary"
         app:srcCompat="@android:drawable/ic_menu_close_clear_cancel" />
 </LinearLayout>

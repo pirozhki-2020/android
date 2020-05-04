@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/gradient"
@@ -7,10 +7,11 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:layout_marginStart="@dimen/main_margin"
         android:layout_marginTop="@dimen/main_margin"
         android:layout_marginEnd="@dimen/main_margin"
+        android:layout_weight="6"
         android:orientation="vertical">
 
         <LinearLayout
@@ -40,22 +41,21 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
 
-            <!--<TextView
+            <TextView
+                android:id="@+id/add_first_ingredient_text_view"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/add_first_ingredient"
-                android:textAppearance="?attr/textAppearanceBody1"
-                android:textColor="@color/colorAccent"
                 android:clickable="true"
                 android:focusable="true"
-                android:onClick="onTextViewClick"/>-->
+                android:text="@string/add_first_ingredient"
+                android:textAppearance="?attr/textAppearanceBody1"
+                android:textColor="@color/colorAccent" />
         </LinearLayout>
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
         android:layout_margin="@dimen/min_margin"
         android:gravity="center"
         android:orientation="vertical">
@@ -76,11 +76,5 @@
             android:layout_height="wrap_content"
             android:text="@string/clear_ingredients"
             android:textColor="@color/colorAccent" />
-
     </LinearLayout>
-
-    <FrameLayout
-        android:id="@+id/layout_for_fragment"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
-</RelativeLayout>
+</LinearLayout>

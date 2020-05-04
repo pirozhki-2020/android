@@ -24,17 +24,17 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.pirozhki.alcohall.R;
 import com.pirozhki.alcohall.ingredients.model.Ingredient;
-import com.pirozhki.alcohall.ingredients.viewmodel.IngredientViewModel;
+import com.pirozhki.alcohall.ingredients.viewmodel.AddIngredientViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
 public class AddIngredientDialogFragment extends DialogFragment {
-    private final IngredientAdapter mAdapter = new IngredientAdapter();
+    private IngredientAdapter mAdapter;
 
     private Listener mListener;
-    private IngredientViewModel mIngredientViewModel;
+    private AddIngredientViewModel mAddIngredientViewModel;
     private TextView mNoResultsTextView;
     private BottomSheetDialog mBottomSheetDialog;
 
@@ -49,9 +49,10 @@ public class AddIngredientDialogFragment extends DialogFragment {
 
         mNoResultsTextView = bottomSheetInternal.findViewById(R.id.no_results_text_view);
 
-        mIngredientViewModel = new ViewModelProvider(Objects.requireNonNull(getActivity())).get(IngredientViewModel.class);
+        mAddIngredientViewModel = new ViewModelProvider(Objects.requireNonNull(getActivity())).get(AddIngredientViewModel.class);
         RecyclerView ingredientRecyclerView = bottomSheetInternal.findViewById(R.id.add_ingredient_recycler_view);
         ingredientRecyclerView.setLayoutManager(new LinearLayoutManager(Objects.requireNonNull(getActivity())));
+        mAdapter = new IngredientAdapter();
         ingredientRecyclerView.setAdapter(mAdapter);
 
         final Button backFromAddButton = bottomSheetInternal.findViewById(R.id.back_from_add_button);
@@ -65,12 +66,12 @@ public class AddIngredientDialogFragment extends DialogFragment {
                 showNoResult();
             } else {
                 mNoResultsTextView.setVisibility(View.INVISIBLE);
-                mIngredientViewModel.findIngredients(query);
+                mAddIngredientViewModel.findIngredients(query);
             }
         });
 
         // Handle changes emitted by LiveData
-        mIngredientViewModel.getApiResponse().observe(Objects.requireNonNull(getActivity()), apiResponse -> {
+        mAddIngredientViewModel.getApiResponse().observe(Objects.requireNonNull(getActivity()), apiResponse -> {
             if (apiResponse.getError() != null) {
                 handleError(apiResponse.getError());
             } else {

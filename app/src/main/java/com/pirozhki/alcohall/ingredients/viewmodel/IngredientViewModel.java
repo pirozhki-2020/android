@@ -1,33 +1,40 @@
 package com.pirozhki.alcohall.ingredients.viewmodel;
 
-import com.pirozhki.alcohall.ingredients.network.IngredientApiRepository;
-import com.pirozhki.alcohall.ingredients.network.IngredientApiRepositoryImpl;
-import com.pirozhki.alcohall.ingredients.network.IngredientApiResponse;
-
-import androidx.annotation.NonNull;
-import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MediatorLiveData;
 import androidx.lifecycle.ViewModel;
 
+import com.pirozhki.alcohall.ingredients.model.Ingredient;
+import com.pirozhki.alcohall.ingredients.repository.IngredientRepository;
+
+import java.util.List;
+
 public class IngredientViewModel extends ViewModel {
-    private MediatorLiveData<IngredientApiResponse> mIngredientApiResponse;
-    private IngredientApiRepository mIngredientApiRepository;
+    private IngredientRepository mIngredientRepository;
 
     public IngredientViewModel() {
-        mIngredientApiResponse = new MediatorLiveData<>();
-        mIngredientApiRepository = new IngredientApiRepositoryImpl();
+        mIngredientRepository = IngredientRepository.getInstance();
     }
 
-    @NonNull
-    public LiveData<IngredientApiResponse> getApiResponse() {
-        return mIngredientApiResponse;
+    public List<Ingredient> getIngredients() {
+        return mIngredientRepository.getIngredients();
     }
 
-    public LiveData<IngredientApiResponse> findIngredients(@NonNull String query) {
-        mIngredientApiResponse.addSource(
-                mIngredientApiRepository.findIngredients(query),
-                apiResponse -> mIngredientApiResponse.setValue(apiResponse)
-        );
-        return mIngredientApiResponse;
+    public void setIngredients(List<Ingredient> ingredients) {
+        mIngredientRepository.setIngredients(ingredients);
+    }
+
+    public void addIngredient(Ingredient ingredient) {
+        mIngredientRepository.addIngredient(ingredient);
+    }
+
+    public void removeIngredient(Ingredient ingredient) {
+        mIngredientRepository.removeIngredient(ingredient);
+    }
+
+    public void clearIngredients() {
+        mIngredientRepository.clearIngredients();
+    }
+
+    public boolean areIngredientsEmpty() {
+        return mIngredientRepository.areIngredientsEmpty();
     }
 }

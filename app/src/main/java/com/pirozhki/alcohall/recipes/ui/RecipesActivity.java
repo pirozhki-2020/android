@@ -50,7 +50,7 @@ public class RecipesActivity extends AppCompatActivity {
             }
         });
 
-        int [] ids = {19};
+        int [] ids = {17};
         mRecipeViewModel.findRecipes(ids);
         /*Thread th = new Thread(new Runnable() {
                 public void run() {

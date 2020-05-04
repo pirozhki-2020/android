@@ -23,6 +23,6 @@ public interface RecipeApi {
         public RecipeApi.RecipesData data;
     }
 
-    @GET("/cocktails.list_ingredients")
+    @GET("/cocktails.list_cocktails")
     Call<RecipeApi.Recipes> getRecipes(@QueryMap Map<String, String> params);
 }

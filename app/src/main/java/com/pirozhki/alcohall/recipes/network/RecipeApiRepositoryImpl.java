@@ -39,7 +39,6 @@ public class RecipeApiRepositoryImpl implements RecipeApiRepository {
         Map<String, String> params = new HashMap<String, String>();
         for (int id: ids) {
             params.put("ingredient", Integer.toString(id));
-            System.out.println( Integer.toString(id));
         }
         Call<RecipeApi.Recipes> call = mRecipeApi.getRecipes(params);
         call.enqueue(new Callback<RecipeApi.Recipes>() {

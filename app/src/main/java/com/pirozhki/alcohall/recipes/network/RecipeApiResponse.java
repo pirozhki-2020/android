@@ -8,8 +8,8 @@ public class RecipeApiResponse {
     private List<Recipe> mRecipes;
     private Throwable mError;
 
-    RecipeApiResponse(List<Recipe> recipes) {
-        mRecipes = recipes;
+    RecipeApiResponse(List<Recipe> cocktails) {
+        mRecipes = cocktails;
         mError = null;
     }
 

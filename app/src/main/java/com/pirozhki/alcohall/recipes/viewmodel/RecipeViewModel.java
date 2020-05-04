@@ -9,6 +9,8 @@ import com.pirozhki.alcohall.recipes.network.RecipeApiRepository;
 import com.pirozhki.alcohall.recipes.network.RecipeApiRepositoryImpl;
 import com.pirozhki.alcohall.recipes.network.RecipeApiResponse;
 
+import java.util.List;
+
 
 public class RecipeViewModel extends ViewModel {
     private MediatorLiveData<RecipeApiResponse> mRecipeApiResponse;
@@ -24,9 +26,9 @@ public class RecipeViewModel extends ViewModel {
         return mRecipeApiResponse;
     }
 
-    public LiveData<RecipeApiResponse> findIngredients(@NonNull String query) {
+    public LiveData<RecipeApiResponse> findRecipes(@NonNull int[] ids) {
         mRecipeApiResponse.addSource(
-                mRecipeApiRepository.findRecipes(query),
+                mRecipeApiRepository.findRecipes(ids),
                 apiResponse -> mRecipeApiResponse.setValue(apiResponse)
         );
         return mRecipeApiResponse;

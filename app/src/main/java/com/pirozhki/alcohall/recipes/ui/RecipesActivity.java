@@ -27,7 +27,7 @@ import java.util.Objects;
 
 public class RecipesActivity extends AppCompatActivity {
     private RecyclerView mRecipesRecyclerView;
-    private RecipesActivity.RecipeAdapter mAdapter;
+    private RecipesActivity.RecipeAdapter mAdapter = new RecipeAdapter();
     private List<Recipe> mRecipes;
 
     private RecipeViewModel mRecipeViewModel;
@@ -49,6 +49,17 @@ public class RecipesActivity extends AppCompatActivity {
                 handleResponse(apiResponse.getRecipes());
             }
         });
+
+        int [] ids = {19};
+        mRecipeViewModel.findRecipes(ids);
+        /*Thread th = new Thread(new Runnable() {
+                public void run() {
+                    int [] ids = {10};
+                    mRecipeViewModel.findRecipes(ids);
+                };
+            }
+        );
+        th.start();*/
     }
 
 
@@ -81,7 +92,7 @@ public class RecipesActivity extends AppCompatActivity {
 
         public void bindRecipe(Recipe recipe) {
             mRecipe = recipe;
-            mTitleTextView.setText(mRecipe.name);
+            mTitleTextView.setText(mRecipe.mName);
             //mVolumeTextView.setText(String.valueOf(mIngredient.getVolumeMl()));
         }
     }

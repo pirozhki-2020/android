@@ -7,37 +7,21 @@ import java.util.ArrayList;
 
 public class Recipe {
     @Json(name = "name")
-    public String name;
+    public String mName;
+    @Json(name = "id")
+    private Integer mId;
 
-    private String mTitle;
-    private ArrayList<Ingredient> mIngredients;
-    private String mDescription;
+    public Integer getId() {return mId;}
 
-    public String getTitle() {
-        return mTitle;
+    public void setId(Integer id) {
+        mId = id;
     }
 
-    public void setTitle(String title) {
-        mTitle = title;
+    public String getName() {
+        return mName;
     }
 
-    public ArrayList<Ingredient> getIngredients() {
-        return mIngredients;
-    }
-
-    public void setIngredients(ArrayList<Ingredient> ingredients) {
-        mIngredients = ingredients;
-    }
-
-    public void addIngredient(Ingredient ingredient) {
-        mIngredients.add(ingredient);
-    }
-
-    public String getDescription() {
-        return mDescription;
-    }
-
-    public void setDescription(String description) {
-        mDescription = description;
+    public void setName(String name) {
+        mName = name;
     }
 }

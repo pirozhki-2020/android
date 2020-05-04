@@ -4,6 +4,9 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 
 import okhttp3.HttpUrl;
@@ -31,13 +34,18 @@ public class RecipeApiRepositoryImpl implements RecipeApiRepository {
     }
 
     @Override
-    public LiveData<RecipeApiResponse> findRecipes(String query){
+    public LiveData<RecipeApiResponse> findRecipes(int[] ids){
         final MutableLiveData<RecipeApiResponse> liveData = new MutableLiveData<>();
-        Call<RecipeApi.Recipes> call = mRecipeApi.getRecipes(query);
+        Map<String, String> params = new HashMap<String, String>();
+        for (int id: ids) {
+            params.put("ingredient", Integer.toString(id));
+            System.out.println( Integer.toString(id));
+        }
+        Call<RecipeApi.Recipes> call = mRecipeApi.getRecipes(params);
         call.enqueue(new Callback<RecipeApi.Recipes>() {
             @Override
             public void onResponse(@NonNull Call<RecipeApi.Recipes> call, @NonNull Response<RecipeApi.Recipes> response) {
-                liveData.setValue(new RecipeApiResponse(Objects.requireNonNull(response.body()).data.recipes));
+                liveData.setValue(new RecipeApiResponse(Objects.requireNonNull(response.body()).data.cocktails));
             }
 
             @Override

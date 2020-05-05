@@ -1,5 +1,6 @@
 package com.pirozhki.alcohall.ingredients.ui;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -20,6 +21,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.pirozhki.alcohall.R;
 import com.pirozhki.alcohall.ingredients.model.Ingredient;
 import com.pirozhki.alcohall.ingredients.viewmodel.IngredientViewModel;
+import com.pirozhki.alcohall.recipes.ui.RecipesActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -55,8 +57,13 @@ public class IngredientsActivity extends AppCompatActivity implements AddIngredi
 
         final Button findButton = findViewById(R.id.find_recipes_button);
         findButton.setOnClickListener(v -> {
-            // TODO: поиск рецептов
-            new NoResultDialogFragment().show(getSupportFragmentManager(), NoResultDialogFragment.class.getName());
+            if (mAdapter.getItemCount() == 0) {
+                new NoResultDialogFragment().show(getSupportFragmentManager(), NoResultDialogFragment.class.getName());
+            } else {
+                Intent intent = new Intent(this, RecipesActivity.class);
+                intent.putExtra("ids", mAdapter.getItemIds());
+                startActivity(intent);
+            }
         });
 
         final Button clearButton = findViewById(R.id.clear_button);
@@ -149,6 +156,16 @@ public class IngredientsActivity extends AppCompatActivity implements AddIngredi
         @Override
         public int getItemCount() {
             return mIngredients.size();
+        }
+
+        public int[] getItemIds() {
+            int[] ids = new int[mIngredients.size()];
+            int k = 0;
+            for (Ingredient i : mIngredients) {
+                ids[k] = i.getId();
+                k = k + 1;
+            }
+            return ids;
         }
 
         public void setIngredients(List<Ingredient> ingredients) {

@@ -15,4 +15,5 @@
     <string name="ingredient_name">Ingredient name</string>
     <string name="remove_ingredient">Remove selected ingredient from list</string>
     <string name="toolbar_logo">toolbar logo</string>
+    <string name="recipes">Recipes</string>
 </resources>

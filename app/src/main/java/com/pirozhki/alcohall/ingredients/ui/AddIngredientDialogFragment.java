@@ -4,7 +4,10 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -41,6 +44,7 @@ public class AddIngredientDialogFragment extends DialogFragment {
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
+
         mBottomSheetDialog = new BottomSheetDialog(Objects.requireNonNull(getActivity()));
         mBottomSheetDialog.setContentView(R.layout.content_add_ingr_dialog);
         final View bottomSheetInternal = mBottomSheetDialog.findViewById(R.id.design_bottom_sheet);
@@ -58,15 +62,27 @@ public class AddIngredientDialogFragment extends DialogFragment {
         final Button backFromAddButton = bottomSheetInternal.findViewById(R.id.back_from_add_button);
         backFromAddButton.setOnClickListener(v -> mBottomSheetDialog.cancel());
 
-        final TextInputLayout searchIngredientTextFiled = bottomSheetInternal.findViewById(R.id.searchIngredientTextField);
-        searchIngredientTextFiled.setEndIconOnClickListener(v -> {
-            final TextInputEditText findIngredient = mBottomSheetDialog.findViewById(R.id.searchIngredientEditText);
-            String query = Objects.requireNonNull(Objects.requireNonNull(findIngredient).getText()).toString();
-            if (query.isEmpty()) {
-                showNoResult();
-            } else {
-                mNoResultsTextView.setVisibility(View.INVISIBLE);
-                mAddIngredientViewModel.findIngredients(query);
+        final TextInputEditText findIngredient = mBottomSheetDialog.findViewById(R.id.searchIngredientEditText);
+
+        assert findIngredient != null;
+        findIngredient.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                String query = Objects.requireNonNull(Objects.requireNonNull(findIngredient).getText()).toString();
+                if (query.isEmpty()) {
+                    AddIngredientDialogFragment.this.showNoResult();
+                } else {
+                    mNoResultsTextView.setVisibility(View.INVISIBLE);
+                    mAddIngredientViewModel.findIngredients(query);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
             }
         });
 

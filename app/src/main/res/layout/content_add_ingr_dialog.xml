@@ -28,14 +28,17 @@
             android:layout_margin="@dimen/min_margin"
             android:background="@color/colorAccent"
             android:hint="@string/ingredient_name"
-            app:endIconDrawable="@drawable/ic_search_24px"
+            android:textColorHint="@color/colorAccent"
             app:endIconMode="custom">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:textColor="@color/colorAccent"
                 android:id="@+id/searchIngredientEditText"
+                android:singleLine="true"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/colorAccent" />
+                android:imeOptions="actionDone"
+                android:background="@color/colorPrimaryDark" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <androidx.recyclerview.widget.RecyclerView

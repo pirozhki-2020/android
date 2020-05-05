@@ -14,4 +14,6 @@
     <string name="new_ingredient">Новый ингредиент</string>
     <string name="ingredient_name">Название ингредиента</string>
     <string name="remove_ingredient">Убрать выбранный ингредиент из списка</string>
+    <string name="toolbar_logo">Логотип тулбара</string>
+
 </resources>

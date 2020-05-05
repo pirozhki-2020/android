@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -28,6 +29,7 @@ public class IngredientsActivity extends AppCompatActivity implements AddIngredi
     private IngredientAdapter mAdapter;
     private IngredientViewModel mIngredientViewModel;
     private TextView mAddFirstIngredientTextView;
+    private Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,9 +39,13 @@ public class IngredientsActivity extends AppCompatActivity implements AddIngredi
         mIngredientViewModel = new ViewModelProvider(Objects.requireNonNull(this)).get(IngredientViewModel.class);
 
         mAddFirstIngredientTextView = findViewById(R.id.add_first_ingredient_text_view);
-        mAddFirstIngredientTextView.setOnClickListener(v -> {
-            showBottomSheetDialog();
-        });
+        mAddFirstIngredientTextView.setOnClickListener(v -> showBottomSheetDialog());
+
+        toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        getSupportActionBar().setDisplayUseLogoEnabled(true);
 
         RecyclerView ingredientRecyclerView = findViewById(R.id.ingredient_recycler_view);
         ingredientRecyclerView.setLayoutManager(new LinearLayoutManager(this));

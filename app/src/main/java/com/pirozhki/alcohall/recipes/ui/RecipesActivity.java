@@ -1,11 +1,13 @@
 package com.pirozhki.alcohall.recipes.ui;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -15,8 +17,10 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.pirozhki.alcohall.R;
+import com.pirozhki.alcohall.ingredients.model.Ingredient;
 import com.pirozhki.alcohall.ingredients.ui.AddIngredientDialogFragment;
 import com.pirozhki.alcohall.recipes.model.Recipe;
+import com.pirozhki.alcohall.recipes.network.RecipeApi;
 import com.pirozhki.alcohall.recipes.viewmodel.RecipeViewModel;
 
 import java.util.ArrayList;
@@ -26,6 +30,8 @@ public class RecipesActivity extends AppCompatActivity {
     private RecyclerView mRecipesRecyclerView;
     private RecipesActivity.RecipeAdapter mAdapter = new RecipeAdapter();
     private List<Recipe> mRecipes;
+
+    private AddIngredientDialogFragment.Listener mListener;
 
     private RecipeViewModel mRecipeViewModel;
 
@@ -59,8 +65,16 @@ public class RecipesActivity extends AppCompatActivity {
             }
         );
         th.start();*/
+
+
     }
 
+
+    public void onRecipeSelected(Recipe recipe) {
+        Intent intent = new Intent(this, OneRecipeActivity.class);
+        intent.putExtra("id", recipe.getId());
+        startActivity(intent);
+    }
 
     private void handleError(Throwable error) {
         Log.e(AddIngredientDialogFragment.class.getName(), "error occurred while get api response: " + error.toString());
@@ -87,6 +101,13 @@ public class RecipesActivity extends AppCompatActivity {
 
             mTitleTextView = itemView.findViewById(R.id.recipe_title_text_view);
             mStrengthTextView = itemView.findViewById(R.id.recipe_strength_text_view);
+
+            mTitleTextView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    onRecipeSelected(mRecipe);
+                }
+            });
         }
 
         public void bindRecipe(Recipe recipe) {

@@ -12,7 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <!--<activity android:name="com.pirozhki.alcohall.recipes.ui.RecipesActivity">-->
-        <activity android:name="com.pirozhki.alcohall.recipes.ui.OneRecipeActivity">
+        <activity android:name="com.pirozhki.alcohall.ingredients.ui.IngredientsActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -21,6 +21,7 @@
         </activity>
 
         <activity android:name="com.pirozhki.alcohall.recipes.ui.RecipesActivity"/>
+        <activity android:name=".recipes.ui.OneRecipeActivity"/>
     </application>
 
 </manifest>

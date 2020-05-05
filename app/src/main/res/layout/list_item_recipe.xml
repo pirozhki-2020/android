@@ -3,7 +3,9 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/colorAccent"
-    android:orientation="horizontal">
+    android:orientation="horizontal"
+    android:id="@+id/one_item_recipe"
+    android:layout_marginTop="@dimen/main_margin">
 
     <TextView
         android:id="@+id/recipe_title_text_view"

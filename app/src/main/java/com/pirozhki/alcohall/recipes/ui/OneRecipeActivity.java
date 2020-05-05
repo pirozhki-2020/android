@@ -1,5 +1,6 @@
 package com.pirozhki.alcohall.recipes.ui;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -57,7 +58,9 @@ public class OneRecipeActivity extends AppCompatActivity {
             }
         });
 
-        mRecipeViewModel.findOneRecipe("1");
+        Intent intent = getIntent();
+        Integer id = intent.getIntExtra("id", 0);
+        mRecipeViewModel.findOneRecipe(String.valueOf(id));
     }
 
     private void handleError(Throwable error) {

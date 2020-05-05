@@ -40,4 +40,14 @@ public class IngredientRepository {
     public boolean areIngredientsEmpty() {
         return mIngredients.isEmpty();
     }
+
+    public int[] getIngredientsIds() {
+        int[] ids = new int[mIngredients.size()];
+        int k = 0;
+        for (Ingredient i : mIngredients) {
+            ids[k] = i.getId();
+            k++;
+        }
+        return ids;
+    }
 }

@@ -8,7 +8,6 @@ import java.util.Map;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
-import retrofit2.http.Query;
 import retrofit2.http.QueryMap;
 
 public interface RecipeApi {
@@ -16,6 +15,7 @@ public interface RecipeApi {
         @Json(name = "cocktails")
         public List<Recipe> cocktails;
     }
+
     class Recipes {
         @Json(name = "status")
         public String status;

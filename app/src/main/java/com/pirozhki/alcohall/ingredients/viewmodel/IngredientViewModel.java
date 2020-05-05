@@ -37,4 +37,8 @@ public class IngredientViewModel extends ViewModel {
     public boolean areIngredientsEmpty() {
         return mIngredientRepository.areIngredientsEmpty();
     }
+
+    public int[] getIngredientsIds() {
+        return mIngredientRepository.getIngredientsIds();
+    }
 }

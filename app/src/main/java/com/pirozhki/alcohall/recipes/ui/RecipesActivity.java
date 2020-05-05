@@ -15,16 +15,12 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.pirozhki.alcohall.R;
-import com.pirozhki.alcohall.ingredients.model.Ingredient;
 import com.pirozhki.alcohall.ingredients.ui.AddIngredientDialogFragment;
-import com.pirozhki.alcohall.ingredients.viewmodel.IngredientViewModel;
 import com.pirozhki.alcohall.recipes.model.Recipe;
 import com.pirozhki.alcohall.recipes.viewmodel.RecipeViewModel;
 
-
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 public class RecipesActivity extends AppCompatActivity {
     private RecyclerView mRecipesRecyclerView;
@@ -52,7 +48,7 @@ public class RecipesActivity extends AppCompatActivity {
         });
 
 
-        Intent intent =  getIntent();
+        Intent intent = getIntent();
         int[] ids = intent.getIntArrayExtra("ids");
         mRecipeViewModel.findRecipes(ids);
         /*Thread th = new Thread(new Runnable() {
@@ -95,7 +91,7 @@ public class RecipesActivity extends AppCompatActivity {
 
         public void bindRecipe(Recipe recipe) {
             mRecipe = recipe;
-            mTitleTextView.setText(mRecipe.mName);
+            mTitleTextView.setText(mRecipe.getName());
             //mVolumeTextView.setText(String.valueOf(mIngredient.getVolumeMl()));
         }
     }

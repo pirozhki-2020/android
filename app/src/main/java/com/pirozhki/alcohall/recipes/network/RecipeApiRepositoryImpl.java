@@ -5,7 +5,7 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import java.util.HashMap;
-import java.util.List;
+
 import java.util.Map;
 import java.util.Objects;
 
@@ -34,10 +34,10 @@ public class RecipeApiRepositoryImpl implements RecipeApiRepository {
     }
 
     @Override
-    public LiveData<RecipeApiResponse> findRecipes( int[] ids){
+    public LiveData<RecipeApiResponse> findRecipes(int[] ids) {
         final MutableLiveData<RecipeApiResponse> liveData = new MutableLiveData<>();
         Map<String, String> params = new HashMap<String, String>();
-        for (int id: ids) {
+        for (int id : ids) {
             params.put("ingredient", Integer.toString(id));
         }
         Call<RecipeApi.Recipes> call = mRecipeApi.getRecipes(params);

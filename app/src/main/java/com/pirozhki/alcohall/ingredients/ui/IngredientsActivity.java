@@ -31,7 +31,6 @@ public class IngredientsActivity extends AppCompatActivity implements AddIngredi
     private IngredientAdapter mAdapter;
     private IngredientViewModel mIngredientViewModel;
     private TextView mAddFirstIngredientTextView;
-    private Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,7 +42,7 @@ public class IngredientsActivity extends AppCompatActivity implements AddIngredi
         mAddFirstIngredientTextView = findViewById(R.id.add_first_ingredient_text_view);
         mAddFirstIngredientTextView.setOnClickListener(v -> showBottomSheetDialog());
 
-        toolbar = findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         Objects.requireNonNull(getSupportActionBar()).setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
@@ -61,7 +60,7 @@ public class IngredientsActivity extends AppCompatActivity implements AddIngredi
                 new NoResultDialogFragment().show(getSupportFragmentManager(), NoResultDialogFragment.class.getName());
             } else {
                 Intent intent = new Intent(this, RecipesActivity.class);
-                intent.putExtra("ids", mAdapter.getItemIds());
+                intent.putExtra("ids", mIngredientViewModel.getIngredientsIds());
                 startActivity(intent);
             }
         });
@@ -156,16 +155,6 @@ public class IngredientsActivity extends AppCompatActivity implements AddIngredi
         @Override
         public int getItemCount() {
             return mIngredients.size();
-        }
-
-        public int[] getItemIds() {
-            int[] ids = new int[mIngredients.size()];
-            int k = 0;
-            for (Ingredient i : mIngredients) {
-                ids[k] = i.getId();
-                k = k + 1;
-            }
-            return ids;
         }
 
         public void setIngredients(List<Ingredient> ingredients) {

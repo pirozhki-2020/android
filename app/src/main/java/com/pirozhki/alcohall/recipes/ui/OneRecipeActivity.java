@@ -21,6 +21,7 @@ import com.pirozhki.alcohall.ingredients.ui.IngredientsActivity;
 import com.pirozhki.alcohall.recipes.model.FullIngredient;
 import com.pirozhki.alcohall.recipes.model.FullRecipe;
 import com.pirozhki.alcohall.recipes.model.Recipe;
+import com.pirozhki.alcohall.recipes.model.Step;
 import com.pirozhki.alcohall.recipes.viewmodel.RecipeViewModel;
 
 import java.util.ArrayList;
@@ -28,7 +29,9 @@ import java.util.List;
 
 public class OneRecipeActivity extends AppCompatActivity {
     private RecyclerView mIngredientsRecyclerView;
+    private RecyclerView mStepsRecyclerView;
     private OneRecipeActivity.IngredientAdapter mAdapter;
+    private OneRecipeActivity.StepAdapter mStepAdapter;
     private List<FullIngredient> mIngredients;
 
     private RecipeViewModel mRecipeViewModel;
@@ -48,6 +51,10 @@ public class OneRecipeActivity extends AppCompatActivity {
         mIngredientsRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mAdapter = new OneRecipeActivity.IngredientAdapter();
         mIngredientsRecyclerView.setAdapter(mAdapter);
+        mStepsRecyclerView = findViewById(R.id.one_recipe_steps_recycler_view);
+        mStepsRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        mStepAdapter = new OneRecipeActivity.StepAdapter();
+        mStepsRecyclerView.setAdapter(mStepAdapter);
 
         mRecipeViewModel = new ViewModelProvider(this).get(RecipeViewModel.class);
         mRecipeViewModel.getOneRecipeApiResponse().observe(this, apiResponse -> {
@@ -71,9 +78,11 @@ public class OneRecipeActivity extends AppCompatActivity {
         if (recipe != null) {
             mAdapter.setIngredients(recipe.getIngredients());
             mAdapter.notifyDataSetChanged();
+            mStepAdapter.setSteps(recipe.getSteps());
+            mStepAdapter.notifyDataSetChanged();
 
-            mTitleTextView.setText(recipe.getName());
-            mDescriptionTextView.setText(recipe.getDescription());
+            if (recipe.getName() != null) { mTitleTextView.setText(recipe.getName()); }
+            if (recipe.getDescription() != null) {mDescriptionTextView.setText(recipe.getDescription());}
         }
     }
 
@@ -121,6 +130,55 @@ public class OneRecipeActivity extends AppCompatActivity {
 
         public void setIngredients(List<FullIngredient> ingredients) {
             mIngredients = ingredients;
+        }
+    }
+
+    private class StepHolder extends RecyclerView.ViewHolder {
+        private Step mStep;
+
+        private TextView mDescriptionTextView;
+        private TextView mNumberTextView;
+
+        StepHolder(View itemView) {
+            super(itemView);
+
+            mDescriptionTextView = itemView.findViewById(R.id.one_recipe_step_title);
+            mNumberTextView = itemView.findViewById(R.id.one_recipe_step_number);
+        }
+
+        void bindStep(Step step) {
+            mStep = step;
+            mDescriptionTextView.setText(mStep.getDescription());
+            mNumberTextView.setText(String.valueOf(mStep.getNumber()));
+        }
+    }
+
+    private class StepAdapter extends RecyclerView.Adapter<OneRecipeActivity.StepHolder> {
+        private List<String> mSteps = new ArrayList<>();
+
+        @Override
+        @NonNull
+        public OneRecipeActivity.StepHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+            LayoutInflater layoutInflater = LayoutInflater.from(OneRecipeActivity.this);
+            View view = layoutInflater.inflate(R.layout.list_item_one_step, parent, false);
+            return new OneRecipeActivity.StepHolder(view);
+        }
+
+        @Override
+        public void onBindViewHolder(OneRecipeActivity.StepHolder holder, int position) {
+            Step step = new Step();
+            step.setNumber(position+1);
+            step.setDescription(mSteps.get(position));
+            holder.bindStep(step);
+        }
+
+        @Override
+        public int getItemCount() {
+            return mSteps.size();
+        }
+
+        public void setSteps(List<String> steps) {
+            mSteps = steps;
         }
     }
 }

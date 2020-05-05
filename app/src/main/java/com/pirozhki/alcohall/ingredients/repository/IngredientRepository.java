@@ -26,7 +26,8 @@ public class IngredientRepository {
     }
 
     public void addIngredient(Ingredient ingredient) {
-        mIngredients.add(ingredient);
+        if (!findIngredient(ingredient))
+            mIngredients.add(ingredient);
     }
 
     public void removeIngredient(Ingredient ingredient) {
@@ -49,5 +50,14 @@ public class IngredientRepository {
             k++;
         }
         return ids;
+    }
+
+    private boolean findIngredient(Ingredient ingredient) {
+        for (Ingredient i : mIngredients) {
+            if (i.getId().equals(ingredient.getId())) {
+                return true;
+            }
+        }
+        return false;
     }
 }

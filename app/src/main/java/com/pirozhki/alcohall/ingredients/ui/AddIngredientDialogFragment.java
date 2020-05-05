@@ -31,6 +31,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import static com.google.android.material.bottomsheet.BottomSheetBehavior.PEEK_HEIGHT_AUTO;
+
 public class AddIngredientDialogFragment extends DialogFragment {
     private IngredientAdapter mAdapter;
 
@@ -46,7 +48,7 @@ public class AddIngredientDialogFragment extends DialogFragment {
         mBottomSheetDialog = new BottomSheetDialog(Objects.requireNonNull(getActivity()));
         mBottomSheetDialog.setContentView(R.layout.content_add_ingr_dialog);
         final View bottomSheetInternal = mBottomSheetDialog.findViewById(R.id.design_bottom_sheet);
-        BottomSheetBehavior.from(Objects.requireNonNull(bottomSheetInternal)).setPeekHeight(1600);
+        BottomSheetBehavior.from(Objects.requireNonNull(bottomSheetInternal)).setPeekHeight(PEEK_HEIGHT_AUTO);
         mBottomSheetDialog.show();
 
         mNoResultsTextView = bottomSheetInternal.findViewById(R.id.no_results_text_view);

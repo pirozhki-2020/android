@@ -40,15 +40,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
 
-            <!--<TextView
+            <TextView
+                android:id="@+id/no_recipes_text_view"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/add_first_ingredient"
+                android:text="@string/no_recipe_found"
                 android:textAppearance="?attr/textAppearanceBody1"
                 android:textColor="@color/colorAccent"
-                android:clickable="true"
-                android:focusable="true"
-                android:onClick="onTextViewClick"/>-->
+                android:visibility="gone"/>
         </LinearLayout>
     </LinearLayout>
 
@@ -61,8 +60,7 @@
         android:orientation="vertical">
 
         <Button
-            android:id="@+id/clear_button"
-            style="@style/Widget.MaterialComponents.Button.TextButton"
+            android:id="@+id/back_from_recipes_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/back_button"

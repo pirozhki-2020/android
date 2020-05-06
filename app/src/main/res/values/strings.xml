@@ -17,4 +17,5 @@
     <string name="toolbar_logo">toolbar logo</string>
     <string name="recipes">Recipes</string>
     <string name="consist">Сonsist</string>
+    <string name="no_recipe_found">No recipes found!</string>
 </resources>

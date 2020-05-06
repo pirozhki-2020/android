@@ -17,4 +17,5 @@
     <string name="toolbar_logo">Логотип тулбара</string>
     <string name="recipes">Рецепты</string>
     <string name="consist">Состав</string>
+    <string name="no_recipe_found">Не найдено ни одного рецепта!</string>
 </resources>

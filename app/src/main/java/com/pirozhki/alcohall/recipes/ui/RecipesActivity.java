@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -35,10 +36,14 @@ public class RecipesActivity extends AppCompatActivity {
 
     private RecipeViewModel mRecipeViewModel;
 
+    private TextView mNoResultsTextView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.recipes_activity);
+
+        mNoResultsTextView = findViewById(R.id.no_recipes_text_view);
 
         mRecipesRecyclerView = findViewById(R.id.recipes_recycler_view);
         mRecipesRecyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -50,6 +55,14 @@ public class RecipesActivity extends AppCompatActivity {
                 handleError(apiResponse.getError());
             } else {
                 handleResponse(apiResponse.getRecipes());
+            }
+        });
+
+        final Button backFromAddButton = findViewById(R.id.back_from_recipes_button);
+        backFromAddButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
             }
         });
 
@@ -84,9 +97,11 @@ public class RecipesActivity extends AppCompatActivity {
         if (recipes != null && recipes.size() > 0) {
             mAdapter.setRecipes(recipes);
             mAdapter.notifyDataSetChanged();
+            mNoResultsTextView.setVisibility(View.INVISIBLE);
         } else {
             mAdapter.clearRecipes();
             mAdapter.notifyDataSetChanged();
+            mNoResultsTextView.setVisibility(View.VISIBLE);
         }
     }
 

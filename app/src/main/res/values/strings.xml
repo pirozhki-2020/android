@@ -1,0 +1,21 @@
+<resources>
+    <string name="app_name">Alcohall</string>
+    <string name="ingredients">Ingredients</string>
+    <string name="add_ingredient_plus">+</string>
+    <string name="add_first_ingredient">Click to add the first ingredient</string>
+    <string name="find_recipes">Find recipes</string>
+    <string name="clear_ingredients">Clear</string>
+    <string name="find_ingredients_input">Input ingredient name</string>
+    <string name="back_button">Back</string>
+    <string name="add_page_name">Add</string>
+    <string name="no_chosen_error">No ingredients chosen!</string>
+    <string name="no_chosen_help">Click plus on right top corner to add ingredient</string>
+    <string name="no_results">No results</string>
+    <string name="new_ingredient">New ingredient</string>
+    <string name="ingredient_name">Ingredient name</string>
+    <string name="remove_ingredient">Remove selected ingredient from list</string>
+    <string name="toolbar_logo">toolbar logo</string>
+    <string name="recipes">Recipes</string>
+    <string name="consist">Сonsist</string>
+    <string name="no_recipe_found">No recipes found!</string>
+</resources>

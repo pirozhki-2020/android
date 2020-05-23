@@ -6,10 +6,11 @@ import androidx.lifecycle.MediatorLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.pirozhki.alcohall.recipes.network.OneRecipeResponse;
-import com.pirozhki.alcohall.recipes.network.RecipeApi;
 import com.pirozhki.alcohall.recipes.network.RecipeApiRepository;
 import com.pirozhki.alcohall.recipes.network.RecipeApiRepositoryImpl;
 import com.pirozhki.alcohall.recipes.network.RecipeApiResponse;
+
+import java.util.ArrayList;
 
 
 public class RecipeViewModel extends ViewModel {
@@ -28,7 +29,7 @@ public class RecipeViewModel extends ViewModel {
         return mRecipeApiResponse;
     }
 
-    public LiveData<RecipeApiResponse> findRecipes(@NonNull int[] ids) {
+    public LiveData<RecipeApiResponse> findRecipes(@NonNull ArrayList<Integer> ids) {
         mRecipeApiResponse.addSource(
                 mRecipeApiRepository.findRecipes(ids),
                 apiResponse -> mRecipeApiResponse.setValue(apiResponse)

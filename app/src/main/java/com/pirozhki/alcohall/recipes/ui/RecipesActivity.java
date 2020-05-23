@@ -1,6 +1,5 @@
 package com.pirozhki.alcohall.recipes.ui;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -8,7 +7,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -18,10 +16,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.pirozhki.alcohall.R;
-import com.pirozhki.alcohall.ingredients.model.Ingredient;
 import com.pirozhki.alcohall.ingredients.ui.AddIngredientDialogFragment;
 import com.pirozhki.alcohall.recipes.model.Recipe;
-import com.pirozhki.alcohall.recipes.network.RecipeApi;
 import com.pirozhki.alcohall.recipes.viewmodel.RecipeViewModel;
 
 import java.util.ArrayList;
@@ -68,18 +64,8 @@ public class RecipesActivity extends AppCompatActivity {
 
 
         Intent intent = getIntent();
-        int[] ids = intent.getIntArrayExtra("ids");
+        ArrayList<Integer> ids = intent.getIntegerArrayListExtra("ids");
         mRecipeViewModel.findRecipes(ids);
-        /*Thread th = new Thread(new Runnable() {
-                public void run() {
-                    int [] ids = {10};
-                    mRecipeViewModel.findRecipes(ids);
-                };
-            }
-        );
-        th.start();*/
-
-
     }
 
 

@@ -27,10 +27,15 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.schedulers.Schedulers;
+
 public class IngredientsActivity extends AppCompatActivity implements AddIngredientDialogFragment.Listener {
     private IngredientAdapter mAdapter;
     private IngredientViewModel mIngredientViewModel;
     private TextView mAddFirstIngredientTextView;
+    private CompositeDisposable mCompositeDisposable = new CompositeDisposable();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,17 +64,22 @@ public class IngredientsActivity extends AppCompatActivity implements AddIngredi
             if (mAdapter.getItemCount() == 0) {
                 new NoResultDialogFragment().show(getSupportFragmentManager(), NoResultDialogFragment.class.getName());
             } else {
-                Intent intent = new Intent(this, RecipesActivity.class);
-                intent.putExtra("ids", mIngredientViewModel.getIngredientsIds());
-                startActivity(intent);
+                mCompositeDisposable.add(mIngredientViewModel.getIngredientsIds()
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(ingredientsIds -> {
+                            Intent intent = new Intent(this, RecipesActivity.class);
+                            intent.putIntegerArrayListExtra("ids", new ArrayList<>(ingredientsIds));
+                            startActivity(intent);
+                        }));
             }
         });
 
         final Button clearButton = findViewById(R.id.clear_button);
-        clearButton.setOnClickListener(v -> {
-            mIngredientViewModel.clearIngredients();
-            updateIngredientsList();
-        });
+        clearButton.setOnClickListener(v -> mCompositeDisposable.add(mIngredientViewModel
+                .clearIngredients()
+                .subscribe(() -> {
+                })));
     }
 
     @Override
@@ -96,17 +106,28 @@ public class IngredientsActivity extends AppCompatActivity implements AddIngredi
 
     @Override
     public void onIngredientSelected(Ingredient ingredient) {
-        mIngredientViewModel.addIngredient(ingredient);
-        updateIngredientsList();
+        mCompositeDisposable.add(mIngredientViewModel.addIngredient(ingredient).subscribe(() -> {
+        }));
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mCompositeDisposable.dispose();
     }
 
     private void updateIngredientsList() {
-        if (mIngredientViewModel.areIngredientsEmpty())
-            mAddFirstIngredientTextView.setVisibility(View.VISIBLE);
-        else
-            mAddFirstIngredientTextView.setVisibility(View.INVISIBLE);
-        mAdapter.setIngredients(mIngredientViewModel.getIngredients());
-        mAdapter.notifyDataSetChanged();
+        mCompositeDisposable.add(mIngredientViewModel.getIngredients()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(ingredients -> {
+                    if (ingredients.isEmpty())
+                        mAddFirstIngredientTextView.setVisibility(View.VISIBLE);
+                    else
+                        mAddFirstIngredientTextView.setVisibility(View.INVISIBLE);
+                    mAdapter.setIngredients(ingredients);
+                    mAdapter.notifyDataSetChanged();
+                }));
     }
 
     private void showBottomSheetDialog() {
@@ -123,10 +144,10 @@ public class IngredientsActivity extends AppCompatActivity implements AddIngredi
 
             mTitleTextView = itemView.findViewById(R.id.ingredient_title_text_view);
             final ImageButton deleteButton = itemView.findViewById(R.id.delete_ingredient_button);
-            deleteButton.setOnClickListener(v -> {
-                mIngredientViewModel.removeIngredient(mIngredient);
-                updateIngredientsList();
-            });
+            deleteButton.setOnClickListener(v -> mCompositeDisposable.add(mIngredientViewModel
+                    .removeIngredient(mIngredient)
+                    .subscribe(() -> {
+                    })));
         }
 
         void bindIngredient(Ingredient ingredient) {

@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.pirozhki.alcohall.common.RetrofitInstance;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
@@ -25,7 +26,7 @@ public class RecipeApiRepositoryImpl implements RecipeApiRepository {
     }
 
     @Override
-    public LiveData<RecipeApiResponse> findRecipes(int[] ids) {
+    public LiveData<RecipeApiResponse> findRecipes(ArrayList<Integer> ids) {
         final MutableLiveData<RecipeApiResponse> liveData = new MutableLiveData<>();
         Map<String, String> params = new HashMap<String, String>();
         for (int id : ids) {

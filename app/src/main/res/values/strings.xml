@@ -18,4 +18,11 @@
     <string name="recipes">Recipes</string>
     <string name="consist">Сonsist</string>
     <string name="no_recipe_found">No recipes found!</string>
+    <string name="without_auth">Continue without signing in</string>
+
+    <string name="password">Password</string>
+    <string name="repeat_password">Repeat password</string>
+    <string name="email">Email</string>
+    <string name="register">Registration</string>
+    <string name="login">Login</string>
 </resources>

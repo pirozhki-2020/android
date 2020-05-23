@@ -2,6 +2,8 @@ package com.pirozhki.alcohall.auth.ui;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,12 +14,16 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 import com.pirozhki.alcohall.R;
 import com.pirozhki.alcohall.ingredients.ui.AddIngredientDialogFragment;
 
+import java.util.Objects;
+import java.util.regex.Pattern;
+
 public class LoginFragment extends Fragment {
-
-
+    String mEmailRegex = "^[a-zA-Z0-9\\-_]+[a-zA-Z0-9\\-_\\.]*@[a-zA-Z]+[a-zA-Z0-9\\.]+$";
+    String mPasswordRegex = "[!-~]{4,}";
     private Listener mListener;
 
     @Nullable
@@ -26,10 +32,50 @@ public class LoginFragment extends Fragment {
         final View view = inflater.inflate(R.layout.login_fragment, null);
 
         final TextInputEditText emailEditText = view.findViewById(R.id.emailEditField_login);
+        final TextInputLayout emailInputLayout = view.findViewById(R.id.emailTextField_login);
         final TextInputEditText passwordEditText = view.findViewById(R.id.passwordEditField_login);
 
-        assert passwordEditText != null;
-        assert emailEditText != null;
+        final TextInputLayout passwordInputLayout = view.findViewById(R.id.passwordTextField_login);
+
+        emailEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                if (!Pattern.matches(mEmailRegex, s)) {
+                    emailInputLayout.setError("Невалидный email!");
+                } else {
+                    emailInputLayout.setError(null);
+                }
+            }
+            @Override
+            public void afterTextChanged(Editable s) {
+            }
+        });
+
+        passwordEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                if (!Pattern.matches(mPasswordRegex, s)) {
+                    passwordInputLayout.setError("Пароль должен быть больше 4 символов");
+                } else {
+                    passwordInputLayout.setError(null);
+                }
+            }
+            @Override
+            public void afterTextChanged(Editable s) {
+            }
+        });
+
+
 
         final Button loginButton = view.findViewById(R.id.login_button);
 
@@ -49,14 +95,7 @@ public class LoginFragment extends Fragment {
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
-        // Verify that the host activity implements the callback interface
-        try {
-            mListener = (LoginFragment.Listener) context;
-        } catch (ClassCastException e) {
-            // The activity doesn't implement the interface, throw exception
-            throw new ClassCastException(context.toString()
-                    + " must implement");
-        }
+        mListener = (LoginFragment.Listener) context;
     }
 
     public interface Listener {

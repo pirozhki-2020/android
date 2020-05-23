@@ -7,7 +7,7 @@ import java.util.List;
 
 public class IngredientRepository {
     private List<Ingredient> mIngredients;
-    private final static IngredientRepository INSTANCE = new IngredientRepository();
+    private static final IngredientRepository INSTANCE = new IngredientRepository();
 
     private IngredientRepository() {
         mIngredients = new ArrayList<>();

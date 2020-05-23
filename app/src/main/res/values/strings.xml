@@ -6,7 +6,7 @@
     <string name="find_recipes">Find recipes</string>
     <string name="clear_ingredients">Clear</string>
     <string name="find_ingredients_input">Input ingredient name</string>
-    <string name="back_button">Back</string>
+    <string name="back_button">back</string>
     <string name="add_page_name">Add</string>
     <string name="no_chosen_error">No ingredients chosen!</string>
     <string name="no_chosen_help">Click plus on right top corner to add ingredient</string>
@@ -18,4 +18,5 @@
     <string name="recipes">Recipes</string>
     <string name="consist">Сonsist</string>
     <string name="no_recipe_found">No recipes found!</string>
+    <string name="cocktail_like">Add cocktail to favourites</string>
 </resources>

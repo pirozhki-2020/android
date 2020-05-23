@@ -23,5 +23,5 @@
         android:layout_height="match_parent"
         android:background="@color/colorPrimary"
         android:contentDescription="@string/remove_ingredient"
-        app:srcCompat="@android:drawable/ic_menu_close_clear_cancel" />
+        app:srcCompat="@drawable/ic_close_cross" />
 </LinearLayout>

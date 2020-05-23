@@ -6,7 +6,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -17,10 +16,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.pirozhki.alcohall.R;
 import com.pirozhki.alcohall.ingredients.ui.AddIngredientDialogFragment;
-import com.pirozhki.alcohall.ingredients.ui.IngredientsActivity;
 import com.pirozhki.alcohall.recipes.model.FullIngredient;
 import com.pirozhki.alcohall.recipes.model.FullRecipe;
-import com.pirozhki.alcohall.recipes.model.Recipe;
 import com.pirozhki.alcohall.recipes.model.Step;
 import com.pirozhki.alcohall.recipes.viewmodel.RecipeViewModel;
 
@@ -42,7 +39,7 @@ public class OneRecipeActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.one_ricipe_activity);
+        setContentView(R.layout.one_recipe_activity);
 
         mTitleTextView = findViewById(R.id.one_recipe_name);
         mDescriptionTextView = findViewById(R.id.one_recipe_description);

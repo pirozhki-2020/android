@@ -33,6 +33,16 @@ public class LoginFragment extends Fragment {
 
         final Button loginButton = view.findViewById(R.id.login_button);
 
+        loginButton.setOnClickListener(v -> {
+            String email = emailEditText.getText().toString();
+            String password = passwordEditText.getText().toString();
+
+            System.out.println(email);
+            System.out.println(password);
+
+            mListener.onLogin(email, password);
+
+        });
         return view;
     }
 

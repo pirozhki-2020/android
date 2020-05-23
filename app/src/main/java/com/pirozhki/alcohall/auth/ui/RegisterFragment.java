@@ -39,7 +39,6 @@ public class RegisterFragment extends Fragment {
         final Button registerButton = view.findViewById(R.id.registration_button);
 
        registerButton.setOnClickListener(v -> {
-           System.out.println(" on register button click listener");
            String email = emailEditText.getText().toString();
            String password = passwordEditText.getText().toString();
            String reap_password = repeatPasswordEditText.getText().toString();

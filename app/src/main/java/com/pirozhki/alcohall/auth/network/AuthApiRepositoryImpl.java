@@ -36,18 +36,23 @@ public class AuthApiRepositoryImpl implements AuthApiRepository {
     public LiveData<AuthApiResponse> register(String email, String password) {
         final MutableLiveData<AuthApiResponse> liveData = new MutableLiveData<>();
         AuthApi.AuthBody body = new AuthApi.AuthBody(email, password);
-        System.out.println(" in repo  ");
-        System.out.println(email);
-        Call<User> call = mAuthApi.regUser(body);
-        call.enqueue(new Callback<User>() {
+
+        Call<AuthApi.UserAnswer> call = mAuthApi.regUser(body);
+        call.enqueue(new Callback<AuthApi.UserAnswer>() {
             @Override
-            public void onResponse(@NonNull Call<User> call, @NonNull Response<User> response) {
-                System.out.println(response.body().getEmail());
-                liveData.setValue(new AuthApiResponse(Objects.requireNonNull(response.body())));
+            public void onResponse(@NonNull Call<AuthApi.UserAnswer> call, @NonNull Response<AuthApi.UserAnswer> response) {
+                System.out.println(response);
+                if (response.code() == 200) {
+                    liveData.setValue(new AuthApiResponse(Objects.requireNonNull(response.body()).data));
+                }
+                else {
+                    liveData.setValue(new AuthApiResponse(new Throwable(response.message())));
+                }
+
             }
 
             @Override
-            public void onFailure(@NonNull Call<User> call, @NonNull Throwable t) {
+            public void onFailure(@NonNull Call<AuthApi.UserAnswer> call, @NonNull Throwable t) {
                 System.out.println(" FAIL FAIL FAIL");
                 liveData.setValue(new AuthApiResponse(t));
             }
@@ -59,15 +64,21 @@ public class AuthApiRepositoryImpl implements AuthApiRepository {
     public LiveData<AuthApiResponse> login(String email, String password) {
         final MutableLiveData<AuthApiResponse> liveData = new MutableLiveData<>();
         AuthApi.AuthBody body = new AuthApi.AuthBody(email, password);
-        Call<User> call = mAuthApi.loginUser(body);
-        call.enqueue(new Callback<User>() {
+        Call<AuthApi.UserAnswer> call = mAuthApi.loginUser(body);
+        call.enqueue(new Callback<AuthApi.UserAnswer>() {
             @Override
-            public void onResponse(@NonNull Call<User> call, @NonNull Response<User> response) {
-                liveData.setValue(new AuthApiResponse(Objects.requireNonNull(response.body())));
+            public void onResponse(@NonNull Call<AuthApi.UserAnswer> call, @NonNull Response<AuthApi.UserAnswer> response) {
+                System.out.println(response);
+                if (response.code() == 200) {
+                    liveData.setValue(new AuthApiResponse(Objects.requireNonNull(response.body()).data));
+                }
+                else {
+                    liveData.setValue(new AuthApiResponse(new Throwable(response.message())));
+                }
             }
 
             @Override
-            public void onFailure(@NonNull Call<User> call, @NonNull Throwable t) {
+            public void onFailure(@NonNull Call<AuthApi.UserAnswer> call, @NonNull Throwable t) {
                 liveData.setValue(new AuthApiResponse(t));
             }
         });

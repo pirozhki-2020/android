@@ -88,10 +88,10 @@ public class AuthActivity extends AppCompatActivity implements LoginFragment.Lis
     }
 
     private void handleError(Throwable error) {
-        Log.e(AddIngredientDialogFragment.class.getName(), "error occurred while get api response: " + error.toString());
+        Log.e(AddIngredientDialogFragment.class.getName(), "error occurred while get api response: " + error.getMessage());
         TextView errorView = findViewById(R.id.error_auth);
         errorView.setVisibility(View.VISIBLE);
-        errorView.setText(error.toString());
+        errorView.setText(error.getMessage());
     }
 
     private void handleResponse(User user) {

@@ -25,12 +25,10 @@ public class AuthViewModel extends ViewModel {
     }
 
     public LiveData<AuthApiResponse> register(@NonNull String email, String password) {
-        System.out.println(" viewmodel register ");
         mAuthApiResponse.addSource(
                 mAuthApiRepository.register(email, password),
                 apiResponse -> mAuthApiResponse.setValue(apiResponse)
         );
-        System.out.println(" go from viewmodel register");
         return mAuthApiResponse;
     }
 

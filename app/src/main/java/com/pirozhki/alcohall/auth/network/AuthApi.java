@@ -20,6 +20,8 @@ public interface AuthApi {
     class UserAnswer {
         @Json(name = "status")
         public String status;
+        @Json(name = "message")
+        public String message;
         @Json(name = "data")
         public User data;
     }

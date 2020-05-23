@@ -39,7 +39,8 @@
         android:hint="@string/password"
         android:textColorHint="@color/colorAccent"
         app:errorEnabled="true"
-        app:errorTextColor="@color/colorAccent">
+        app:errorTextColor="@color/colorAccent"
+        app:endIconMode="password_toggle">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/passwordEditField_reg"
@@ -48,7 +49,8 @@
             android:background="@color/colorPrimaryDark"
             android:imeOptions="actionDone"
             android:singleLine="true"
-            android:textColor="@color/colorAccent" />
+            android:textColor="@color/colorAccent"
+            android:inputType="textPassword"/>
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -62,7 +64,8 @@
         android:hint="@string/repeat_password"
         android:textColorHint="@color/colorAccent"
         app:errorEnabled="true"
-        app:errorTextColor="@color/colorAccent">
+        app:errorTextColor="@color/colorAccent"
+        app:endIconMode="password_toggle">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/repeatPasswordEditField"
@@ -71,7 +74,8 @@
             android:background="@color/colorPrimaryDark"
             android:imeOptions="actionDone"
             android:singleLine="true"
-            android:textColor="@color/colorAccent" />
+            android:textColor="@color/colorAccent"
+            android:inputType="textPassword"/>
 
     </com.google.android.material.textfield.TextInputLayout>
 

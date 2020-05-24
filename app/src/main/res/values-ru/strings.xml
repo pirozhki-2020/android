@@ -29,4 +29,6 @@
     <string name="nav_favorites">Понравилось</string>
     <string name="nav_selections">Подборки</string>
     <string name="nav_profile">Профиль</string>
+    <string name="email_exists">Пользователь с таким email уже существует!</string>
+    <string name="error_auth_text_view">Ошибка! Что-то пошло не так!</string>
 </resources>

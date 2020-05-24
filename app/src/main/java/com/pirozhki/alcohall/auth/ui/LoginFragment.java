@@ -1,6 +1,5 @@
 package com.pirozhki.alcohall.auth.ui;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -12,24 +11,23 @@ import android.widget.Button;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.pirozhki.alcohall.R;
-import com.pirozhki.alcohall.ingredients.ui.AddIngredientDialogFragment;
+import com.pirozhki.alcohall.auth.viewmodel.AuthViewModel;
 
-import java.util.Objects;
 import java.util.regex.Pattern;
 
 public class LoginFragment extends Fragment {
-    String mEmailRegex = "^[a-zA-Z0-9\\-_]+[a-zA-Z0-9\\-_\\.]*@[a-zA-Z]+[a-zA-Z0-9\\.]+$";
-    String mPasswordRegex = "[!-~]{4,}";
-    private Listener mListener;
+    private String mEmailRegex = "^[a-zA-Z0-9\\-_]+[a-zA-Z0-9\\-_\\.]*@[a-zA-Z]+[a-zA-Z0-9\\.]+$";
+    private String mPasswordRegex = "[!-~]{4,}";
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        final View view = inflater.inflate(R.layout.login_fragment, null);
+        final View view = inflater.inflate(R.layout.login_fragment, container, false);
 
         final TextInputEditText emailEditText = view.findViewById(R.id.emailEditField_login);
         final TextInputLayout emailInputLayout = view.findViewById(R.id.emailTextField_login);
@@ -51,6 +49,7 @@ public class LoginFragment extends Fragment {
                     emailInputLayout.setError(null);
                 }
             }
+
             @Override
             public void afterTextChanged(Editable s) {
             }
@@ -70,11 +69,11 @@ public class LoginFragment extends Fragment {
                     passwordInputLayout.setError(null);
                 }
             }
+
             @Override
             public void afterTextChanged(Editable s) {
             }
         });
-
 
 
         final Button loginButton = view.findViewById(R.id.login_button);
@@ -83,22 +82,8 @@ public class LoginFragment extends Fragment {
             String email = emailEditText.getText().toString();
             String password = passwordEditText.getText().toString();
 
-            System.out.println(email);
-            System.out.println(password);
-
-            mListener.onLogin(email, password);
-
+            new ViewModelProvider(requireActivity()).get(AuthViewModel.class).login(email, password);
         });
         return view;
-    }
-
-    @Override
-    public void onAttach(@NonNull Context context) {
-        super.onAttach(context);
-        mListener = (LoginFragment.Listener) context;
-    }
-
-    public interface Listener {
-        void onLogin(String email, String password);
     }
 }

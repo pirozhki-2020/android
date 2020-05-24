@@ -17,6 +17,8 @@
     <string name="toolbar_logo">Логотип тулбара</string>
     <string name="recipes">Рецепты</string>
     <string name="consist">Состав</string>
+    <string name="tools">Инструменты</string>
+    <string name="steps">Рецепт</string>
     <string name="no_recipe_found">Не найдено ни одного рецепта!</string>
     <string name="without_auth">Продолжить без регистрации</string>
     <string name="password">Пароль</string>
@@ -29,4 +31,6 @@
     <string name="nav_favorites">Понравилось</string>
     <string name="nav_selections">Подборки</string>
     <string name="nav_profile">Профиль</string>
+    <string name="cocktail_image">Изображение коктейля</string>
+
 </resources>

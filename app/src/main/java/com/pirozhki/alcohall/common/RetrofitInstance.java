@@ -6,10 +6,12 @@ import retrofit2.converter.moshi.MoshiConverterFactory;
 
 public class RetrofitInstance {
     private static final String HOST = "alcohall.space";
+    private static final String SCHEMA = "https";
+    public static final String HOST_URL = SCHEMA + "://" + HOST;
     private static final Retrofit INSTANCE = new Retrofit.Builder()
             .addConverterFactory(MoshiConverterFactory.create())
             .baseUrl(new HttpUrl.Builder()
-                    .scheme("https")
+                    .scheme(SCHEMA)
                     .host(HOST)
                     .build())
             .build();

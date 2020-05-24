@@ -7,6 +7,10 @@ public class FullIngredient extends Ingredient {
     @Json(name = "volume")
     private Integer mVolume;
 
+    public FullIngredient(int id, String name) {
+        super(id, name);
+    }
+
     public Integer getVolume() {
         return mVolume;
     }

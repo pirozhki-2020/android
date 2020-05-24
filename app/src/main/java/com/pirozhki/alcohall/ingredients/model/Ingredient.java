@@ -17,6 +17,11 @@ public class Ingredient {
     @ColumnInfo(name = "name")
     private String mName;
 
+    public Ingredient(int id, String name) {
+        mId = id;
+        mName = name;
+    }
+
     public Integer getId() {
         return mId;
     }

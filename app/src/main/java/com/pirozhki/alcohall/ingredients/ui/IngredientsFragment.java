@@ -1,10 +1,7 @@
 package com.pirozhki.alcohall.ingredients.ui;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -12,16 +9,16 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.pirozhki.alcohall.R;
 import com.pirozhki.alcohall.ingredients.model.Ingredient;
 import com.pirozhki.alcohall.ingredients.viewmodel.IngredientViewModel;
-import com.pirozhki.alcohall.recipes.ui.RecipesActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,55 +28,61 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
 
-public class IngredientsActivity extends AppCompatActivity implements AddIngredientDialogFragment.Listener {
+import static androidx.navigation.fragment.NavHostFragment.findNavController;
+
+public class IngredientsFragment extends Fragment {
     private IngredientAdapter mAdapter;
     private IngredientViewModel mIngredientViewModel;
-    private TextView mAddFirstIngredientTextView;
     private CompositeDisposable mCompositeDisposable = new CompositeDisposable();
 
+    @Nullable
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_ingredients);
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        final View view = inflater.inflate(R.layout.fragment_ingredients, container, false);
 
         mIngredientViewModel = new ViewModelProvider(Objects.requireNonNull(this)).get(IngredientViewModel.class);
 
-        mAddFirstIngredientTextView = findViewById(R.id.add_first_ingredient_text_view);
-        mAddFirstIngredientTextView.setOnClickListener(v -> showBottomSheetDialog());
-
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        Objects.requireNonNull(getSupportActionBar()).setDisplayShowHomeEnabled(true);
-        getSupportActionBar().setDisplayShowTitleEnabled(false);
-        getSupportActionBar().setDisplayUseLogoEnabled(true);
-
-        RecyclerView ingredientRecyclerView = findViewById(R.id.ingredient_recycler_view);
-        ingredientRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        RecyclerView ingredientRecyclerView = view.findViewById(R.id.ingredient_recycler_view);
+        ingredientRecyclerView.setLayoutManager(new LinearLayoutManager(requireActivity()));
         mAdapter = new IngredientAdapter();
         ingredientRecyclerView.setAdapter(mAdapter);
         updateIngredientsList();
 
-        final Button findButton = findViewById(R.id.find_recipes_button);
+        FloatingActionButton addIngredientButton = view.findViewById(R.id.add_ingredient_button);
+        addIngredientButton.setOnClickListener(v -> findNavController(this).navigate(R.id.addIngredientFragment));
+
+        final Button findButton = view.findViewById(R.id.find_recipes_button);
         findButton.setOnClickListener(v -> {
             if (mAdapter.getItemCount() == 0) {
-                new NoResultDialogFragment().show(getSupportFragmentManager(), NoResultDialogFragment.class.getName());
+                new NoResultDialogFragment().show(
+                        requireActivity().getSupportFragmentManager(), NoResultDialogFragment.class.getName());
             } else {
                 mCompositeDisposable.add(mIngredientViewModel.getIngredientsIds()
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe(ingredientsIds -> {
-                            Intent intent = new Intent(this, RecipesActivity.class);
-                            intent.putIntegerArrayListExtra("ids", new ArrayList<>(ingredientsIds));
-                            startActivity(intent);
+                            Bundle bundle = new Bundle();
+                            bundle.putIntegerArrayList("ids", new ArrayList<>(ingredientsIds));
+                            findNavController(this).navigate(R.id.recipesFragment, bundle);
                         }));
             }
         });
 
-        final Button clearButton = findViewById(R.id.clear_button);
+        /*final Button clearButton = view.findViewById(R.id.clear_button);
         clearButton.setOnClickListener(v -> mCompositeDisposable.add(mIngredientViewModel
                 .clearIngredients()
                 .subscribe(() -> {
-                })));
+                })));*/
+
+        Bundle args = getArguments();
+        if (args != null) {
+            Ingredient ingredient = new Ingredient(args.getInt("ingredient_id"),
+                    args.getString("ingredient_name"));
+            mCompositeDisposable.add(mIngredientViewModel.addIngredient(ingredient).subscribe(() -> {
+            }));
+        }
+
+        return view;
     }
 
     @Override
@@ -88,30 +91,7 @@ public class IngredientsActivity extends AppCompatActivity implements AddIngredi
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        super.onCreateOptionsMenu(menu);
-        getMenuInflater().inflate(R.menu.menu_ingredients, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if (item.getItemId() == R.id.menu_item_new_ingredient) {
-            showBottomSheetDialog();
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
-
-    @Override
-    public void onIngredientSelected(Ingredient ingredient) {
-        mCompositeDisposable.add(mIngredientViewModel.addIngredient(ingredient).subscribe(() -> {
-        }));
-    }
-
-    @Override
-    protected void onDestroy() {
+    public void onDestroy() {
         super.onDestroy();
         mCompositeDisposable.dispose();
     }
@@ -121,17 +101,9 @@ public class IngredientsActivity extends AppCompatActivity implements AddIngredi
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(ingredients -> {
-                    if (ingredients.isEmpty())
-                        mAddFirstIngredientTextView.setVisibility(View.VISIBLE);
-                    else
-                        mAddFirstIngredientTextView.setVisibility(View.INVISIBLE);
                     mAdapter.setIngredients(ingredients);
                     mAdapter.notifyDataSetChanged();
                 }));
-    }
-
-    private void showBottomSheetDialog() {
-        new AddIngredientDialogFragment().show(getSupportFragmentManager(), AddIngredientDialogFragment.class.getName());
     }
 
     private class IngredientHolder extends RecyclerView.ViewHolder {
@@ -162,7 +134,7 @@ public class IngredientsActivity extends AppCompatActivity implements AddIngredi
         @Override
         @NonNull
         public IngredientHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-            LayoutInflater layoutInflater = LayoutInflater.from(IngredientsActivity.this);
+            LayoutInflater layoutInflater = LayoutInflater.from(IngredientsFragment.this.requireActivity());
             View view = layoutInflater.inflate(R.layout.list_item_ingredient, parent, false);
             return new IngredientHolder(view);
         }

@@ -10,7 +10,8 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -23,27 +24,26 @@ import com.pirozhki.alcohall.recipes.viewmodel.RecipeViewModel;
 import java.util.ArrayList;
 import java.util.List;
 
-public class RecipesActivity extends AppCompatActivity {
+public class RecipesFragment extends Fragment {
     private RecyclerView mRecipesRecyclerView;
-    private RecipesActivity.RecipeAdapter mAdapter = new RecipeAdapter();
+    private RecipesFragment.RecipeAdapter mAdapter = new RecipeAdapter();
 
     private RecipeViewModel mRecipeViewModel;
 
     private TextView mNoResultsTextView;
 
+    @Nullable
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.recipes_activity);
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        final View view = inflater.inflate(R.layout.fragment_recipes, container, false);
+        mNoResultsTextView = view.findViewById(R.id.no_recipes_text_view);
 
-        mNoResultsTextView = findViewById(R.id.no_recipes_text_view);
-
-        mRecipesRecyclerView = findViewById(R.id.recipes_recycler_view);
-        mRecipesRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        mRecipesRecyclerView = view.findViewById(R.id.recipes_recycler_view);
+        mRecipesRecyclerView.setLayoutManager(new LinearLayoutManager(requireActivity()));
         mRecipesRecyclerView.setAdapter(mAdapter);
 
         mRecipeViewModel = new ViewModelProvider(this).get(RecipeViewModel.class);
-        mRecipeViewModel.getApiResponse().observe(this, apiResponse -> {
+        mRecipeViewModel.getApiResponse().observe(getViewLifecycleOwner(), apiResponse -> {
             if (apiResponse.getError() != null) {
                 handleError(apiResponse.getError());
             } else {
@@ -51,7 +51,7 @@ public class RecipesActivity extends AppCompatActivity {
             }
         });
 
-        final Button backFromAddButton = findViewById(R.id.back_from_recipes_button);
+        /*final Button backFromAddButton = view.findViewById(R.id.back_from_recipes_button);
         backFromAddButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -62,14 +62,14 @@ public class RecipesActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         ArrayList<Integer> ids = intent.getIntegerArrayListExtra("ids");
-        mRecipeViewModel.findRecipes(ids);
+        mRecipeViewModel.findRecipes(ids);*/
+        return view;
     }
 
-
     public void onRecipeSelected(Recipe recipe) {
-        Intent intent = new Intent(this, OneRecipeActivity.class);
+        /*Intent intent = new Intent(this, OneRecipeActivity.class);
         intent.putExtra("id", recipe.getId());
-        startActivity(intent);
+        startActivity(intent);*/
     }
 
     private void handleError(Throwable error) {
@@ -115,19 +115,19 @@ public class RecipesActivity extends AppCompatActivity {
         }
     }
 
-    private class RecipeAdapter extends RecyclerView.Adapter<RecipesActivity.RecipeHolder> {
+    private class RecipeAdapter extends RecyclerView.Adapter<RecipesFragment.RecipeHolder> {
         private List<Recipe> mRecipes = new ArrayList<>();
 
         @Override
         @NonNull
-        public RecipesActivity.RecipeHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-            LayoutInflater layoutInflater = LayoutInflater.from(RecipesActivity.this);
+        public RecipesFragment.RecipeHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+            LayoutInflater layoutInflater = LayoutInflater.from(RecipesFragment.this.requireActivity());
             View view = layoutInflater.inflate(R.layout.list_item_recipe, parent, false);
-            return new RecipesActivity.RecipeHolder(view);
+            return new RecipesFragment.RecipeHolder(view);
         }
 
         @Override
-        public void onBindViewHolder(RecipesActivity.RecipeHolder holder, int position) {
+        public void onBindViewHolder(RecipesFragment.RecipeHolder holder, int position) {
             Recipe recipe = mRecipes.get(position);
             holder.bindRecipe(recipe);
         }

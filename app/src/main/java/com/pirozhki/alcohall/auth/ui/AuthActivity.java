@@ -16,7 +16,6 @@ import com.pirozhki.alcohall.R;
 import com.pirozhki.alcohall.auth.model.User;
 import com.pirozhki.alcohall.auth.viewmodel.AuthViewModel;
 import com.pirozhki.alcohall.ingredients.ui.AddIngredientDialogFragment;
-import com.pirozhki.alcohall.ingredients.ui.IngredientsActivity;
 
 public class AuthActivity extends AppCompatActivity implements LoginFragment.Listener, RegisterFragment.Listener {
     private AuthViewModel mAuthViewModel;
@@ -73,8 +72,8 @@ public class AuthActivity extends AppCompatActivity implements LoginFragment.Lis
         final Button withoutAuthButton = findViewById(R.id.without_auth_button);
 
         withoutAuthButton.setOnClickListener(v -> {
-            Intent intent = new Intent(this, IngredientsActivity.class);
-            startActivity(intent);
+            /*Intent intent = new Intent(this, IngredientsActivity.class);
+            startActivity(intent);*/
         });
 
     }
@@ -95,9 +94,9 @@ public class AuthActivity extends AppCompatActivity implements LoginFragment.Lis
             System.out.println(" handlerrr");
             System.out.println(user.getEmail());
             findViewById(R.id.error_auth).setVisibility(View.GONE);
-            Intent intent = new Intent(this, IngredientsActivity.class);
+            /*Intent intent = new Intent(this, IngredientsActivity.class);
             intent.putExtra("id", user.getId());
-            startActivity(intent);
+            startActivity(intent);*/
         } else {
             findViewById(R.id.error_auth).setVisibility(View.VISIBLE);
         }

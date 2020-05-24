@@ -45,11 +45,24 @@ public class OneRecipeActivity extends AppCompatActivity {
         mDescriptionTextView = findViewById(R.id.one_recipe_description);
 
         mIngredientsRecyclerView = findViewById(R.id.one_recipe_recycler_view);
-        mIngredientsRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        LinearLayoutManager ingredientLayoutManager = new LinearLayoutManager(this) {
+            @Override
+            public boolean canScrollVertically() {
+                return false;
+            }
+        };
+
+        mIngredientsRecyclerView.setLayoutManager(ingredientLayoutManager);
         mAdapter = new OneRecipeActivity.IngredientAdapter();
         mIngredientsRecyclerView.setAdapter(mAdapter);
         mStepsRecyclerView = findViewById(R.id.one_recipe_steps_recycler_view);
-        mStepsRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        LinearLayoutManager stepsLayoutManager = new LinearLayoutManager(this) {
+            @Override
+            public boolean canScrollVertically() {
+                return false;
+            }
+        };
+        mStepsRecyclerView.setLayoutManager(stepsLayoutManager);
         mStepAdapter = new OneRecipeActivity.StepAdapter();
         mStepsRecyclerView.setAdapter(mStepAdapter);
 

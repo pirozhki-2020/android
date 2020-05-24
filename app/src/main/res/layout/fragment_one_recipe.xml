@@ -31,6 +31,15 @@
             android:contentDescription="@string/cocktail_like"
             app:srcCompat="@drawable/ic_like_inactive" />
 
+        <ImageButton
+            android:id="@+id/like_button_active"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="@color/colorAccent"
+            android:contentDescription="@string/cocktail_like"
+            app:srcCompat="@drawable/ic_like_active"
+            android:visibility="gone"/>
+
     </LinearLayout>
 
     <ScrollView

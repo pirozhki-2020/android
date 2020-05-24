@@ -8,7 +8,9 @@ import java.util.List;
 import java.util.Map;
 
 import retrofit2.Call;
+import retrofit2.http.Body;
 import retrofit2.http.GET;
+import retrofit2.http.POST;
 import retrofit2.http.Query;
 import retrofit2.http.QueryMap;
 
@@ -37,4 +39,24 @@ public interface RecipeApi {
 
     @GET("/cocktails.get_cocktail")
     Call<RecipeApi.OneRecipe> getCocktail(@Query("id") String id);
+
+    class IsLike {
+        @Json(name="liked")
+        Boolean liked;
+    }
+
+    class Like {
+        @Json(name = "status")
+        public String status;
+        @Json(name = "data")
+        public IsLike data;
+    }
+
+    class LikeBody {
+        @Json(name = "cocktail")
+        public Integer id;
+    }
+
+    @POST("/cocktails.like")
+    Call<Like> likeCocktail(@Body LikeBody body);
 }

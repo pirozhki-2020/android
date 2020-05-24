@@ -5,6 +5,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -35,6 +36,9 @@ public class OneRecipeFragment extends Fragment {
 
     private TextView mTitleTextView;
     private TextView mDescriptionTextView;
+
+    private ImageButton mLikeButtonActive;
+    private ImageButton mLikeButtonInactive;
 
     @Nullable
     @Override
@@ -80,6 +84,14 @@ public class OneRecipeFragment extends Fragment {
             mRecipeViewModel.findOneRecipe(String.valueOf(OneRecipeFragmentArgs.fromBundle(args).getRecipeId()));
         }
 
+        mLikeButtonInactive = view.findViewById(R.id.like_button);
+        mLikeButtonActive = view.findViewById(R.id.like_button_active);
+
+        mLikeButtonInactive.setOnClickListener(v ->
+        {
+            mRecipeViewModel.like(OneRecipeFragmentArgs.fromBundle(args).getRecipeId());
+        });
+
         return view;
     }
 
@@ -93,6 +105,12 @@ public class OneRecipeFragment extends Fragment {
             mAdapter.notifyDataSetChanged();
             mStepAdapter.setSteps(recipe.getSteps());
             mStepAdapter.notifyDataSetChanged();
+
+/*            if (recipe.getIsLiked())
+            {
+                mLikeButtonInactive.setVisibility(View.GONE);
+                mLikeButtonActive.setVisibility(View.VISIBLE);
+            }*/
 
             if (recipe.getName() != null) {
                 mTitleTextView.setText(recipe.getName());

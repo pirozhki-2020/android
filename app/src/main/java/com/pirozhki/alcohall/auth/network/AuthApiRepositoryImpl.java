@@ -4,32 +4,19 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
-import com.pirozhki.alcohall.auth.model.User;
+import com.pirozhki.alcohall.common.RetrofitInstance;
 
 import java.util.Objects;
 
-import okhttp3.HttpUrl;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.moshi.MoshiConverterFactory;
 
 public class AuthApiRepositoryImpl implements AuthApiRepository {
-    private static final String HOST = "alcohall.space";
-
     private AuthApi mAuthApi;
 
     public AuthApiRepositoryImpl() {
-        Retrofit retrofit = new Retrofit.Builder()
-                .addConverterFactory(MoshiConverterFactory.create())
-                .baseUrl(new HttpUrl.Builder()
-                        .scheme("https")
-                        .host(HOST)
-                        .build())
-                .build();
-
-        mAuthApi = retrofit.create(AuthApi.class);
+        mAuthApi = RetrofitInstance.getInstance().create(AuthApi.class);
     }
 
     @Override
@@ -44,8 +31,7 @@ public class AuthApiRepositoryImpl implements AuthApiRepository {
                 System.out.println(response);
                 if (response.code() == 200) {
                     liveData.setValue(new AuthApiResponse(Objects.requireNonNull(response.body()).data));
-                }
-                else {
+                } else {
                     liveData.setValue(new AuthApiResponse(new Throwable(response.message())));
                 }
 
@@ -71,8 +57,7 @@ public class AuthApiRepositoryImpl implements AuthApiRepository {
                 System.out.println(response);
                 if (response.code() == 200) {
                     liveData.setValue(new AuthApiResponse(Objects.requireNonNull(response.body()).data));
-                }
-                else {
+                } else {
                     liveData.setValue(new AuthApiResponse(new Throwable(response.message())));
                 }
             }

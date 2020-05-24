@@ -7,9 +7,11 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -59,7 +61,7 @@ public class AddIngredientDialogFragment extends DialogFragment {
         mAdapter = new IngredientAdapter();
         ingredientRecyclerView.setAdapter(mAdapter);
 
-        final Button backFromAddButton = bottomSheetInternal.findViewById(R.id.back_from_add_button);
+        final TextView backFromAddButton = bottomSheetInternal.findViewById(R.id.back_from_add_button);
         backFromAddButton.setOnClickListener(v -> mBottomSheetDialog.cancel());
 
         final TextInputEditText findIngredient = mBottomSheetDialog.findViewById(R.id.searchIngredientEditText);

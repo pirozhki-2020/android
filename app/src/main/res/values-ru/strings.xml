@@ -6,7 +6,7 @@
     <string name="find_recipes">Найти рецепты</string>
     <string name="clear_ingredients">Очистить</string>
     <string name="find_ingredients_input">Введите название</string>
-    <string name="back_button">Назад</string>
+    <string name="back_button">назад</string>
     <string name="add_page_name">Добавить</string>
     <string name="no_chosen_error">Не выбран ни один ингредиент!</string>
     <string name="no_chosen_help">Нажмите на плюс в правом верхнем углу экрана, чтобы добавить игредиент</string>
@@ -19,10 +19,10 @@
     <string name="consist">Состав</string>
     <string name="no_recipe_found">Не найдено ни одного рецепта!</string>
     <string name="without_auth">Продолжить без регистрации</string>
-
     <string name="password">Пароль</string>
     <string name="repeat_password">Повторите пароль</string>
     <string name="email">Почта</string>
     <string name="register">Регистрация</string>
     <string name="login">Вход</string>
+    <string name="cocktail_like">Добавить коктейль в избранное</string>
 </resources>

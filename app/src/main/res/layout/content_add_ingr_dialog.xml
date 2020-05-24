@@ -64,14 +64,18 @@
         android:layout_alignParentBottom="true"
         android:background="@color/colorPrimary"
         android:gravity="center"
+        android:layout_marginBottom="@dimen/main_margin"
+
         android:orientation="horizontal">
 
-        <Button
+        <TextView
             android:id="@+id/back_from_add_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/min_margin"
+            android:layout_margin="@dimen/main_margin"
+            android:textColor="@color/colorAccent"
             android:gravity="center"
+            android:textAppearance="?attr/textAppearanceBody1"
             android:text="@string/back_button" />
     </LinearLayout>
 </RelativeLayout>

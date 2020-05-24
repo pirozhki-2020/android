@@ -1,6 +1,5 @@
 package com.pirozhki.alcohall.ingredients.ui;
 
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -52,7 +51,8 @@ public class AddIngredientDialogFragment extends DialogFragment {
         backFromAddButton.setOnClickListener(v -> {
             mAdapter.clearIngredients();
             mAdapter.notifyDataSetChanged();
-            findNavController(this).navigate(R.id.ingredientsFragment);
+            findNavController(this).navigate(AddIngredientDialogFragmentDirections
+                    .backFromAddIngredientToIngredientsFragment());
         });
 
         final TextInputEditText findIngredient = view.findViewById(R.id.searchIngredientEditText);
@@ -128,10 +128,9 @@ public class AddIngredientDialogFragment extends DialogFragment {
             mIngredientChip.setOnClickListener(v -> {
                 mAdapter.clearIngredients();
                 mAdapter.notifyDataSetChanged();
-                Bundle bundle = new Bundle();
-                bundle.putInt("ingredient_id", mIngredient.getId());
-                bundle.putString("ingredient_name", mIngredient.getName());
-                findNavController(AddIngredientDialogFragment.this).navigate(R.id.ingredientsFragment, bundle);
+                findNavController(AddIngredientDialogFragment.this)
+                        .navigate(AddIngredientDialogFragmentDirections.toIngredientsFragment()
+                                .setIngredientId(mIngredient.getId()).setIngredientName(mIngredient.getName()));
             });
         }
 

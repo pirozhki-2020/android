@@ -56,7 +56,10 @@ public class RecipeApiRepositoryImpl implements RecipeApiRepository {
         call.enqueue(new Callback<RecipeApi.OneRecipe>() {
             @Override
             public void onResponse(@NonNull Call<RecipeApi.OneRecipe> call, @NonNull Response<RecipeApi.OneRecipe> response) {
-                liveData.setValue(new OneRecipeResponse(Objects.requireNonNull(response.body()).data));
+                if (response.body() == null)
+                    liveData.setValue(new OneRecipeResponse(new HttpException(response)));
+                else
+                    liveData.setValue(new OneRecipeResponse(Objects.requireNonNull(response.body()).data));
             }
 
             @Override

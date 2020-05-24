@@ -1,6 +1,5 @@
 package com.pirozhki.alcohall.recipes.ui;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -23,6 +22,8 @@ import com.pirozhki.alcohall.recipes.viewmodel.RecipeViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static androidx.navigation.fragment.NavHostFragment.findNavController;
 
 public class RecipesFragment extends Fragment {
     private RecyclerView mRecipesRecyclerView;
@@ -51,25 +52,24 @@ public class RecipesFragment extends Fragment {
             }
         });
 
-        /*final Button backFromAddButton = view.findViewById(R.id.back_from_recipes_button);
-        backFromAddButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
+        final Button backFromRecipesButton = view.findViewById(R.id.back_from_recipes_button);
+        backFromRecipesButton.setOnClickListener(v -> {
+            mAdapter.clearRecipes();
+            mAdapter.notifyDataSetChanged();
+            findNavController(this).navigate(RecipesFragmentDirections.backFromRecipesToIngredientsFragment());
         });
 
+        Bundle args = getArguments();
+        if (args != null && RecipesFragmentArgs.fromBundle(args).getIds() != null) {
+            mRecipeViewModel.findRecipes(RecipesFragmentArgs.fromBundle(args).getIds());
+        }
 
-        Intent intent = getIntent();
-        ArrayList<Integer> ids = intent.getIntegerArrayListExtra("ids");
-        mRecipeViewModel.findRecipes(ids);*/
         return view;
     }
 
     public void onRecipeSelected(Recipe recipe) {
-        /*Intent intent = new Intent(this, OneRecipeActivity.class);
-        intent.putExtra("id", recipe.getId());
-        startActivity(intent);*/
+        findNavController(this).navigate(RecipesFragmentDirections.toOneRecipeFragment()
+                .setRecipeId(recipe.getId()));
     }
 
     private void handleError(Throwable error) {

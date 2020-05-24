@@ -49,7 +49,8 @@ public class IngredientsFragment extends Fragment {
         updateIngredientsList();
 
         FloatingActionButton addIngredientButton = view.findViewById(R.id.add_ingredient_button);
-        addIngredientButton.setOnClickListener(v -> findNavController(this).navigate(R.id.addIngredientFragment));
+        addIngredientButton.setOnClickListener(v -> findNavController(this).navigate(
+                IngredientsFragmentDirections.toAddIngredientFragment()));
 
         final Button findButton = view.findViewById(R.id.find_recipes_button);
         findButton.setOnClickListener(v -> {
@@ -61,9 +62,8 @@ public class IngredientsFragment extends Fragment {
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe(ingredientsIds -> {
-                            Bundle bundle = new Bundle();
-                            bundle.putIntegerArrayList("ids", new ArrayList<>(ingredientsIds));
-                            findNavController(this).navigate(R.id.recipesFragment, bundle);
+                            findNavController(this).navigate(
+                                    IngredientsFragmentDirections.toRecipesFragment().setIds(new ArrayList<>(ingredientsIds)));
                         }));
             }
         });
@@ -75,9 +75,9 @@ public class IngredientsFragment extends Fragment {
                 })));*/
 
         Bundle args = getArguments();
-        if (args != null) {
-            Ingredient ingredient = new Ingredient(args.getInt("ingredient_id"),
-                    args.getString("ingredient_name"));
+        if (args != null && IngredientsFragmentArgs.fromBundle(args).getIngredientId() != -1) {
+            Ingredient ingredient = new Ingredient(IngredientsFragmentArgs.fromBundle(args).getIngredientId(),
+                    IngredientsFragmentArgs.fromBundle(getArguments()).getIngredientName());
             mCompositeDisposable.add(mIngredientViewModel.addIngredient(ingredient).subscribe(() -> {
             }));
         }

@@ -1,6 +1,5 @@
 package com.pirozhki.alcohall.recipes.ui;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -9,7 +8,8 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -24,11 +24,11 @@ import com.pirozhki.alcohall.recipes.viewmodel.RecipeViewModel;
 import java.util.ArrayList;
 import java.util.List;
 
-public class OneRecipeActivity extends AppCompatActivity {
+public class OneRecipeFragment extends Fragment {
     private RecyclerView mIngredientsRecyclerView;
     private RecyclerView mStepsRecyclerView;
-    private OneRecipeActivity.IngredientAdapter mAdapter;
-    private OneRecipeActivity.StepAdapter mStepAdapter;
+    private OneRecipeFragment.IngredientAdapter mAdapter;
+    private OneRecipeFragment.StepAdapter mStepAdapter;
     private List<FullIngredient> mIngredients;
 
     private RecipeViewModel mRecipeViewModel;
@@ -36,16 +36,16 @@ public class OneRecipeActivity extends AppCompatActivity {
     private TextView mTitleTextView;
     private TextView mDescriptionTextView;
 
+    @Nullable
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.one_recipe_activity);
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        final View view = inflater.inflate(R.layout.fragment_one_recipe, container, false);
 
-        mTitleTextView = findViewById(R.id.one_recipe_name);
-        mDescriptionTextView = findViewById(R.id.one_recipe_description);
+        mTitleTextView = view.findViewById(R.id.one_recipe_name);
+        mDescriptionTextView = view.findViewById(R.id.one_recipe_description);
 
-        mIngredientsRecyclerView = findViewById(R.id.one_recipe_recycler_view);
-        LinearLayoutManager ingredientLayoutManager = new LinearLayoutManager(this) {
+        mIngredientsRecyclerView = view.findViewById(R.id.one_recipe_recycler_view);
+        LinearLayoutManager ingredientLayoutManager = new LinearLayoutManager(requireActivity()) {
             @Override
             public boolean canScrollVertically() {
                 return false;
@@ -53,21 +53,21 @@ public class OneRecipeActivity extends AppCompatActivity {
         };
 
         mIngredientsRecyclerView.setLayoutManager(ingredientLayoutManager);
-        mAdapter = new OneRecipeActivity.IngredientAdapter();
+        mAdapter = new OneRecipeFragment.IngredientAdapter();
         mIngredientsRecyclerView.setAdapter(mAdapter);
-        mStepsRecyclerView = findViewById(R.id.one_recipe_steps_recycler_view);
-        LinearLayoutManager stepsLayoutManager = new LinearLayoutManager(this) {
+        mStepsRecyclerView = view.findViewById(R.id.one_recipe_steps_recycler_view);
+        LinearLayoutManager stepsLayoutManager = new LinearLayoutManager(requireActivity()) {
             @Override
             public boolean canScrollVertically() {
                 return false;
             }
         };
         mStepsRecyclerView.setLayoutManager(stepsLayoutManager);
-        mStepAdapter = new OneRecipeActivity.StepAdapter();
+        mStepAdapter = new OneRecipeFragment.StepAdapter();
         mStepsRecyclerView.setAdapter(mStepAdapter);
 
         mRecipeViewModel = new ViewModelProvider(this).get(RecipeViewModel.class);
-        mRecipeViewModel.getOneRecipeApiResponse().observe(this, apiResponse -> {
+        mRecipeViewModel.getOneRecipeApiResponse().observe(getViewLifecycleOwner(), apiResponse -> {
             if (apiResponse.getError() != null) {
                 handleError(apiResponse.getError());
             } else {
@@ -75,9 +75,12 @@ public class OneRecipeActivity extends AppCompatActivity {
             }
         });
 
-        Intent intent = getIntent();
-        Integer id = intent.getIntExtra("id", 0);
-        mRecipeViewModel.findOneRecipe(String.valueOf(id));
+        Bundle args = getArguments();
+        if (args != null && OneRecipeFragmentArgs.fromBundle(args).getRecipeId() != -1) {
+            mRecipeViewModel.findOneRecipe(String.valueOf(OneRecipeFragmentArgs.fromBundle(args).getRecipeId()));
+        }
+
+        return view;
     }
 
     private void handleError(Throwable error) {
@@ -120,19 +123,19 @@ public class OneRecipeActivity extends AppCompatActivity {
         }
     }
 
-    private class IngredientAdapter extends RecyclerView.Adapter<OneRecipeActivity.IngredientHolder> {
+    private class IngredientAdapter extends RecyclerView.Adapter<OneRecipeFragment.IngredientHolder> {
         private List<FullIngredient> mIngredients = new ArrayList<>();
 
         @Override
         @NonNull
-        public OneRecipeActivity.IngredientHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-            LayoutInflater layoutInflater = LayoutInflater.from(OneRecipeActivity.this);
+        public OneRecipeFragment.IngredientHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+            LayoutInflater layoutInflater = LayoutInflater.from(OneRecipeFragment.this.requireActivity());
             View view = layoutInflater.inflate(R.layout.list_item_one_recipe_ingredient, parent, false);
-            return new OneRecipeActivity.IngredientHolder(view);
+            return new OneRecipeFragment.IngredientHolder(view);
         }
 
         @Override
-        public void onBindViewHolder(OneRecipeActivity.IngredientHolder holder, int position) {
+        public void onBindViewHolder(OneRecipeFragment.IngredientHolder holder, int position) {
             FullIngredient ingredient = mIngredients.get(position);
             holder.bindIngredient(ingredient);
         }
@@ -167,19 +170,19 @@ public class OneRecipeActivity extends AppCompatActivity {
         }
     }
 
-    private class StepAdapter extends RecyclerView.Adapter<OneRecipeActivity.StepHolder> {
+    private class StepAdapter extends RecyclerView.Adapter<OneRecipeFragment.StepHolder> {
         private List<String> mSteps = new ArrayList<>();
 
         @Override
         @NonNull
-        public OneRecipeActivity.StepHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-            LayoutInflater layoutInflater = LayoutInflater.from(OneRecipeActivity.this);
+        public OneRecipeFragment.StepHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+            LayoutInflater layoutInflater = LayoutInflater.from(OneRecipeFragment.this.requireActivity());
             View view = layoutInflater.inflate(R.layout.list_item_one_step, parent, false);
-            return new OneRecipeActivity.StepHolder(view);
+            return new OneRecipeFragment.StepHolder(view);
         }
 
         @Override
-        public void onBindViewHolder(OneRecipeActivity.StepHolder holder, int position) {
+        public void onBindViewHolder(OneRecipeFragment.StepHolder holder, int position) {
             Step step = new Step();
             step.setNumber(position + 1);
             step.setDescription(mSteps.get(position));

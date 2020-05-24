@@ -51,6 +51,7 @@ public class AddIngredientDialogFragment extends DialogFragment {
         backFromAddButton.setOnClickListener(v -> {
             mAdapter.clearIngredients();
             mAdapter.notifyDataSetChanged();
+            dismiss();
             findNavController(this).navigate(AddIngredientDialogFragmentDirections
                     .backFromAddIngredientToIngredientsFragment());
         });
@@ -128,6 +129,7 @@ public class AddIngredientDialogFragment extends DialogFragment {
             mIngredientChip.setOnClickListener(v -> {
                 mAdapter.clearIngredients();
                 mAdapter.notifyDataSetChanged();
+                dismiss();
                 findNavController(AddIngredientDialogFragment.this)
                         .navigate(AddIngredientDialogFragmentDirections.toIngredientsFragment()
                                 .setIngredientId(mIngredient.getId()).setIngredientName(mIngredient.getName()));

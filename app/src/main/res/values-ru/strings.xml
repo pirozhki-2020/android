@@ -2,14 +2,14 @@
     <string name="app_name">Alcohall</string>
     <string name="ingredients">Ингредиенты</string>
     <string name="add_ingredient_plus">+</string>
-    <string name="add_first_ingredient">Нажмите, чтобы добавить первый ингредиент</string>
+    <string name="add_ingredient">Добавить ингредиент</string>
     <string name="find_recipes">Найти рецепты</string>
     <string name="clear_ingredients">Очистить</string>
     <string name="find_ingredients_input">Введите название</string>
     <string name="back_button">назад</string>
     <string name="add_page_name">Добавить</string>
     <string name="no_chosen_error">Не выбран ни один ингредиент!</string>
-    <string name="no_chosen_help">Нажмите на плюс в правом верхнем углу экрана, чтобы добавить игредиент</string>
+    <string name="no_chosen_help">Нажмите на кнопку с плюсом в правом нижнем углу экрана, чтобы добавить игредиент</string>
     <string name="no_results">Ничего не найдено</string>
     <string name="new_ingredient">Новый ингредиент</string>
     <string name="ingredient_name">Название ингредиента</string>
@@ -26,4 +26,10 @@
     <string name="login">Вход</string>
     <string name="cocktail_like">Добавить коктейль в избранное</string>
     <string name="selections">Подборки</string>
+    <string name="nav_search">Поиск</string>
+    <string name="nav_favorites">Понравилось</string>
+    <string name="nav_selections">Подборки</string>
+    <string name="nav_profile">Профиль</string>
+    <string name="email_exists">Пользователь с таким email уже существует!</string>
+    <string name="error_auth_text_view">Ошибка! Что-то пошло не так!</string>
 </resources>

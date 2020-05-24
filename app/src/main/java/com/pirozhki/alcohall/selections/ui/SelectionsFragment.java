@@ -37,17 +37,17 @@ public class SelectionsFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         final View view = inflater.inflate(R.layout.selections_fragment, null);
 
-        mSelectionViewModel = new ViewModelProvider(Objects.requireNonNull(getActivity())).get(SelectionViewModel.class);
+        mSelectionViewModel = new ViewModelProvider(this).get(SelectionViewModel.class);
 
 
         mNoResultsTextView = view.findViewById(R.id.no_selections_text_view);
 
         mSelectionsRecyclerView = view.findViewById(R.id.selections_recycler_view);
-        mSelectionsRecyclerView.setLayoutManager(new LinearLayoutManager(Objects.requireNonNull(getActivity())));
+        mSelectionsRecyclerView.setLayoutManager(new LinearLayoutManager(requireActivity()));
         mAdapter = new SelectionsFragment.SelectionAdapter();
         mSelectionsRecyclerView.setAdapter(mAdapter);
 
-        mSelectionViewModel.getApiResponse().observe(Objects.requireNonNull(getActivity()), apiResponse -> {
+        mSelectionViewModel.getApiResponse().observe(getViewLifecycleOwner(), apiResponse -> {
             if (apiResponse.getError() != null) {
                 handleError(apiResponse.getError());
             } else {

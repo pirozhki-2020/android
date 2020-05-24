@@ -29,7 +29,7 @@ public class RecipeViewModel extends ViewModel {
         return mRecipeApiResponse;
     }
 
-    public LiveData<RecipeApiResponse> findRecipes(@NonNull ArrayList<Integer> ids) {
+    public LiveData<RecipeApiResponse> findRecipes(ArrayList<Integer> ids) {
         mRecipeApiResponse.addSource(
                 mRecipeApiRepository.findRecipes(ids),
                 apiResponse -> mRecipeApiResponse.setValue(apiResponse)

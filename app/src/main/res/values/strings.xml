@@ -2,14 +2,14 @@
     <string name="app_name">Alcohall</string>
     <string name="ingredients">Ingredients</string>
     <string name="add_ingredient_plus">+</string>
-    <string name="add_first_ingredient">Click to add the first ingredient</string>
+    <string name="add_ingredient">Add ingredient</string>
     <string name="find_recipes">Find recipes</string>
     <string name="clear_ingredients">Clear</string>
     <string name="find_ingredients_input">Input ingredient name</string>
     <string name="back_button">back</string>
     <string name="add_page_name">Add</string>
     <string name="no_chosen_error">No ingredients chosen!</string>
-    <string name="no_chosen_help">Click plus on right top corner to add ingredient</string>
+    <string name="no_chosen_help">Click plus button on right bottom corner to add ingredient</string>
     <string name="no_results">No results</string>
     <string name="new_ingredient">New ingredient</string>
     <string name="ingredient_name">Ingredient name</string>
@@ -26,4 +26,10 @@
     <string name="login">Login</string>
     <string name="cocktail_like">Add cocktail to favourites</string>
     <string name="selections">Selections</string>
+    <string name="nav_search">Search</string>
+    <string name="nav_favorites">Favorites</string>
+    <string name="nav_selections">Selections</string>
+    <string name="nav_profile">Profile</string>
+    <string name="email_exists">User with this email already exists!</string>
+    <string name="error_auth_text_view">Error! Something gets wrong!</string>
 </resources>

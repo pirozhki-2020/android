@@ -17,14 +17,15 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.pirozhki.alcohall.R;
 import com.pirozhki.alcohall.recipes.model.Recipe;
-import com.pirozhki.alcohall.recipes.ui.OneRecipeActivity;
-import com.pirozhki.alcohall.recipes.ui.RecipesActivity;
+import com.pirozhki.alcohall.recipes.ui.RecipesFragmentDirections;
 import com.pirozhki.alcohall.selections.model.Selection;
 import com.pirozhki.alcohall.selections.viewmodel.SelectionViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+
+import static androidx.navigation.fragment.NavHostFragment.findNavController;
 
 public class OneSelectionFragment extends Fragment {
     private RecyclerView mRecipeRecyclerView;
@@ -40,7 +41,7 @@ public class OneSelectionFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         final View view = inflater.inflate(R.layout.selections_fragment, null);
 
-        mSelectionViewModel = new ViewModelProvider(Objects.requireNonNull(getActivity())).get(SelectionViewModel.class);
+        mSelectionViewModel = new ViewModelProvider(this).get(SelectionViewModel.class);
 
 
         mTitleTextView = view.findViewById(R.id.one_selection_name);
@@ -48,11 +49,11 @@ public class OneSelectionFragment extends Fragment {
 
 
         mRecipeRecyclerView = view.findViewById(R.id.one_selection_recipes_recycler_view);
-        mRecipeRecyclerView.setLayoutManager(new LinearLayoutManager(Objects.requireNonNull(getActivity())));
+        mRecipeRecyclerView.setLayoutManager(new LinearLayoutManager(requireActivity()));
         mAdapter = new RecipeAdapter();
         mRecipeRecyclerView.setAdapter(mAdapter);
 
-        mSelectionViewModel.getOneSelectionApiResponse().observe(Objects.requireNonNull(getActivity()), apiResponse -> {
+        mSelectionViewModel.getOneSelectionApiResponse().observe(getViewLifecycleOwner(), apiResponse -> {
             if (apiResponse.getError() != null) {
                 handleError(apiResponse.getError());
             } else {
@@ -65,9 +66,8 @@ public class OneSelectionFragment extends Fragment {
     }
 
     public void onRecipeSelected(Recipe recipe) {
-        Intent intent = new Intent(this.getActivity(), OneRecipeActivity.class);
-        intent.putExtra("id", recipe.getId());
-        startActivity(intent);
+        findNavController(this).navigate(RecipesFragmentDirections.toOneRecipeFragment()
+                .setRecipeId(recipe.getId()));
     }
 
     private void handleError(Throwable error) {
@@ -113,7 +113,6 @@ public class OneSelectionFragment extends Fragment {
         public void bindRecipe(Recipe recipe) {
             mRecipe = recipe;
             mTitleTextView.setText(mRecipe.getName());
-            //mVolumeTextView.setText(String.valueOf(mIngredient.getVolumeMl()));
         }
     }
 

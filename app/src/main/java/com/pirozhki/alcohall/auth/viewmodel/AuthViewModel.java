@@ -13,7 +13,6 @@ public class AuthViewModel extends ViewModel {
     private MediatorLiveData<AuthApiResponse> mAuthApiResponse;
     private AuthApiRepository mAuthApiRepository;
 
-
     public AuthViewModel() {
         mAuthApiResponse = new MediatorLiveData<>();
         mAuthApiRepository = new AuthApiRepositoryImpl();

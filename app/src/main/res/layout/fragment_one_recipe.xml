@@ -7,12 +7,11 @@
     android:padding="@dimen/main_padding"
     android:textAlignment="textEnd">
 
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/main_margin"
         android:layout_marginLeft="@dimen/main_margin"
+        android:layout_marginTop="@dimen/main_margin"
         android:layout_marginRight="@dimen/main_margin"
         android:layout_marginBottom="0dp">
 
@@ -37,9 +36,9 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingRight="@dimen/main_margin"
+        android:layout_weight="1"
         android:paddingLeft="@dimen/main_margin"
-        android:layout_weight="1">
+        android:paddingRight="@dimen/main_margin">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -81,11 +80,4 @@
             </LinearLayout>
         </LinearLayout>
     </ScrollView>
-
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/bottom_navigation"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-
-        app:menu="@menu/bottom_navigation_menu" />
 </LinearLayout>

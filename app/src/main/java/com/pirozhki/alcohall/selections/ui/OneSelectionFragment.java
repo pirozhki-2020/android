@@ -1,6 +1,5 @@
 package com.pirozhki.alcohall.selections.ui;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -17,13 +16,14 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.pirozhki.alcohall.R;
 import com.pirozhki.alcohall.recipes.model.Recipe;
+import com.pirozhki.alcohall.recipes.ui.OneRecipeFragmentArgs;
 import com.pirozhki.alcohall.recipes.ui.RecipesFragmentDirections;
 import com.pirozhki.alcohall.selections.model.Selection;
+import com.pirozhki.alcohall.selections.network.SelectionApi;
 import com.pirozhki.alcohall.selections.viewmodel.SelectionViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 import static androidx.navigation.fragment.NavHostFragment.findNavController;
 
@@ -39,7 +39,7 @@ public class OneSelectionFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        final View view = inflater.inflate(R.layout.selections_fragment, null);
+        final View view = inflater.inflate(R.layout.fragment_one_selection, null);
 
         mSelectionViewModel = new ViewModelProvider(this).get(SelectionViewModel.class);
 
@@ -61,12 +61,16 @@ public class OneSelectionFragment extends Fragment {
             }
         });
 
+        Bundle args = getArguments();
+        if (args != null && OneSelectionFragmentArgs.fromBundle(args).getSelectionId() != -1) {
+            mSelectionViewModel.getOneSelection(String.valueOf(OneSelectionFragmentArgs.fromBundle(args).getSelectionId()));
+        }
 
         return view;
     }
 
     public void onRecipeSelected(Recipe recipe) {
-        findNavController(this).navigate(RecipesFragmentDirections.toOneRecipeFragment()
+        findNavController(this).navigate(OneSelectionFragmentDirections.toOneRecipeFragmentFromSelection()
                 .setRecipeId(recipe.getId()));
     }
 
@@ -75,7 +79,7 @@ public class OneSelectionFragment extends Fragment {
     }
 
     private void handleResponse(Selection selection) {
-        if (selection != null) {
+        if (selection.getRecipes() != null && selection.getRecipes().size() > 0) {
             mAdapter.setRecipes(selection.getRecipes());
             mAdapter.notifyDataSetChanged();
         } else {

@@ -10,10 +10,10 @@ import retrofit2.http.GET;
 import retrofit2.http.Query;
 
 public interface SelectionApi {
-    @GET("/selection.get")
+    @GET("/selections.get")
     Call<OneSelection> getSelection(@Query("id") String id);
 
-    @GET("/selection.list")
+    @GET("/selections.list")
     Call<Selections> getSelectionList(@Query("from_id") String from_id, @Query("limit") String limit);
 
     class SelectionsData {

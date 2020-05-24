@@ -129,4 +129,33 @@
             app:nullable="true" />
     </fragment>
 
+    <fragment
+        android:id="@+id/selectionsFragment"
+        android:name="com.pirozhki.alcohall.selections.ui.SelectionsFragment"
+        android:label="fragment_selections"
+        tools:layout="@layout/fragment_selections">
+
+        <action android:id="@+id/toOneSelectionFragment"
+            app:destination="@id/oneSelectionFragment"
+            />
+    </fragment>
+
+    <fragment
+        android:id="@+id/oneSelectionFragment"
+        android:name="com.pirozhki.alcohall.selections.ui.OneSelectionFragment"
+        android:label="fragment_one_selection"
+        tools:layout="@layout/fragment_one_selection">
+
+        <action android:id="@+id/toOneRecipeFragmentFromSelection"
+            app:destination="@id/oneRecipeFragment"
+            />
+
+        <argument
+            android:name="selectionId"
+            android:defaultValue="-1"
+            app:argType="integer" />
+
+    </fragment>
+
+
 </navigation>

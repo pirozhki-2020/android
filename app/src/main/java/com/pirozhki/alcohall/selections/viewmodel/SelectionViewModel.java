@@ -26,7 +26,7 @@ public class SelectionViewModel extends ViewModel {
         return mSelectionApiResponse;
     }
 
-    public LiveData<SelectionsApiResponse> getSelections(Integer from_id, Integer limit) {
+    public LiveData<SelectionsApiResponse> getSelections(String from_id, String limit) {
         mSelectionApiResponse.addSource(
                 mSelectionApiRepository.getSelections(from_id, limit),
                 apiResponse -> mSelectionApiResponse.setValue(apiResponse)
@@ -39,7 +39,7 @@ public class SelectionViewModel extends ViewModel {
         return mOneSelectionResponse;
     }
 
-    public LiveData<OneSelectionApiResponse> getOneSelection(@NonNull Integer id) {
+    public LiveData<OneSelectionApiResponse> getOneSelection(@NonNull String id) {
         mOneSelectionResponse.addSource(
                 mSelectionApiRepository.getOneSelection(id),
                 apiResponse -> mOneSelectionResponse.setValue(apiResponse)

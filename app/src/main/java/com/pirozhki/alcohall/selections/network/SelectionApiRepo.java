@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData;
 
 public interface SelectionApiRepo {
 
-    LiveData<OneSelectionApiResponse> getOneSelection(Integer id);
+    LiveData<OneSelectionApiResponse> getOneSelection(String id);
 
-    LiveData<SelectionsApiResponse> getSelections(Integer from_id, Integer limit);
+    LiveData<SelectionsApiResponse> getSelections(String from_id, String limit);
 }

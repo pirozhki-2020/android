@@ -15,12 +15,14 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.pirozhki.alcohall.R;
+import com.pirozhki.alcohall.recipes.ui.RecipesFragmentDirections;
 import com.pirozhki.alcohall.selections.model.Selection;
 import com.pirozhki.alcohall.selections.viewmodel.SelectionViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
+
+import static androidx.navigation.fragment.NavHostFragment.findNavController;
 
 public class SelectionsFragment extends Fragment {
     private RecyclerView mSelectionsRecyclerView;
@@ -35,7 +37,7 @@ public class SelectionsFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        final View view = inflater.inflate(R.layout.selections_fragment, null);
+        final View view = inflater.inflate(R.layout.fragment_selections, null);
 
         mSelectionViewModel = new ViewModelProvider(this).get(SelectionViewModel.class);
 
@@ -55,12 +57,15 @@ public class SelectionsFragment extends Fragment {
             }
         });
 
+        mSelectionViewModel.getSelections("","");
 
         return view;
     }
 
 
-    public void onSelectionSelected(Selection Selection) {
+    public void onSelectionSelected(Selection selection) {
+        findNavController(this).navigate(SelectionsFragmentDirections.toOneSelectionFragment()
+                .setSelectionId(selection.getId()));
     }
 
     private void handleError(Throwable error) {
@@ -96,6 +101,10 @@ public class SelectionsFragment extends Fragment {
                 public void onClick(View v) {
                     onSelectionSelected(mSelection);
                 }
+            });
+
+            mDescriptionTextView.setOnClickListener(v -> {
+                onSelectionSelected(mSelection);
             });
         }
 

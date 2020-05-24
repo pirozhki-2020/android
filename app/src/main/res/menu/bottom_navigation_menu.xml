@@ -11,7 +11,7 @@
         android:icon="@drawable/ic_favorite_black_24dp"
         android:title="@string/nav_favorites" />
     <item
-        android:id="@+id/page_selections"
+        android:id="@+id/selectionsFragment"
         android:enabled="true"
         android:icon="?attr/actionModeCopyDrawable"
         android:title="@string/nav_selections" />

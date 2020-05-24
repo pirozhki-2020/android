@@ -61,7 +61,7 @@ public class RecipesActivity extends AppCompatActivity {
 
 
         Intent intent = getIntent();
-        int[] ids = intent.getIntArrayExtra("ids");
+        ArrayList<Integer> ids = intent.getIntegerArrayListExtra("ids");
         mRecipeViewModel.findRecipes(ids);
     }
 

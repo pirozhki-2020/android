@@ -7,6 +7,10 @@ import com.pirozhki.alcohall.ingredients.repository.IngredientRepository;
 
 import java.util.List;
 
+import io.reactivex.Completable;
+import io.reactivex.Flowable;
+import io.reactivex.Single;
+
 public class IngredientViewModel extends ViewModel {
     private IngredientRepository mIngredientRepository;
 
@@ -14,31 +18,23 @@ public class IngredientViewModel extends ViewModel {
         mIngredientRepository = IngredientRepository.getInstance();
     }
 
-    public List<Ingredient> getIngredients() {
+    public Flowable<List<Ingredient>> getIngredients() {
         return mIngredientRepository.getIngredients();
     }
 
-    public void setIngredients(List<Ingredient> ingredients) {
-        mIngredientRepository.setIngredients(ingredients);
+    public Completable addIngredient(Ingredient ingredient) {
+        return mIngredientRepository.addIngredient(ingredient);
     }
 
-    public void addIngredient(Ingredient ingredient) {
-        mIngredientRepository.addIngredient(ingredient);
+    public Completable removeIngredient(Ingredient ingredient) {
+        return mIngredientRepository.removeIngredient(ingredient);
     }
 
-    public void removeIngredient(Ingredient ingredient) {
-        mIngredientRepository.removeIngredient(ingredient);
+    public Completable clearIngredients() {
+        return mIngredientRepository.clearIngredients();
     }
 
-    public void clearIngredients() {
-        mIngredientRepository.clearIngredients();
-    }
-
-    public boolean areIngredientsEmpty() {
-        return mIngredientRepository.areIngredientsEmpty();
-    }
-
-    public int[] getIngredientsIds() {
+    public Single<List<Integer>> getIngredientsIds() {
         return mIngredientRepository.getIngredientsIds();
     }
 }

@@ -1,4 +1,4 @@
-package com.pirozhki.alcohall.auth.ui;
+package com.pirozhki.alcohall.user.ui;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -15,9 +15,8 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.pirozhki.alcohall.R;
-import com.pirozhki.alcohall.auth.model.User;
-import com.pirozhki.alcohall.auth.viewmodel.AuthViewModel;
-import com.pirozhki.alcohall.ingredients.ui.AddIngredientDialogFragment;
+import com.pirozhki.alcohall.user.model.User;
+import com.pirozhki.alcohall.user.viewmodel.AuthViewModel;
 
 import static androidx.navigation.fragment.NavHostFragment.findNavController;
 
@@ -65,13 +64,13 @@ public class AuthFragment extends Fragment {
             toRegisterButton.setEnabled(false);
         });
 
-        mErrorTextView = view.findViewById(R.id.error_auth);
+        mErrorTextView = view.findViewById(R.id.error_auth_text_view);
 
         return view;
     }
 
     private void handleError(Throwable error) {
-        Log.e(AddIngredientDialogFragment.class.getName(), "error occurred while get api response: " + error.getMessage());
+        Log.e(AuthFragment.class.getName(), "error occurred while get api response: " + error.getMessage());
         mErrorTextView.setVisibility(View.VISIBLE);
         if (error.getMessage() != null && error.getMessage().equals("Conflict")) {
             mErrorTextView.setText(R.string.email_exists);
@@ -83,7 +82,7 @@ public class AuthFragment extends Fragment {
     private void handleResponse(User user) {
         if (user != null) {
             mErrorTextView.setVisibility(View.GONE);
-            findNavController(this).navigate(AuthFragmentDirections.toProfileFragment().setUserId(user.getId()));
+            findNavController(this).navigate(AuthFragmentDirections.toProfileFragment());
         } else {
             mErrorTextView.setVisibility(View.VISIBLE);
         }

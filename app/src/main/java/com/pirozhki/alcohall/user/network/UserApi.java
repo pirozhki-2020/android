@@ -1,14 +1,14 @@
-package com.pirozhki.alcohall.auth.network;
+package com.pirozhki.alcohall.user.network;
 
-import com.pirozhki.alcohall.auth.model.User;
-import com.pirozhki.alcohall.ingredients.network.IngredientApi;
+import com.pirozhki.alcohall.user.model.User;
 import com.squareup.moshi.Json;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.GET;
 import retrofit2.http.POST;
 
-public interface AuthApi {
+public interface UserApi {
 
     @POST("/user.sign_up")
     Call<UserAnswer> regUser(@Body AuthBody body);
@@ -16,6 +16,8 @@ public interface AuthApi {
     @POST("/user.sign_in")
     Call<UserAnswer> loginUser(@Body AuthBody body);
 
+    @GET("/user.get")
+    Call<OneUser> getUser();
 
     class UserAnswer {
         @Json(name = "status")
@@ -36,5 +38,12 @@ public interface AuthApi {
             email = e;
             password = p;
         }
+    }
+
+    class OneUser {
+        @Json(name = "status")
+        public String status;
+        @Json(name = "data")
+        public User data;
     }
 }

@@ -1,4 +1,4 @@
-package com.pirozhki.alcohall.auth.model;
+package com.pirozhki.alcohall.user.model;
 
 import com.squareup.moshi.Json;
 

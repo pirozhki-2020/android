@@ -165,4 +165,12 @@
 
     </fragment>
 
+    <fragment android:id="@+id/likesFragment"
+        android:name="com.pirozhki.alcohall.likes.ui.LikesFragment"
+        android:label="fragment_likes"
+        tools:layout="@layout/fragment_likes">
+        <action android:id="@+id/toOneRecipeFragmentFromLikes"
+            app:destination="@id/oneRecipeFragment" />
+    </fragment>
+
 </navigation>

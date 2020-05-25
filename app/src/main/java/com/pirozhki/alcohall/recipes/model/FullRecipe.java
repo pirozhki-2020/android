@@ -3,6 +3,8 @@ package com.pirozhki.alcohall.recipes.model;
 import android.net.Uri;
 import android.util.Log;
 
+import androidx.annotation.Nullable;
+
 import com.pirozhki.alcohall.R;
 import com.pirozhki.alcohall.common.RetrofitInstance;
 import com.squareup.moshi.Json;
@@ -25,8 +27,9 @@ public class FullRecipe extends Recipe {
     @Json(name = "image_link")
     private String mImageLink;
 
+    @Nullable
     @Json(name = "is_liked")
-    private Boolean mIsLiked = false;
+    private Boolean  mIsLiked;
 
     public List<String> getSteps() {
         return mSteps;

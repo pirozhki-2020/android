@@ -61,10 +61,13 @@ public class RecipeApiRepositoryImpl implements RecipeApiRepository {
             @Override
             public void onResponse(@NonNull Call<RecipeApi.OneRecipe> call, @NonNull Response<RecipeApi.OneRecipe> response) {
                 System.out.println(response);
-                if (response.body() == null)
+                if (response.body() == null) {
+
                     oneRecipeLiveData.setValue(new OneRecipeResponse(new HttpException(response)));
-                else
+                } else {
+                    System.out.println(response.body().data.getIsLiked());
                     oneRecipeLiveData.setValue(new OneRecipeResponse(Objects.requireNonNull(response.body()).data));
+                }
             }
 
             @Override
@@ -76,8 +79,8 @@ public class RecipeApiRepositoryImpl implements RecipeApiRepository {
     }
 
     @Override
-    public  void like (Integer id) {
-        RecipeApi.LikeBody body  = new RecipeApi.LikeBody();
+    public void like(Integer id) {
+        RecipeApi.LikeBody body = new RecipeApi.LikeBody();
         body.id = id;
         Call<RecipeApi.Like> call = mRecipeApi.likeCocktail(body);
 

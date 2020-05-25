@@ -6,7 +6,7 @@
         android:icon="?android:attr/actionModeWebSearchDrawable"
         android:title="@string/nav_search" />
     <item
-        android:id="@+id/page_favorites"
+        android:id="@+id/likesFragment"
         android:enabled="true"
         android:icon="@drawable/ic_favorite_black_24dp"
         android:title="@string/nav_favorites" />

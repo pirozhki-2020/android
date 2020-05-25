@@ -110,11 +110,11 @@ public class OneRecipeFragment extends Fragment {
             mStepAdapter.setSteps(recipe.getSteps());
             mStepAdapter.notifyDataSetChanged();
 
-/*            if (recipe.getIsLiked())
+            if (recipe.getIsLiked())
             {
                 mLikeButtonInactive.setVisibility(View.GONE);
                 mLikeButtonActive.setVisibility(View.VISIBLE);
-            }*/
+            }
 
             if (recipe.getName() != null) {
                 mTitleTextView.setText(recipe.getName());

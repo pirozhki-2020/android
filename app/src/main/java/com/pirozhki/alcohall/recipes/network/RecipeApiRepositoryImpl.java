@@ -88,7 +88,10 @@ public class RecipeApiRepositoryImpl implements RecipeApiRepository {
             @Override
             public void onResponse(@NonNull Call<RecipeApi.Like> call, @NonNull Response<RecipeApi.Like> response) {
                 System.out.println(response);
+
                 if (response.body() != null && response.body().status.equals("ok")) {
+                    System.out.println(response.body().status);
+                    System.out.println(response.body().data.liked);
                     findOneRecipe(id.toString());
                 }
             }

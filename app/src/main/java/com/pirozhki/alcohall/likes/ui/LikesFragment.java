@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.pirozhki.alcohall.R;
 import com.pirozhki.alcohall.ingredients.ui.AddIngredientDialogFragment;
+import com.pirozhki.alcohall.likes.network.LikesApi;
 import com.pirozhki.alcohall.likes.viewmodel.LikesViewModel;
 import com.pirozhki.alcohall.recipes.model.Recipe;
 import com.pirozhki.alcohall.recipes.ui.RecipesFragment;
@@ -62,7 +63,7 @@ public class LikesFragment extends Fragment {
     }
 
     public void onRecipeSelected(Recipe recipe) {
-        findNavController(this).navigate(RecipesFragmentDirections.toOneRecipeFragment()
+        findNavController(this).navigate(LikesFragmentDirections.toOneRecipeFragmentFromLikes()
                 .setRecipeId(recipe.getId()));
     }
 

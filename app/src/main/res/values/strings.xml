@@ -32,7 +32,11 @@
     <string name="nav_favorites">Favorites</string>
     <string name="nav_selections">Selections</string>
     <string name="nav_profile">Profile</string>
-    <string name="email_exists">User with this email already exists!</string>
-    <string name="error_auth_text_view">Error! Something gets wrong!</string>
+    <string name="email_exists">User with this email already exists</string>
+    <string name="error_auth_text_view">Something went wrong</string>
     <string name="cocktail_image">Cocktail image</string>
+    <string name="profile">Profile</string>
+    <string name="profile_email">Email:</string>
+    <string name="profile_first_name">First name:</string>
+    <string name="profile_last_name">Last name:</string>
 </resources>

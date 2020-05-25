@@ -1,4 +1,4 @@
-package com.pirozhki.alcohall.auth.ui;
+package com.pirozhki.alcohall.user.ui;
 
 import android.os.Bundle;
 import android.text.Editable;
@@ -16,7 +16,7 @@ import androidx.lifecycle.ViewModelProvider;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.pirozhki.alcohall.R;
-import com.pirozhki.alcohall.auth.viewmodel.AuthViewModel;
+import com.pirozhki.alcohall.user.viewmodel.AuthViewModel;
 
 import java.util.regex.Pattern;
 

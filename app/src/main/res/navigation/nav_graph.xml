@@ -103,7 +103,7 @@
 
     <fragment
         android:id="@+id/authFragment"
-        android:name="com.pirozhki.alcohall.auth.ui.AuthFragment"
+        android:name="com.pirozhki.alcohall.user.ui.AuthFragment"
         android:label="fragment_auth"
         tools:layout="@layout/fragment_auth">
 
@@ -118,7 +118,7 @@
 
     <fragment
         android:id="@+id/profileFragment"
-        android:name="com.pirozhki.alcohall.auth.ui.ProfileFragment"
+        android:name="com.pirozhki.alcohall.user.ui.ProfileFragment"
         android:label="fragment_profile"
         tools:layout="@layout/fragment_profile">
 
@@ -129,12 +129,6 @@
             app:exitAnim="@anim/fragment_fade_exit"
             app:popEnterAnim="@anim/fragment_close_enter"
             app:popExitAnim="@anim/fragment_close_exit" />
-
-        <argument
-            android:name="userId"
-            android:defaultValue="@null"
-            app:argType="string"
-            app:nullable="true" />
     </fragment>
 
     <fragment

@@ -35,7 +35,7 @@
         android:orientation="vertical" />
 
     <TextView
-        android:id="@+id/error_auth"
+        android:id="@+id/error_auth_text_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/error_auth_text_view"

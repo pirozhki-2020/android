@@ -27,7 +27,7 @@ public class LoginFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        final View view = inflater.inflate(R.layout.login_fragment, container, false);
+        final View view = inflater.inflate(R.layout.fragment_login, container, false);
 
         final TextInputEditText emailEditText = view.findViewById(R.id.emailEditField_login);
         final TextInputLayout emailInputLayout = view.findViewById(R.id.emailTextField_login);

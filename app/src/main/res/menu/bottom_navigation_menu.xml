@@ -16,7 +16,7 @@
         android:icon="?attr/actionModeCopyDrawable"
         android:title="@string/nav_selections" />
     <item
-        android:id="@+id/authFragment"
+        android:id="@+id/profileFragment"
         android:enabled="true"
         android:icon="@drawable/ic_account_circle_black_24dp"
         android:title="@string/nav_profile" />

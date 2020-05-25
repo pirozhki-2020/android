@@ -122,6 +122,14 @@
         android:label="fragment_profile"
         tools:layout="@layout/fragment_profile">
 
+        <action
+            android:id="@+id/toAuthFragment"
+            app:destination="@id/authFragment"
+            app:enterAnim="@anim/fragment_fade_enter"
+            app:exitAnim="@anim/fragment_fade_exit"
+            app:popEnterAnim="@anim/fragment_close_enter"
+            app:popExitAnim="@anim/fragment_close_exit" />
+
         <argument
             android:name="userId"
             android:defaultValue="@null"
@@ -135,9 +143,9 @@
         android:label="fragment_selections"
         tools:layout="@layout/fragment_selections">
 
-        <action android:id="@+id/toOneSelectionFragment"
-            app:destination="@id/oneSelectionFragment"
-            />
+        <action
+            android:id="@+id/toOneSelectionFragment"
+            app:destination="@id/oneSelectionFragment" />
     </fragment>
 
     <fragment
@@ -146,9 +154,9 @@
         android:label="fragment_one_selection"
         tools:layout="@layout/fragment_one_selection">
 
-        <action android:id="@+id/toOneRecipeFragmentFromSelection"
-            app:destination="@id/oneRecipeFragment"
-            />
+        <action
+            android:id="@+id/toOneRecipeFragmentFromSelection"
+            app:destination="@id/oneRecipeFragment" />
 
         <argument
             android:name="selectionId"
@@ -156,6 +164,5 @@
             app:argType="integer" />
 
     </fragment>
-
 
 </navigation>

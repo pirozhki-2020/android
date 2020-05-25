@@ -27,7 +27,7 @@ public class RegisterFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        final View view = inflater.inflate(R.layout.reg_fragment, container, false);
+        final View view = inflater.inflate(R.layout.fragment_register, container, false);
 
         final TextInputEditText emailEditText = view.findViewById(R.id.emailEditField_reg);
         final TextInputEditText passwordEditText = view.findViewById(R.id.passwordEditField_reg);

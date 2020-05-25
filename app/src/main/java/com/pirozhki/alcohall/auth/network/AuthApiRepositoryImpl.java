@@ -54,7 +54,6 @@ public class AuthApiRepositoryImpl implements AuthApiRepository {
         call.enqueue(new Callback<AuthApi.UserAnswer>() {
             @Override
             public void onResponse(@NonNull Call<AuthApi.UserAnswer> call, @NonNull Response<AuthApi.UserAnswer> response) {
-                System.out.println(response);
                 if (response.code() == 200) {
                     liveData.setValue(new AuthApiResponse(Objects.requireNonNull(response.body()).data));
                 } else {
@@ -71,4 +70,3 @@ public class AuthApiRepositoryImpl implements AuthApiRepository {
 
     }
 }
-

@@ -5,6 +5,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -31,7 +32,7 @@ public class ProfileFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         final View view = inflater.inflate(R.layout.fragment_profile, container, false);
 
-        if (!RetrofitInstance.haveCookies()) { // TODO: save cookies in android storage
+        if (!RetrofitInstance.haveCookies()) {
             findNavController(this).navigate(ProfileFragmentDirections.toAuthFragment());
         } else {
             mProfileViewModel = new ViewModelProvider(requireActivity()).get(ProfileViewModel.class);

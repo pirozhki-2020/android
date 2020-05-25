@@ -36,5 +36,6 @@
     <string name="error_auth_text_view">Ошибка! Что-то пошло не так!</string>
     <string name="cocktail_image">Изображение коктейля</string>
     <string name="likes">Понравилось</string>
-    <string name="no_likes_found">У вас пок анет понравившихся коктейлей. </string>
+    <string name="no_likes_found">У вас пока нет понравившихся коктейлей.</string>
+    <string name="not_autorized">Вы не авторизованы.</string>
 </resources>

@@ -37,4 +37,5 @@
     <string name="cocktail_image">Cocktail image</string>
     <string name="likes">Likes</string>
     <string name="no_likes_found">No likes found</string>
+    <string name="not_autorized">You are not autorised</string>
 </resources>

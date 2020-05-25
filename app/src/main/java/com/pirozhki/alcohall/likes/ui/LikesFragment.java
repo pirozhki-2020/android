@@ -36,6 +36,7 @@ public class LikesFragment extends Fragment {
     private LikesViewModel mLikesViewModel;
 
     private TextView mNoResultsTextView;
+    private TextView mNotAutoTextView;
 
     @Nullable
     @Override
@@ -43,6 +44,7 @@ public class LikesFragment extends Fragment {
         final View view = inflater.inflate(R.layout.fragment_likes, container, false);
 
         mNoResultsTextView = view.findViewById(R.id.no_likes_text_view);
+        mNotAutoTextView = view.findViewById(R.id.not_autorized_text_view);
 
         mRecipesRecyclerView = view.findViewById(R.id.likes_recycler_view);
         mRecipesRecyclerView.setLayoutManager(new LinearLayoutManager(requireActivity()));
@@ -69,17 +71,22 @@ public class LikesFragment extends Fragment {
 
     private void handleError(Throwable error) {
         Log.e(AddIngredientDialogFragment.class.getName(), "error occurred while get api response: " + error.toString());
+        mAdapter.clearRecipes();
+        mAdapter.notifyDataSetChanged();
+        mNotAutoTextView.setVisibility(View.VISIBLE);
     }
 
     private void handleResponse(List<Recipe> recipes) {
         if (recipes != null && recipes.size() > 0) {
             mAdapter.setRecipes(recipes);
             mAdapter.notifyDataSetChanged();
-            mNoResultsTextView.setVisibility(View.INVISIBLE);
+            mNoResultsTextView.setVisibility(View.GONE);
+            mNotAutoTextView.setVisibility(View.GONE);
         } else {
             mAdapter.clearRecipes();
             mAdapter.notifyDataSetChanged();
             mNoResultsTextView.setVisibility(View.VISIBLE);
+            mNotAutoTextView.setVisibility(View.GONE);
         }
     }
 

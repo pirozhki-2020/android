@@ -27,7 +27,6 @@ public class FullRecipe extends Recipe {
     @Json(name = "image_link")
     private String mImageLink;
 
-    @Nullable
     @Json(name = "is_liked")
     private Boolean  mIsLiked;
 

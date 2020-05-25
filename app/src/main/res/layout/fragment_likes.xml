@@ -40,7 +40,17 @@
                 android:text="@string/no_likes_found"
                 android:textAppearance="?attr/textAppearanceBody1"
                 android:textColor="@color/colorAccent"
-                android:visibility="gone" />
+                android:visibility="gone"
+                android:layout_margin="@dimen/main_margin"/>
+            <TextView
+                android:id="@+id/not_autorized_text_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/no_likes_found"
+                android:textAppearance="?attr/textAppearanceBody1"
+                android:textColor="@color/colorAccent"
+                android:visibility="gone"
+                android:layout_margin="@dimen/main_margin"/>
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>

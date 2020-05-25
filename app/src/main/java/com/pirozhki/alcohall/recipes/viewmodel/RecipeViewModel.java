@@ -5,47 +5,64 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MediatorLiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.pirozhki.alcohall.recipes.network.OneRecipeResponse;
-import com.pirozhki.alcohall.recipes.network.RecipeApi;
+import com.pirozhki.alcohall.recipes.network.LikeApiResponse;
+import com.pirozhki.alcohall.recipes.network.OneRecipeApiResponse;
 import com.pirozhki.alcohall.recipes.network.RecipeApiRepository;
 import com.pirozhki.alcohall.recipes.network.RecipeApiRepositoryImpl;
-import com.pirozhki.alcohall.recipes.network.RecipeApiResponse;
+import com.pirozhki.alcohall.recipes.network.RecipesApiResponse;
+
+import java.util.ArrayList;
 
 
 public class RecipeViewModel extends ViewModel {
-    private MediatorLiveData<RecipeApiResponse> mRecipeApiResponse;
+    private MediatorLiveData<RecipesApiResponse> mRecipesApiResponse;
     private RecipeApiRepository mRecipeApiRepository;
-    private MediatorLiveData<OneRecipeResponse> mOneRecipeResponse;
+    private MediatorLiveData<OneRecipeApiResponse> mOneRecipeApiResponse;
+    private MediatorLiveData<LikeApiResponse> mLikeApiResponse;
 
     public RecipeViewModel() {
-        mRecipeApiResponse = new MediatorLiveData<>();
+        mRecipesApiResponse = new MediatorLiveData<>();
         mRecipeApiRepository = new RecipeApiRepositoryImpl();
-        mOneRecipeResponse = new MediatorLiveData<>();
+        mOneRecipeApiResponse = new MediatorLiveData<>();
+        mLikeApiResponse = new MediatorLiveData<>();
     }
 
     @NonNull
-    public LiveData<RecipeApiResponse> getApiResponse() {
-        return mRecipeApiResponse;
+    public LiveData<RecipesApiResponse> getRecipesApiResponse() {
+        return mRecipesApiResponse;
     }
 
-    public LiveData<RecipeApiResponse> findRecipes(@NonNull int[] ids) {
-        mRecipeApiResponse.addSource(
+    public LiveData<RecipesApiResponse> findRecipes(ArrayList<Integer> ids) {
+        mRecipesApiResponse.addSource(
                 mRecipeApiRepository.findRecipes(ids),
-                apiResponse -> mRecipeApiResponse.setValue(apiResponse)
+                apiResponse -> mRecipesApiResponse.setValue(apiResponse)
         );
-        return mRecipeApiResponse;
+        return mRecipesApiResponse;
     }
 
     @NonNull
-    public LiveData<OneRecipeResponse> getOneRecipeApiResponse() {
-        return mOneRecipeResponse;
+    public LiveData<OneRecipeApiResponse> getOneRecipeApiResponse() {
+        return mOneRecipeApiResponse;
     }
 
-    public  LiveData<OneRecipeResponse> findOneRecipe(@NonNull String id) {
-        mOneRecipeResponse.addSource(
+    public LiveData<OneRecipeApiResponse> findOneRecipe(@NonNull String id) {
+        mOneRecipeApiResponse.addSource(
                 mRecipeApiRepository.findOneRecipe(id),
-                apiResponse -> mOneRecipeResponse.setValue(apiResponse)
+                apiResponse -> mOneRecipeApiResponse.setValue(apiResponse)
         );
-        return mOneRecipeResponse;
+        return mOneRecipeApiResponse;
+    }
+
+    @NonNull
+    public LiveData<LikeApiResponse> getLikeApiResponse() {
+        return mLikeApiResponse;
+    }
+
+    public LiveData<LikeApiResponse> like(Integer id) {
+        mLikeApiResponse.addSource(
+                mRecipeApiRepository.like(id),
+                apiResponse -> mLikeApiResponse.setValue(apiResponse)
+        );
+        return mLikeApiResponse;
     }
 }

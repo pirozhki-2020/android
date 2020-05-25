@@ -1,56 +1,50 @@
 package com.pirozhki.alcohall.recipes.ui;
 
-import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.pirozhki.alcohall.R;
-import com.pirozhki.alcohall.ingredients.model.Ingredient;
 import com.pirozhki.alcohall.ingredients.ui.AddIngredientDialogFragment;
 import com.pirozhki.alcohall.recipes.model.Recipe;
-import com.pirozhki.alcohall.recipes.network.RecipeApi;
 import com.pirozhki.alcohall.recipes.viewmodel.RecipeViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class RecipesActivity extends AppCompatActivity {
-    private RecyclerView mRecipesRecyclerView;
-    private RecipesActivity.RecipeAdapter mAdapter = new RecipeAdapter();
-    private List<Recipe> mRecipes;
+import static androidx.navigation.fragment.NavHostFragment.findNavController;
 
-    private AddIngredientDialogFragment.Listener mListener;
+public class RecipesFragment extends Fragment {
+    private RecyclerView mRecipesRecyclerView;
+    private RecipesFragment.RecipeAdapter mAdapter = new RecipeAdapter();
 
     private RecipeViewModel mRecipeViewModel;
 
     private TextView mNoResultsTextView;
 
+    @Nullable
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.recipes_activity);
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        final View view = inflater.inflate(R.layout.fragment_recipes, container, false);
+        mNoResultsTextView = view.findViewById(R.id.no_recipes_text_view);
 
-        mNoResultsTextView = findViewById(R.id.no_recipes_text_view);
-
-        mRecipesRecyclerView = findViewById(R.id.recipes_recycler_view);
-        mRecipesRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        mRecipesRecyclerView = view.findViewById(R.id.recipes_recycler_view);
+        mRecipesRecyclerView.setLayoutManager(new LinearLayoutManager(requireActivity()));
         mRecipesRecyclerView.setAdapter(mAdapter);
 
         mRecipeViewModel = new ViewModelProvider(this).get(RecipeViewModel.class);
-        mRecipeViewModel.getApiResponse().observe(this, apiResponse -> {
+        mRecipeViewModel.getRecipesApiResponse().observe(getViewLifecycleOwner(), apiResponse -> {
             if (apiResponse.getError() != null) {
                 handleError(apiResponse.getError());
             } else {
@@ -58,35 +52,24 @@ public class RecipesActivity extends AppCompatActivity {
             }
         });
 
-        final Button backFromAddButton = findViewById(R.id.back_from_recipes_button);
-        backFromAddButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
+        final Button backFromRecipesButton = view.findViewById(R.id.back_from_recipes_button);
+        backFromRecipesButton.setOnClickListener(v -> {
+            mAdapter.clearRecipes();
+            mAdapter.notifyDataSetChanged();
+            findNavController(this).navigate(RecipesFragmentDirections.backFromRecipesToIngredientsFragment());
         });
 
+        Bundle args = getArguments();
+        if (args != null && RecipesFragmentArgs.fromBundle(args).getIds() != null) {
+            mRecipeViewModel.findRecipes(RecipesFragmentArgs.fromBundle(args).getIds());
+        }
 
-        Intent intent = getIntent();
-        int[] ids = intent.getIntArrayExtra("ids");
-        mRecipeViewModel.findRecipes(ids);
-        /*Thread th = new Thread(new Runnable() {
-                public void run() {
-                    int [] ids = {10};
-                    mRecipeViewModel.findRecipes(ids);
-                };
-            }
-        );
-        th.start();*/
-
-
+        return view;
     }
 
-
     public void onRecipeSelected(Recipe recipe) {
-        Intent intent = new Intent(this, OneRecipeActivity.class);
-        intent.putExtra("id", recipe.getId());
-        startActivity(intent);
+        findNavController(this).navigate(RecipesFragmentDirections.toOneRecipeFragment()
+                .setRecipeId(recipe.getId()));
     }
 
     private void handleError(Throwable error) {
@@ -132,19 +115,19 @@ public class RecipesActivity extends AppCompatActivity {
         }
     }
 
-    private class RecipeAdapter extends RecyclerView.Adapter<RecipesActivity.RecipeHolder> {
+    private class RecipeAdapter extends RecyclerView.Adapter<RecipesFragment.RecipeHolder> {
         private List<Recipe> mRecipes = new ArrayList<>();
 
         @Override
         @NonNull
-        public RecipesActivity.RecipeHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-            LayoutInflater layoutInflater = LayoutInflater.from(RecipesActivity.this);
+        public RecipesFragment.RecipeHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+            LayoutInflater layoutInflater = LayoutInflater.from(RecipesFragment.this.requireActivity());
             View view = layoutInflater.inflate(R.layout.list_item_recipe, parent, false);
-            return new RecipesActivity.RecipeHolder(view);
+            return new RecipesFragment.RecipeHolder(view);
         }
 
         @Override
-        public void onBindViewHolder(RecipesActivity.RecipeHolder holder, int position) {
+        public void onBindViewHolder(RecipesFragment.RecipeHolder holder, int position) {
             Recipe recipe = mRecipes.get(position);
             holder.bindRecipe(recipe);
         }

@@ -1,0 +1,92 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="@dimen/main_margin">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/profile"
+        android:textAppearance="?attr/textAppearanceHeadline4"
+        android:textColor="@color/colorPrimary" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/main_margin"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/profile_first_name"
+            android:textAppearance="?attr/textAppearanceHeadline5"
+            android:textColor="@color/colorPrimary" />
+
+        <TextView
+            android:id="@+id/user_first_name_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="@dimen/main_margin"
+            android:textAppearance="?attr/textAppearanceHeadline6"
+            android:textColor="@color/colorPrimaryDark" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/main_margin"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/profile_last_name"
+            android:textAppearance="?attr/textAppearanceHeadline5"
+            android:textColor="@color/colorPrimary" />
+
+        <TextView
+            android:id="@+id/user_last_name_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="@dimen/main_margin"
+            android:textAppearance="?attr/textAppearanceHeadline6"
+            android:textColor="@color/colorPrimaryDark" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/main_margin"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/profile_email"
+            android:textAppearance="?attr/textAppearanceHeadline5"
+            android:textColor="@color/colorPrimary" />
+
+        <TextView
+            android:id="@+id/user_email_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="@dimen/main_margin"
+            android:textAppearance="?attr/textAppearanceHeadline6"
+            android:textColor="@color/colorPrimaryDark" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/error_profile_text_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/error_auth_text_view"
+        android:textAlignment="center"
+        android:textColor="@color/colorAccent"
+        android:visibility="gone" />
+
+</LinearLayout>

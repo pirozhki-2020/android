@@ -1,19 +1,19 @@
-package com.pirozhki.alcohall.recipes.network;
+package com.pirozhki.alcohall.likes.network;
 
 import com.pirozhki.alcohall.recipes.model.Recipe;
 
 import java.util.List;
 
-public class RecipeApiResponse {
+public class LikesApiResponse {
     private List<Recipe> mRecipes;
     private Throwable mError;
 
-    RecipeApiResponse(List<Recipe> cocktails) {
+    LikesApiResponse(List<Recipe> cocktails) {
         mRecipes = cocktails;
         mError = null;
     }
 
-    RecipeApiResponse(Throwable error) {
+    LikesApiResponse(Throwable error) {
         mError = error;
         mRecipes = null;
     }

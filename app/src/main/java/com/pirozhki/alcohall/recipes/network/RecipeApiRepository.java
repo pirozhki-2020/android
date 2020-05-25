@@ -2,8 +2,12 @@ package com.pirozhki.alcohall.recipes.network;
 
 import androidx.lifecycle.LiveData;
 
-public interface RecipeApiRepository {
-    LiveData<RecipeApiResponse> findRecipes(int[] ids);
+import java.util.ArrayList;
 
-    LiveData<OneRecipeResponse> findOneRecipe(String id);
+public interface RecipeApiRepository {
+    LiveData<RecipesApiResponse> findRecipes(ArrayList<Integer> ids);
+
+    LiveData<OneRecipeApiResponse> findOneRecipe(String id);
+
+    LiveData<LikeApiResponse> like(Integer id);
 }

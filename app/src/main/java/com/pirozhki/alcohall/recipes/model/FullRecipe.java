@@ -1,6 +1,12 @@
 package com.pirozhki.alcohall.recipes.model;
 
-import com.pirozhki.alcohall.ingredients.model.Ingredient;
+import android.net.Uri;
+import android.util.Log;
+
+import androidx.annotation.Nullable;
+
+import com.pirozhki.alcohall.R;
+import com.pirozhki.alcohall.common.RetrofitInstance;
 import com.squareup.moshi.Json;
 
 import java.util.List;
@@ -21,6 +27,9 @@ public class FullRecipe extends Recipe {
     @Json(name = "image_link")
     private String mImageLink;
 
+    @Json(name = "is_liked")
+    private Boolean  mIsLiked;
+
     public List<String> getSteps() {
         return mSteps;
     }
@@ -37,8 +46,8 @@ public class FullRecipe extends Recipe {
         mIngredients = ingredients;
     }
 
-    public String getImageLink() {
-        return mImageLink;
+    public Uri getImageLink() {
+        return Uri.parse(RetrofitInstance.HOST_URL + mImageLink);
     }
 
     public void setImageLink(String imageLink) {
@@ -59,5 +68,13 @@ public class FullRecipe extends Recipe {
 
     public void setDescription(String description) {
         mDescription = description;
+    }
+
+    public Boolean getIsLiked() {
+        return mIsLiked;
+    }
+
+    public void setIsLiked(Boolean mIsLiked) {
+        this.mIsLiked = mIsLiked;
     }
 }

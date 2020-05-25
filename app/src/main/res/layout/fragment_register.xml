@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/emailTextField_reg"
+        style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/min_margin"
+        android:background="#00000000"
+        android:hint="@string/email"
+        android:textColorHint="@color/colorAccent"
+        app:errorEnabled="true"
+        app:errorTextColor="@color/colorAccent">
+
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/emailEditField_reg"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimaryDark"
+            android:imeOptions="actionDone"
+            android:singleLine="true"
+            android:textColor="@color/colorAccent" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/passwordTextField_reg"
+        style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/min_margin"
+        android:background="#00000000"
+        android:hint="@string/password"
+        android:textColorHint="@color/colorAccent"
+        app:errorEnabled="true"
+        app:errorTextColor="@color/colorAccent"
+        app:endIconMode="password_toggle">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/passwordEditField_reg"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimaryDark"
+            android:imeOptions="actionDone"
+            android:singleLine="true"
+            android:textColor="@color/colorAccent"
+            android:inputType="textPassword"/>
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/repeatPasswordTextField"
+        style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/min_margin"
+        android:background="#00000000"
+        android:hint="@string/repeat_password"
+        android:textColorHint="@color/colorAccent"
+        app:errorEnabled="true"
+        app:errorTextColor="@color/colorAccent"
+        app:endIconMode="password_toggle">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/repeatPasswordEditField"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimaryDark"
+            android:imeOptions="actionDone"
+            android:singleLine="true"
+            android:textColor="@color/colorAccent"
+            android:inputType="textPassword"/>
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <Button
+        android:id="@+id/registration_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/min_margin"
+        android:gravity="center"
+        android:text="@string/register" />
+
+</LinearLayout>

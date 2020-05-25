@@ -1,63 +1,50 @@
 package com.pirozhki.alcohall.ingredients.repository;
 
+import com.pirozhki.alcohall.common.App;
 import com.pirozhki.alcohall.ingredients.model.Ingredient;
 
-import java.util.ArrayList;
 import java.util.List;
 
+import io.reactivex.Completable;
+import io.reactivex.Flowable;
+import io.reactivex.Single;
+import io.reactivex.schedulers.Schedulers;
+
 public class IngredientRepository {
-    private List<Ingredient> mIngredients;
-    private final static IngredientRepository INSTANCE = new IngredientRepository();
+    private IngredientsDao mIngredientsDao;
+    private static final IngredientRepository INSTANCE = new IngredientRepository();
 
     private IngredientRepository() {
-        mIngredients = new ArrayList<>();
+        mIngredientsDao = App.getInstance().getDatabase().getIngredientsDao();
     }
 
     public static IngredientRepository getInstance() {
         return INSTANCE;
     }
 
-    public List<Ingredient> getIngredients() {
-        return mIngredients;
+    public Flowable<List<Ingredient>> getIngredients() {
+        return mIngredientsDao.getAllIngredients();
     }
 
-    public void setIngredients(List<Ingredient> ingredients) {
-        mIngredients = ingredients;
+    public Completable addIngredient(Ingredient ingredient) {
+        return Completable
+                .fromAction(() -> mIngredientsDao.insertAll(ingredient))
+                .subscribeOn(Schedulers.single());
     }
 
-    public void addIngredient(Ingredient ingredient) {
-        if (!findIngredient(ingredient))
-            mIngredients.add(ingredient);
+    public Completable removeIngredient(Ingredient ingredient) {
+        return Completable
+                .fromAction(() -> mIngredientsDao.delete(ingredient))
+                .subscribeOn(Schedulers.single());
     }
 
-    public void removeIngredient(Ingredient ingredient) {
-        mIngredients.remove(ingredient);
+    public Completable clearIngredients() {
+        return Completable
+                .fromAction(() -> mIngredientsDao.clear())
+                .subscribeOn(Schedulers.single());
     }
 
-    public void clearIngredients() {
-        mIngredients.clear();
-    }
-
-    public boolean areIngredientsEmpty() {
-        return mIngredients.isEmpty();
-    }
-
-    public int[] getIngredientsIds() {
-        int[] ids = new int[mIngredients.size()];
-        int k = 0;
-        for (Ingredient i : mIngredients) {
-            ids[k] = i.getId();
-            k++;
-        }
-        return ids;
-    }
-
-    private boolean findIngredient(Ingredient ingredient) {
-        for (Ingredient i : mIngredients) {
-            if (i.getId().equals(ingredient.getId())) {
-                return true;
-            }
-        }
-        return false;
+    public Single<List<Integer>> getIngredientsIds() {
+        return mIngredientsDao.getIngredientsIds();
     }
 }

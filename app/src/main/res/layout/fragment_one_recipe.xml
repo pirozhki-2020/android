@@ -1,92 +1,122 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="@dimen/main_padding"
-    android:textAlignment="textEnd">
+    android:layout_height="wrap_content">
+
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/main_margin"
-        android:layout_marginTop="@dimen/main_margin"
-        android:layout_marginRight="@dimen/main_margin"
-        android:layout_marginBottom="0dp">
+        android:orientation="vertical"
+        android:scrollbars="vertical">
 
-        <TextView
-            android:id="@+id/one_recipe_name"
-            android:layout_width="0dp"
+        <ImageView
+            android:id="@+id/one_recipe_image"
+            android:layout_width="match_parent"
+            android:layout_height="250dp"
+            android:alpha="0.9"
+            android:contentDescription="@string/cocktail_image"
+            android:scaleType="centerCrop">
+
+        </ImageView>
+
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="10"
-            android:textAppearance="@style/TextAppearance.MaterialComponents.Headline4"
-            android:textColor="@color/colorPrimary" />
+            android:layout_marginLeft="@dimen/main_margin"
+            android:layout_marginTop="@dimen/main_margin"
+            android:layout_marginRight="@dimen/main_margin"
+            android:layout_marginBottom="0dp"
+            android:padding="@dimen/main_padding">
 
-        <ImageButton
-            android:id="@+id/like_button"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:background="@color/colorAccent"
-            android:contentDescription="@string/cocktail_like"
-            app:srcCompat="@drawable/ic_like_inactive" />
+            <TextView
+                android:id="@+id/one_recipe_name"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="10"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Headline4"
+                android:textColor="@color/colorPrimary"
+                android:textStyle="bold" />
 
-        <ImageButton
-            android:id="@+id/like_button_active"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:background="@color/colorAccent"
-            android:contentDescription="@string/cocktail_like"
-            app:srcCompat="@drawable/ic_like_active"
-            android:visibility="gone"/>
+            <ImageButton
+                android:id="@+id/like_button"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:background="@color/colorAccent"
+                android:contentDescription="@string/cocktail_like"
+                app:srcCompat="@drawable/ic_like_inactive" />
 
-    </LinearLayout>
+            <ImageButton
+                android:id="@+id/like_button_active"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:background="@color/colorAccent"
+                android:contentDescription="@string/cocktail_like"
+                app:srcCompat="@drawable/ic_like_active"
+                android:visibility="gone"/>
 
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:paddingLeft="@dimen/main_margin"
-        android:paddingRight="@dimen/main_margin">
+        </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
+            android:padding="@dimen/main_margin"
             android:scrollbars="vertical">
 
-            <LinearLayout
+            <TextView
+                android:id="@+id/one_recipe_description"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="10"
-                android:orientation="vertical">
+                android:layout_marginBottom="@dimen/main_margin"
+                android:paddingTop="@dimen/main_padding"
+                android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                android:textStyle="italic" />
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/consist"
-                    android:textAppearance="@style/TextAppearance.MaterialComponents.Headline4"
-                    android:textColor="@color/colorPrimary" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/consist"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Headline4"
+                android:textColor="@color/colorPrimary" />
 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/one_recipe_recycler_view"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:soundEffectsEnabled="false" />
 
-                <TextView
-                    android:id="@+id/one_recipe_description"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:paddingTop="@dimen/main_padding"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/one_recipe_recycler_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:soundEffectsEnabled="false" />
 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/one_recipe_steps_recycler_view"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+            <!--            TODO: доделать инструменты-->
+            <!--            <TextView-->
+            <!--                android:layout_width="match_parent"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:text="@string/tools"-->
+            <!--                android:textAppearance="@style/TextAppearance.MaterialComponents.Headline4"-->
+            <!--                android:textColor="@color/colorPrimary" />-->
 
-            </LinearLayout>
+            <!--            <androidx.recyclerview.widget.RecyclerView-->
+            <!--                android:id="@+id/one_recipe_tools_recycler_view"-->
+            <!--                android:layout_width="match_parent"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:soundEffectsEnabled="false" />-->
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/main_margin"
+                android:text="@string/steps"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Headline4"
+                android:textColor="@color/colorPrimary" />
+
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/one_recipe_steps_recycler_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
         </LinearLayout>
-    </ScrollView>
-</LinearLayout>
+    </LinearLayout>
+</ScrollView>

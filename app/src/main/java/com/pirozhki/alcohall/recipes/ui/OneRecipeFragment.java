@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -15,6 +16,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.pirozhki.alcohall.R;
 import com.pirozhki.alcohall.ingredients.ui.AddIngredientDialogFragment;
 import com.pirozhki.alcohall.recipes.model.FullIngredient;
@@ -36,6 +38,7 @@ public class OneRecipeFragment extends Fragment {
 
     private TextView mTitleTextView;
     private TextView mDescriptionTextView;
+    private ImageView mImageView;
 
     private ImageButton mLikeButtonActive;
     private ImageButton mLikeButtonInactive;
@@ -47,6 +50,7 @@ public class OneRecipeFragment extends Fragment {
 
         mTitleTextView = view.findViewById(R.id.one_recipe_name);
         mDescriptionTextView = view.findViewById(R.id.one_recipe_description);
+        mImageView = view.findViewById(R.id.one_recipe_image);
 
         mIngredientsRecyclerView = view.findViewById(R.id.one_recipe_recycler_view);
         LinearLayoutManager ingredientLayoutManager = new LinearLayoutManager(requireActivity()) {
@@ -117,6 +121,10 @@ public class OneRecipeFragment extends Fragment {
             }
             if (recipe.getDescription() != null) {
                 mDescriptionTextView.setText(recipe.getDescription());
+            }
+
+            if (recipe.getImageLink() != null) {
+                Glide.with(this).load(recipe.getImageLink()).into(mImageView);
             }
         }
     }

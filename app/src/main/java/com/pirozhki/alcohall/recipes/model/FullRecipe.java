@@ -1,6 +1,10 @@
 package com.pirozhki.alcohall.recipes.model;
 
-import com.pirozhki.alcohall.ingredients.model.Ingredient;
+import android.net.Uri;
+import android.util.Log;
+
+import com.pirozhki.alcohall.R;
+import com.pirozhki.alcohall.common.RetrofitInstance;
 import com.squareup.moshi.Json;
 
 import java.util.List;
@@ -40,8 +44,8 @@ public class FullRecipe extends Recipe {
         mIngredients = ingredients;
     }
 
-    public String getImageLink() {
-        return mImageLink;
+    public Uri getImageLink() {
+        return Uri.parse(RetrofitInstance.HOST_URL + mImageLink);
     }
 
     public void setImageLink(String imageLink) {

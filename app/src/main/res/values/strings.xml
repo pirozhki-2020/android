@@ -17,6 +17,8 @@
     <string name="toolbar_logo">toolbar logo</string>
     <string name="recipes">Recipes</string>
     <string name="consist">Сonsist</string>
+    <string name="tools">Tools</string>
+    <string name="steps">Recipe</string>
     <string name="no_recipe_found">No recipes found!</string>
     <string name="without_auth">Continue without signing in</string>
     <string name="password">Password</string>
@@ -32,4 +34,5 @@
     <string name="nav_profile">Profile</string>
     <string name="email_exists">User with this email already exists!</string>
     <string name="error_auth_text_view">Error! Something gets wrong!</string>
+    <string name="cocktail_image">Cocktail image</string>
 </resources>

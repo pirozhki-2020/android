@@ -37,7 +37,7 @@ public class RetrofitInstance {
     private static class SessionCookieJar implements CookieJar {
         @Override
         public void saveFromResponse(HttpUrl url, @NonNull List<Cookie> cookies) {
-            if (url.encodedPath().contains("sign_in") || url.encodedPath().contains("sign_up")) {
+            if (url.encodedPath().contains("sign")) {
                 sCookies = new ArrayList<>(cookies);
             }
         }
@@ -45,8 +45,7 @@ public class RetrofitInstance {
         @NonNull
         @Override
         public List<Cookie> loadForRequest(HttpUrl url) {
-            if (url.encodedPath().contains("user.get") || url.encodedPath().contains("like")
-                    && sCookies != null) {
+            if (!url.encodedPath().contains("sign") && sCookies != null) {
                 return sCookies;
             }
             return Collections.emptyList();

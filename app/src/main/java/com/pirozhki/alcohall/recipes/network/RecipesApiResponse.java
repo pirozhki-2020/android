@@ -4,16 +4,16 @@ import com.pirozhki.alcohall.recipes.model.Recipe;
 
 import java.util.List;
 
-public class RecipeApiResponse {
+public class RecipesApiResponse {
     private List<Recipe> mRecipes;
     private Throwable mError;
 
-    RecipeApiResponse(List<Recipe> cocktails) {
+    RecipesApiResponse(List<Recipe> cocktails) {
         mRecipes = cocktails;
         mError = null;
     }
 
-    RecipeApiResponse(Throwable error) {
+    RecipesApiResponse(Throwable error) {
         mError = error;
         mRecipes = null;
     }

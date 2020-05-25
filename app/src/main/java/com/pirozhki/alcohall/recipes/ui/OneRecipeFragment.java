@@ -22,6 +22,7 @@ import com.pirozhki.alcohall.ingredients.ui.AddIngredientDialogFragment;
 import com.pirozhki.alcohall.recipes.model.FullIngredient;
 import com.pirozhki.alcohall.recipes.model.FullRecipe;
 import com.pirozhki.alcohall.recipes.model.Step;
+import com.pirozhki.alcohall.recipes.network.RecipeApi;
 import com.pirozhki.alcohall.recipes.viewmodel.RecipeViewModel;
 
 import java.util.ArrayList;
@@ -32,7 +33,6 @@ public class OneRecipeFragment extends Fragment {
     private RecyclerView mStepsRecyclerView;
     private OneRecipeFragment.IngredientAdapter mAdapter;
     private OneRecipeFragment.StepAdapter mStepAdapter;
-    private List<FullIngredient> mIngredients;
 
     private RecipeViewModel mRecipeViewModel;
 
@@ -51,6 +51,8 @@ public class OneRecipeFragment extends Fragment {
         mTitleTextView = view.findViewById(R.id.one_recipe_name);
         mDescriptionTextView = view.findViewById(R.id.one_recipe_description);
         mImageView = view.findViewById(R.id.one_recipe_image);
+        mLikeButtonInactive = view.findViewById(R.id.like_button);
+        mLikeButtonActive = view.findViewById(R.id.like_button_active);
 
         mIngredientsRecyclerView = view.findViewById(R.id.one_recipe_recycler_view);
         LinearLayoutManager ingredientLayoutManager = new LinearLayoutManager(requireActivity()) {
@@ -83,18 +85,23 @@ public class OneRecipeFragment extends Fragment {
             }
         });
 
+        mRecipeViewModel.getLikeApiResponse().observe(getViewLifecycleOwner(), apiResponse -> {
+            if (apiResponse.getError() != null) {
+                handleError(apiResponse.getError());
+            } else {
+                handleResponse(apiResponse.getIsLiked());
+            }
+        });
+
         Bundle args = getArguments();
         if (args != null && OneRecipeFragmentArgs.fromBundle(args).getRecipeId() != -1) {
             mRecipeViewModel.findOneRecipe(String.valueOf(OneRecipeFragmentArgs.fromBundle(args).getRecipeId()));
+
+            mLikeButtonInactive.setOnClickListener(v ->
+                    mRecipeViewModel.like(OneRecipeFragmentArgs.fromBundle(args).getRecipeId()));
+            mLikeButtonActive.setOnClickListener(v ->
+                    mRecipeViewModel.like(OneRecipeFragmentArgs.fromBundle(args).getRecipeId()));
         }
-
-        mLikeButtonInactive = view.findViewById(R.id.like_button);
-        mLikeButtonActive = view.findViewById(R.id.like_button_active);
-
-        mLikeButtonInactive.setOnClickListener(v ->
-        {
-            mRecipeViewModel.like(OneRecipeFragmentArgs.fromBundle(args).getRecipeId());
-        });
 
         return view;
     }
@@ -110,8 +117,7 @@ public class OneRecipeFragment extends Fragment {
             mStepAdapter.setSteps(recipe.getSteps());
             mStepAdapter.notifyDataSetChanged();
 
-            if (recipe.getIsLiked())
-            {
+            if (recipe.getIsLiked()) {
                 mLikeButtonInactive.setVisibility(View.GONE);
                 mLikeButtonActive.setVisibility(View.VISIBLE);
             }
@@ -125,6 +131,18 @@ public class OneRecipeFragment extends Fragment {
 
             if (recipe.getImageLink() != null) {
                 Glide.with(this).load(recipe.getImageLink()).into(mImageView);
+            }
+        }
+    }
+
+    private void handleResponse(RecipeApi.IsLiked isLiked) {
+        if (isLiked != null) {
+            if (isLiked.liked) {
+                mLikeButtonInactive.setVisibility(View.GONE);
+                mLikeButtonActive.setVisibility(View.VISIBLE);
+            } else {
+                mLikeButtonActive.setVisibility(View.GONE);
+                mLikeButtonInactive.setVisibility(View.VISIBLE);
             }
         }
     }

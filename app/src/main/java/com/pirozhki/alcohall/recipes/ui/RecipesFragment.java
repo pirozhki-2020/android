@@ -44,7 +44,7 @@ public class RecipesFragment extends Fragment {
         mRecipesRecyclerView.setAdapter(mAdapter);
 
         mRecipeViewModel = new ViewModelProvider(this).get(RecipeViewModel.class);
-        mRecipeViewModel.getApiResponse().observe(getViewLifecycleOwner(), apiResponse -> {
+        mRecipeViewModel.getRecipesApiResponse().observe(getViewLifecycleOwner(), apiResponse -> {
             if (apiResponse.getError() != null) {
                 handleError(apiResponse.getError());
             } else {

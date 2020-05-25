@@ -5,13 +5,6 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.pirozhki.alcohall.common.RetrofitInstance;
-import com.pirozhki.alcohall.recipes.network.OneRecipeResponse;
-import com.pirozhki.alcohall.recipes.network.RecipeApi;
-import com.pirozhki.alcohall.recipes.network.RecipeApiResponse;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 import retrofit2.Call;
 import retrofit2.Callback;

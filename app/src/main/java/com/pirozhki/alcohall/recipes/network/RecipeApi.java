@@ -24,7 +24,7 @@ public interface RecipeApi {
         @Json(name = "status")
         public String status;
         @Json(name = "data")
-        public RecipeApi.RecipesData data;
+        public RecipesData data;
     }
 
     @GET("/cocktails.list_cocktails")
@@ -38,18 +38,18 @@ public interface RecipeApi {
     }
 
     @GET("/cocktails.get_cocktail")
-    Call<RecipeApi.OneRecipe> getCocktail(@Query("id") String id);
+    Call<OneRecipe> getCocktail(@Query("id") String id);
 
-    class IsLike {
-        @Json(name="liked")
-        Boolean liked;
+    class IsLiked {
+        @Json(name = "liked")
+        public Boolean liked;
     }
 
     class Like {
         @Json(name = "status")
         public String status;
         @Json(name = "data")
-        public IsLike data;
+        public IsLiked data;
     }
 
     class LikeBody {

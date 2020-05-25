@@ -5,16 +5,16 @@ import com.pirozhki.alcohall.recipes.model.Recipe;
 
 import java.util.List;
 
-public class OneRecipeResponse {
+public class OneRecipeApiResponse {
     private FullRecipe mRecipe;
     private Throwable mError;
 
-    OneRecipeResponse(FullRecipe recipe) {
+    OneRecipeApiResponse(FullRecipe recipe) {
         mRecipe = recipe;
         mError = null;
     }
 
-    OneRecipeResponse(Throwable error) {
+    OneRecipeApiResponse(Throwable error) {
         mError = error;
         mRecipe = null;
     }

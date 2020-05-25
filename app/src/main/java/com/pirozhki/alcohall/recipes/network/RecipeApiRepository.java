@@ -5,9 +5,9 @@ import androidx.lifecycle.LiveData;
 import java.util.ArrayList;
 
 public interface RecipeApiRepository {
-    LiveData<RecipeApiResponse> findRecipes(ArrayList<Integer> ids);
+    LiveData<RecipesApiResponse> findRecipes(ArrayList<Integer> ids);
 
-    LiveData<OneRecipeResponse> findOneRecipe(String id);
+    LiveData<OneRecipeApiResponse> findOneRecipe(String id);
 
-    void like(Integer id);
+    LiveData<LikeApiResponse> like(Integer id);
 }

@@ -10,7 +10,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="@dimen/main_padding"
-        android:text="sdasdasdas"
         android:textAppearance="@style/TextAppearance.MaterialComponents.Headline4"
         android:textColor="@color/colorAccent" />
 
@@ -19,7 +18,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="@dimen/main_padding"
-        android:text="dfafsdfeasdszdaweqwszxsdweadszsldnqrhdtywsxbhjlkn;der4ygwfeudc bjfewygusdvchzx"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
         android:textColor="@color/colorAccent" />
 

@@ -25,6 +25,9 @@ public class FullRecipe extends Recipe {
     @Json(name = "image_link")
     private String mImageLink;
 
+    @Json(name = "is_liked")
+    private Boolean mIsLiked = false;
+
     public List<String> getSteps() {
         return mSteps;
     }
@@ -63,5 +66,13 @@ public class FullRecipe extends Recipe {
 
     public void setDescription(String description) {
         mDescription = description;
+    }
+
+    public Boolean getIsLiked() {
+        return mIsLiked;
+    }
+
+    public void setIsLiked(Boolean mIsLiked) {
+        this.mIsLiked = mIsLiked;
     }
 }

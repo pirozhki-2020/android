@@ -49,4 +49,8 @@ public class RecipeViewModel extends ViewModel {
         );
         return mOneRecipeResponse;
     }
+
+    public  void like(Integer id) {
+        mRecipeApiRepository.like(id);
+    }
 }

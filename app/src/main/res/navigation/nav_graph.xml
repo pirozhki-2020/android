@@ -13,19 +13,11 @@
 
         <action
             android:id="@+id/toRecipesFragment"
-            app:destination="@id/recipesFragment"
-            app:enterAnim="@anim/fragment_fade_enter"
-            app:exitAnim="@anim/fragment_fade_exit"
-            app:popEnterAnim="@anim/fragment_close_enter"
-            app:popExitAnim="@anim/fragment_close_exit" />
+            app:destination="@id/recipesFragment" />
 
         <action
             android:id="@+id/toAddIngredientFragment"
-            app:destination="@id/addIngredientFragment"
-            app:enterAnim="@anim/fragment_fade_enter"
-            app:exitAnim="@anim/fragment_fade_exit"
-            app:popEnterAnim="@anim/fragment_close_enter"
-            app:popExitAnim="@anim/fragment_close_exit" />
+            app:destination="@id/addIngredientFragment" />
 
         <argument
             android:name="ingredientId"
@@ -46,19 +38,11 @@
 
         <action
             android:id="@+id/backFromAddIngredientToIngredientsFragment"
-            app:destination="@id/ingredientsFragment"
-            app:enterAnim="@anim/fragment_fade_enter"
-            app:exitAnim="@anim/fragment_fade_exit"
-            app:popEnterAnim="@anim/fragment_close_enter"
-            app:popExitAnim="@anim/fragment_close_exit" />
+            app:destination="@id/ingredientsFragment" />
 
         <action
             android:id="@+id/toIngredientsFragment"
-            app:destination="@id/ingredientsFragment"
-            app:enterAnim="@anim/fragment_fade_enter"
-            app:exitAnim="@anim/fragment_fade_exit"
-            app:popEnterAnim="@anim/fragment_close_enter"
-            app:popExitAnim="@anim/fragment_close_exit" />
+            app:destination="@id/ingredientsFragment" />
     </fragment>
 
     <fragment
@@ -69,19 +53,11 @@
 
         <action
             android:id="@+id/backFromRecipesToIngredientsFragment"
-            app:destination="@id/ingredientsFragment"
-            app:enterAnim="@anim/fragment_fade_enter"
-            app:exitAnim="@anim/fragment_fade_exit"
-            app:popEnterAnim="@anim/fragment_close_enter"
-            app:popExitAnim="@anim/fragment_close_exit" />
+            app:destination="@id/ingredientsFragment" />
 
         <action
             android:id="@+id/toOneRecipeFragment"
-            app:destination="@id/oneRecipeFragment"
-            app:enterAnim="@anim/fragment_fade_enter"
-            app:exitAnim="@anim/fragment_fade_exit"
-            app:popEnterAnim="@anim/fragment_close_enter"
-            app:popExitAnim="@anim/fragment_close_exit" />
+            app:destination="@id/oneRecipeFragment" />
 
         <argument
             android:name="ids"
@@ -109,11 +85,7 @@
 
         <action
             android:id="@+id/toProfileFragment"
-            app:destination="@id/profileFragment"
-            app:enterAnim="@anim/fragment_fade_enter"
-            app:exitAnim="@anim/fragment_fade_exit"
-            app:popEnterAnim="@anim/fragment_close_enter"
-            app:popExitAnim="@anim/fragment_close_exit" />
+            app:destination="@id/profileFragment" />
     </fragment>
 
     <fragment
@@ -124,11 +96,7 @@
 
         <action
             android:id="@+id/toAuthFragment"
-            app:destination="@id/authFragment"
-            app:enterAnim="@anim/fragment_fade_enter"
-            app:exitAnim="@anim/fragment_fade_exit"
-            app:popEnterAnim="@anim/fragment_close_enter"
-            app:popExitAnim="@anim/fragment_close_exit" />
+            app:destination="@id/authFragment" />
     </fragment>
 
     <fragment
@@ -159,11 +127,13 @@
 
     </fragment>
 
-    <fragment android:id="@+id/likesFragment"
+    <fragment
+        android:id="@+id/likesFragment"
         android:name="com.pirozhki.alcohall.likes.ui.LikesFragment"
         android:label="fragment_likes"
         tools:layout="@layout/fragment_likes">
-        <action android:id="@+id/toOneRecipeFragmentFromLikes"
+        <action
+            android:id="@+id/toOneRecipeFragmentFromLikes"
             app:destination="@id/oneRecipeFragment" />
     </fragment>
 

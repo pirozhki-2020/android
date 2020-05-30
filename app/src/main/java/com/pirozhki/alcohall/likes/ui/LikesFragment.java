@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.pirozhki.alcohall.R;
+import com.pirozhki.alcohall.common.RetrofitInstance;
 import com.pirozhki.alcohall.ingredients.ui.AddIngredientDialogFragment;
 import com.pirozhki.alcohall.likes.network.LikesApi;
 import com.pirozhki.alcohall.likes.viewmodel.LikesViewModel;
@@ -85,8 +86,13 @@ public class LikesFragment extends Fragment {
         } else {
             mAdapter.clearRecipes();
             mAdapter.notifyDataSetChanged();
-            mNoResultsTextView.setVisibility(View.VISIBLE);
+
             mNotAutoTextView.setVisibility(View.GONE);
+            if (!RetrofitInstance.haveCookies()) {
+                mNotAutoTextView.setVisibility(View.VISIBLE);
+            } else {
+                mNoResultsTextView.setVisibility(View.VISIBLE);
+            }
         }
     }
 

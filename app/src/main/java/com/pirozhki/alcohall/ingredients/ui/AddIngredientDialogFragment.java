@@ -107,6 +107,7 @@ public class AddIngredientDialogFragment extends DialogFragment {
     private void handleError(Throwable error) {
         showNoResult();
         Log.e(AddIngredientDialogFragment.class.getName(), "error occurred while get api response: " + error.toString());
+
     }
 
     private void handleResponse(List<Ingredient> ingredients) {

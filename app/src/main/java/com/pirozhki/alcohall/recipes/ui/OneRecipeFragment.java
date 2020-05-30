@@ -18,6 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.pirozhki.alcohall.R;
+import com.pirozhki.alcohall.common.RetrofitInstance;
 import com.pirozhki.alcohall.ingredients.ui.AddIngredientDialogFragment;
 import com.pirozhki.alcohall.recipes.model.FullIngredient;
 import com.pirozhki.alcohall.recipes.model.FullRecipe;
@@ -117,9 +118,15 @@ public class OneRecipeFragment extends Fragment {
             mStepAdapter.setSteps(recipe.getSteps());
             mStepAdapter.notifyDataSetChanged();
 
-            if (recipe.getIsLiked()) {
+            if (!RetrofitInstance.haveCookies()) {
+                mLikeButtonInactive.setVisibility(View.GONE);
+                mLikeButtonActive.setVisibility(View.GONE);
+            } else if (recipe.getIsLiked()) {
                 mLikeButtonInactive.setVisibility(View.GONE);
                 mLikeButtonActive.setVisibility(View.VISIBLE);
+            } else {
+                mLikeButtonInactive.setVisibility(View.VISIBLE);
+                mLikeButtonActive.setVisibility(View.GONE);
             }
 
             if (recipe.getName() != null) {

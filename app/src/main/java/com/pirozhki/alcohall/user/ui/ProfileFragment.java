@@ -22,10 +22,9 @@ import static androidx.navigation.fragment.NavHostFragment.findNavController;
 
 public class ProfileFragment extends Fragment {
     private ProfileViewModel mProfileViewModel;
-    private TextView mFirstNameTextView;
-    private TextView mLastNameTextView;
     private TextView mEmailTextView;
     private TextView mErrorTextView;
+    private Button mLogoutButton;
 
     @Nullable
     @Override
@@ -45,10 +44,14 @@ public class ProfileFragment extends Fragment {
             });
             mProfileViewModel.getUser();
 
-            mFirstNameTextView = view.findViewById(R.id.user_first_name_text_view);
-            mLastNameTextView = view.findViewById(R.id.user_last_name_text_view);
             mEmailTextView = view.findViewById(R.id.user_email_text_view);
             mErrorTextView = view.findViewById(R.id.error_profile_text_view);
+            mLogoutButton = view.findViewById(R.id.logout_button);
+
+            mLogoutButton.setOnClickListener(v ->
+            {
+                mProfileViewModel.logout();
+            });
         }
 
         return view;
@@ -62,11 +65,11 @@ public class ProfileFragment extends Fragment {
     private void handleResponse(User user) {
         if (user != null) {
             mErrorTextView.setVisibility(View.GONE);
-            mFirstNameTextView.setText(user.getFirstName());
-            mLastNameTextView.setText(user.getLastName());
             mEmailTextView.setText(user.getEmail());
         } else {
             mErrorTextView.setVisibility(View.VISIBLE);
+            System.out.print("here");
+            findNavController(this).navigate(ProfileFragmentDirections.toAuthFragment());
         }
     }
 }

@@ -38,11 +38,5 @@ public class AuthViewModel extends ViewModel {
         );
         return mUserApiResponse;
     }
-    public LiveData<UserApiResponse> logout() {
-        mUserApiResponse.addSource(
-                mUserApiRepository.logout(),
-                apiResponse -> mUserApiResponse.setValue(apiResponse)
-        );
-        return mUserApiResponse;
-    }
+
 }

@@ -52,13 +52,6 @@ public class RecipesFragment extends Fragment {
             }
         });
 
-        final Button backFromRecipesButton = view.findViewById(R.id.back_from_recipes_button);
-        backFromRecipesButton.setOnClickListener(v -> {
-            mAdapter.clearRecipes();
-            mAdapter.notifyDataSetChanged();
-            findNavController(this).navigate(RecipesFragmentDirections.backFromRecipesToIngredientsFragment());
-        });
-
         Bundle args = getArguments();
         if (args != null && RecipesFragmentArgs.fromBundle(args).getIds() != null) {
             mRecipeViewModel.findRecipes(RecipesFragmentArgs.fromBundle(args).getIds());

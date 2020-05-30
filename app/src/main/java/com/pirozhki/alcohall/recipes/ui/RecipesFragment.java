@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.pirozhki.alcohall.R;
 import com.pirozhki.alcohall.ingredients.ui.AddIngredientDialogFragment;
+import com.pirozhki.alcohall.ingredients.ui.NoConnectionDialogFragment;
 import com.pirozhki.alcohall.recipes.model.Recipe;
 import com.pirozhki.alcohall.recipes.viewmodel.RecipeViewModel;
 
@@ -67,6 +68,8 @@ public class RecipesFragment extends Fragment {
 
     private void handleError(Throwable error) {
         Log.e(AddIngredientDialogFragment.class.getName(), "error occurred while get api response: " + error.toString());
+        new NoConnectionDialogFragment().show(
+                requireActivity().getSupportFragmentManager(), NoConnectionDialogFragment.class.getName());
     }
 
     private void handleResponse(List<Recipe> recipes) {

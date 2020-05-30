@@ -96,4 +96,28 @@ public class UserApiRepositoryImpl implements UserApiRepository {
 
         return liveData;
     }
+
+    @Override
+    public LiveData<UserApiResponse> logout() {
+        final MutableLiveData<UserApiResponse> liveData = new MutableLiveData<>();
+        Call<UserApi.UserAnswer> call = mUserApi.logoutUser();
+
+        call.enqueue(new Callback<UserApi.UserAnswer>() {
+            @Override
+            public void onResponse(@NonNull Call<UserApi.UserAnswer> call, @NonNull Response<UserApi.UserAnswer> response) {
+                if (response.body() == null) {
+                    liveData.setValue(new UserApiResponse(new HttpException(response)));
+                } else {
+                    liveData.setValue(new UserApiResponse(response.body().data, response.code()));
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<UserApi.UserAnswer> call, @NonNull Throwable t) {
+                liveData.setValue(new UserApiResponse(t));
+            }
+        });
+
+        return liveData;
+    }
 }

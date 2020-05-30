@@ -19,6 +19,9 @@ public interface UserApi {
     @GET("/user.get")
     Call<OneUser> getUser();
 
+    @POST("/user.logout")
+    Call<UserAnswer> logoutUser();
+
     class UserAnswer {
         @Json(name = "status")
         public String status;

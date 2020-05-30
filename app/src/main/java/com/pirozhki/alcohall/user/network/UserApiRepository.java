@@ -8,4 +8,6 @@ public interface UserApiRepository {
     LiveData<UserApiResponse> login(String email, String password);
 
     LiveData<UserApiResponse> getUser();
+
+    LiveData<UserApiResponse> logout();
 }

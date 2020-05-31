@@ -41,16 +41,20 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <Button
+
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/find_recipes_button"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_marginBottom="@dimen/min_margin"
             android:gravity="center"
+            android:layout_marginRight="@dimen/main_margin"
+            android:layout_marginTop="@dimen/main_margin"
             android:paddingTop="@dimen/main_padding"
             android:paddingBottom="@dimen/main_padding"
             android:text="@string/find_recipes"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Headline5"
             />
     </RelativeLayout>
 

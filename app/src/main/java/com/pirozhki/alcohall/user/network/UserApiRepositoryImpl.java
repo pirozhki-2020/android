@@ -101,10 +101,13 @@ public class UserApiRepositoryImpl implements UserApiRepository {
     public LiveData<UserApiResponse> logout() {
         final MutableLiveData<UserApiResponse> liveData = new MutableLiveData<>();
         Call<UserApi.UserAnswer> call = mUserApi.logoutUser();
+        System.out.print("repo logout ");
 
         call.enqueue(new Callback<UserApi.UserAnswer>() {
             @Override
             public void onResponse(@NonNull Call<UserApi.UserAnswer> call, @NonNull Response<UserApi.UserAnswer> response) {
+                System.out.println(response);
+                System.out.println(response.body());
                 if (response.body() == null) {
                     liveData.setValue(new UserApiResponse(new HttpException(response)));
                 } else {

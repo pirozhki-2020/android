@@ -50,7 +50,8 @@ public class ProfileFragment extends Fragment {
 
             mLogoutButton.setOnClickListener(v ->
             {
-                //mProfileViewModel.logout();
+                RetrofitInstance.deleteCookies();
+                findNavController(this).navigate(ProfileFragmentDirections.toAuthFragment());
             });
         }
 
@@ -60,7 +61,6 @@ public class ProfileFragment extends Fragment {
     private void handleError(Throwable error) {
         Log.e(ProfileFragment.class.getName(), "error occurred while get api response: " + error.getMessage());
         mErrorTextView.setVisibility(View.VISIBLE);
-        //findNavController(this).navigate(ProfileFragmentDirections.toAuthFragment());
     }
 
     private void handleResponse(User user) {
@@ -68,8 +68,8 @@ public class ProfileFragment extends Fragment {
             mErrorTextView.setVisibility(View.GONE);
             mEmailTextView.setText(user.getEmail());
         } else if (user != null) {
-           // RetrofitInstance.deleteCookies();
-           // findNavController(this).navigate(ProfileFragmentDirections.toAuthFragment());
+            // RetrofitInstance.deleteCookies();
+            // findNavController(this).navigate(ProfileFragmentDirections.toAuthFragment());
         } else {
             mErrorTextView.setVisibility(View.VISIBLE);
         }

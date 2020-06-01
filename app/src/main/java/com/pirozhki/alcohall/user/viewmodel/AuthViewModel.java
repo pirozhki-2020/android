@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MediatorLiveData;
 import androidx.lifecycle.ViewModel;
 
+import com.pirozhki.alcohall.user.model.User;
 import com.pirozhki.alcohall.user.network.UserApiRepository;
 import com.pirozhki.alcohall.user.network.UserApiRepositoryImpl;
 import com.pirozhki.alcohall.user.network.UserApiResponse;
@@ -12,6 +13,7 @@ import com.pirozhki.alcohall.user.network.UserApiResponse;
 public class AuthViewModel extends ViewModel {
     private MediatorLiveData<UserApiResponse> mUserApiResponse;
     private UserApiRepository mUserApiRepository;
+    private User mCachedUser = null;
 
     public AuthViewModel() {
         mUserApiResponse = new MediatorLiveData<>();
@@ -39,4 +41,11 @@ public class AuthViewModel extends ViewModel {
         return mUserApiResponse;
     }
 
+    public void cashUser(User user) {
+        mCachedUser = user;
+    }
+
+    public boolean hasCash(User user) {
+        return mCachedUser == user;
+    }
 }

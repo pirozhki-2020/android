@@ -80,11 +80,12 @@ public class AuthFragment extends Fragment {
     }
 
     private void handleResponse(User user) {
-        if (user != null) {
+        if (user != null && !mAuthViewModel.hasCash(user)) {
             mErrorTextView.setVisibility(View.GONE);
             findNavController(this).navigate(AuthFragmentDirections.toProfileFragment());
-        } else {
+        } else if (user == null) {
             mErrorTextView.setVisibility(View.VISIBLE);
         }
+        mAuthViewModel.cashUser(user);
     }
 }

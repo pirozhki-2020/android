@@ -44,5 +44,6 @@ public class RetrofitInstance {
     public static void deleteCookies() {
         SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(App.getInstance()).edit();
         editor.clear().apply();
+        editor.commit();
     }
 }

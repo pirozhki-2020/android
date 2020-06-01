@@ -23,6 +23,6 @@ public interface IngredientApi {
         public IngredientsData data;
     }
 
-    @GET("/cocktails.list_ingredients")
+    @GET("cocktails.list_ingredients")
     Call<Ingredients> getIngredients(@Query("query") String query);
 }

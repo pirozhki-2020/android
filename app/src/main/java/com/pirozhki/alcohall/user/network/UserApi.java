@@ -10,16 +10,16 @@ import retrofit2.http.POST;
 
 public interface UserApi {
 
-    @POST("/user.sign_up")
+    @POST("user.sign_up")
     Call<UserAnswer> regUser(@Body AuthBody body);
 
-    @POST("/user.sign_in")
+    @POST("user.sign_in")
     Call<UserAnswer> loginUser(@Body AuthBody body);
 
-    @GET("/user.get")
+    @GET("user.get")
     Call<OneUser> getUser();
 
-    @POST("/user.logout")
+    @POST("user.logout")
     Call<UserAnswer> logoutUser();
 
     class UserAnswer {

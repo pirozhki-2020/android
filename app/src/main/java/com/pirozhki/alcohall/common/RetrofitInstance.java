@@ -27,7 +27,7 @@ public class RetrofitInstance {
 
             INSTANCE = new Retrofit.Builder()
                     .addConverterFactory(MoshiConverterFactory.create())
-                    .baseUrl(new HttpUrl.Builder().scheme(SCHEMA).host(HOST).build())
+                    .baseUrl(new HttpUrl.Builder().scheme(SCHEMA).host(HOST).addPathSegments("api/").build())
                     .client(client)
                     .build();
         }

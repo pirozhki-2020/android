@@ -21,6 +21,6 @@ public interface LikesApi {
         public LikesData data;
     }
 
-    @GET("/user.liked")
+    @GET("user.liked")
     Call<Likes> getRecipes();
 }

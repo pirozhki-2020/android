@@ -27,7 +27,7 @@ public interface RecipeApi {
         public RecipesData data;
     }
 
-    @GET("/cocktails.list_cocktails")
+    @GET("cocktails.list_cocktails")
     Call<RecipeApi.Recipes> getRecipes(@QueryMap Map<String, String> params);
 
     class OneRecipe {
@@ -37,7 +37,7 @@ public interface RecipeApi {
         public FullRecipe data;
     }
 
-    @GET("/cocktails.get_cocktail")
+    @GET("cocktails.get_cocktail")
     Call<OneRecipe> getCocktail(@Query("id") String id);
 
     class IsLiked {
@@ -57,6 +57,6 @@ public interface RecipeApi {
         public Integer id;
     }
 
-    @POST("/cocktails.like")
+    @POST("cocktails.like")
     Call<Like> likeCocktail(@Body LikeBody body);
 }

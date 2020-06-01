@@ -16,7 +16,7 @@ public class RetrofitInstance {
     private static final String PREF_COOKIES = "PREF_COOKIES";
     private static Retrofit INSTANCE = null;
 
-    public static final String HOST_URL = SCHEMA + "://" + HOST;
+    public static final String HOST_URL = SCHEMA + "://" + HOST + "/api";
 
     public static Retrofit getInstance() {
         if (INSTANCE == null) {
